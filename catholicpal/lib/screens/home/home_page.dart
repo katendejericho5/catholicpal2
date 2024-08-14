@@ -4,10 +4,10 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
   // List of widget pages
@@ -52,12 +52,14 @@ class _HomePageState extends State<HomePage> {
             label: 'Quizzes',
           ),
         ],
+        selectedItemColor: Colors.blue, // Optionally customize color
+        unselectedItemColor: Colors.grey,
       ),
     );
   }
 }
 
-// The main content of the Home page
+// Sample home content
 class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
 
