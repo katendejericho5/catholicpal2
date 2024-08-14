@@ -107,7 +107,9 @@ class HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isSelected ? Colors.lightGreenAccent.withOpacity(0.3) : Colors.transparent,
+          color: isSelected
+              ? Colors.lightGreenAccent.withOpacity(0.3)
+              : Colors.transparent,
         ),
         child: FaIcon(
           icon,

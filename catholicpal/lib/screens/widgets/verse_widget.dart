@@ -33,17 +33,15 @@ class VerseWidget extends StatelessWidget {
                     fontSize: verse.verse == 1 ? 45 : 12,
                     fontWeight:
                         verse.verse == 1 ? FontWeight.bold : FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Colors.greenAccent.withOpacity(0.5),
                   ),
                 ),
                 // TextSpan for the verse text
                 TextSpan(
                   text: verse.text.trim(),
                   style: TextStyle(
-                    color: isSelected
-                        ? Theme.of(context).colorScheme.primary
-                        : null,
-                    decorationColor: Theme.of(context).colorScheme.primary,
+                    color: isSelected ? Colors.greenAccent : null,
+                    decorationColor: Colors.greenAccent.withOpacity(0.5),
                     decorationStyle: TextDecorationStyle.dotted,
                     decoration: isSelected ? TextDecoration.underline : null,
                   ),
