@@ -102,19 +102,32 @@ class DetailsPage extends StatelessWidget {
             ), // Spacing between the image and tab view
 
             // TabBar
-            const SizedBox(
-              height: 300, // Height of the tab bar section
+            SizedBox(
+              height: MediaQuery.of(context).size.height -
+                  300, // Adjust height for tab view
               child: DefaultTabController(
                 length: 2,
                 child: Column(
                   children: [
-                    TabBar(
-                      tabs: [
-                        Tab(text: 'Overview'),
-                        Tab(text: 'Prayer'),
-                      ],
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16),
+                        ),
+                      ),
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: TabBar(
+                        tabs: const [
+                          Tab(text: 'Overview'),
+                          Tab(text: 'Prayer'),
+                        ],
+                        labelColor: Colors.white,
+                        unselectedLabelColor: Colors.grey[300],
+                        // indicatorColor: Colors.white,
+                      ),
                     ),
-                    Expanded(
+                    const Expanded(
                       child: TabBarView(
                         children: [
                           // Overview Tab
@@ -129,6 +142,7 @@ class DetailsPage extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold,
+                                      color: Colors.blueAccent,
                                     ),
                                   ),
                                   SizedBox(height: 10),
@@ -153,6 +167,7 @@ class DetailsPage extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold,
+                                      color: Colors.blueAccent,
                                     ),
                                   ),
                                   SizedBox(height: 10),
