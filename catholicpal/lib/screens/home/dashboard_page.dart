@@ -1,4 +1,5 @@
 import 'package:catholicpal/screens/home/all_prayers_page.dart';
+import 'package:catholicpal/screens/home/details_page.dart';
 import 'package:catholicpal/screens/widgets/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
@@ -122,6 +123,7 @@ class HomeContent extends StatelessWidget {
                     imageUrl:
                         'https://images.pexels.com/photos/1615776/pexels-photo-1615776.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Morning Prayer',
+                    onTap: () {},
                     isFavorite: true,
                     onFavoriteTap: () {
                       // Handle favorite tap
@@ -133,6 +135,7 @@ class HomeContent extends StatelessWidget {
                         'https://images.pexels.com/photos/2774546/pexels-photo-2774546.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Evening Prayer',
                     isFavorite: true,
+                    onTap: () {},
                     onFavoriteTap: () {
                       // Handle favorite tap
                     },
@@ -143,6 +146,7 @@ class HomeContent extends StatelessWidget {
                         'https://images.pexels.com/photos/267748/pexels-photo-267748.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Night Prayer',
                     isFavorite: true,
+                    onTap: () {},
                     onFavoriteTap: () {
                       // Handle favorite tap
                     },
@@ -153,6 +157,7 @@ class HomeContent extends StatelessWidget {
                         'https://images.pexels.com/photos/208216/pexels-photo-208216.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Noon Prayer',
                     isFavorite: true,
+                    onTap: () {},
                     onFavoriteTap: () {
                       // Handle favorite tap
                     },
@@ -163,6 +168,7 @@ class HomeContent extends StatelessWidget {
                         'https://images.pexels.com/photos/2356140/pexels-photo-2356140.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Thanksgiving Prayer',
                     isFavorite: true,
+                    onTap: () {},
                     onFavoriteTap: () {
                       // Handle favorite tap
                     },
@@ -222,6 +228,13 @@ class HomeContent extends StatelessWidget {
                         'https://images.pexels.com/photos/2123307/pexels-photo-2123307.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Saint Peter',
                     isFavorite: true,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DetailsPage()),
+                      );
+                    },
                     onFavoriteTap: () {
                       // Handle favorite tap
                     },
@@ -232,6 +245,7 @@ class HomeContent extends StatelessWidget {
                         'https://images.pexels.com/photos/10628580/pexels-photo-10628580.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Saint Paul',
                     isFavorite: true,
+                    onTap: () {},
                     onFavoriteTap: () {
                       // Handle favorite tap
                     },
@@ -242,6 +256,7 @@ class HomeContent extends StatelessWidget {
                         'https://images.pexels.com/photos/5418210/pexels-photo-5418210.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Saint Mary',
                     isFavorite: true,
+                    onTap: () {},
                     onFavoriteTap: () {
                       // Handle favorite tap
                     },
@@ -252,6 +267,7 @@ class HomeContent extends StatelessWidget {
                         'https://images.pexels.com/photos/3993922/pexels-photo-3993922.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Saint Francis',
                     isFavorite: true,
+                    onTap: () {},
                     onFavoriteTap: () {
                       // Handle favorite tap
                     },
@@ -307,6 +323,7 @@ class HomeContent extends StatelessWidget {
               child: Row(
                 children: [
                   quizContainer(
+                    onTap: () {},
                     imageUrl:
                         'https://images.pexels.com/photos/4607986/pexels-photo-4607986.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Quiz 1',
@@ -317,6 +334,7 @@ class HomeContent extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   quizContainer(
+                    onTap: () {},
                     imageUrl:
                         'https://images.pexels.com/photos/7092344/pexels-photo-7092344.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Quiz 2',
@@ -327,6 +345,7 @@ class HomeContent extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   quizContainer(
+                    onTap: () {},
                     imageUrl:
                         'https://images.pexels.com/photos/6839189/pexels-photo-6839189.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Quiz 3',
@@ -337,6 +356,7 @@ class HomeContent extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   quizContainer(
+                    onTap: () {},
                     imageUrl:
                         'https://images.pexels.com/photos/3565151/pexels-photo-3565151.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Quiz 4',
