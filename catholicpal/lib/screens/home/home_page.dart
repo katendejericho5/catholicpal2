@@ -1,7 +1,8 @@
 import 'package:catholicpal/screens/home/bible_page.dart';
 import 'package:catholicpal/screens/home/devotions_page.dart';
 import 'package:catholicpal/screens/home/dashboard_page.dart';
-import 'package:catholicpal/screens/home/quizzes_page.dart';
+import 'package:catholicpal/screens/home/settings_page.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +20,7 @@ class HomePageState extends State<HomePage> {
     const HomeContent(),
     const BiblePage(),
     const DevotionsPage(),
-    const QuizzesPage(),
+    const SettingsPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -57,20 +58,20 @@ class HomePageState extends State<HomePage> {
             child: BottomNavigationBar(
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
+                  icon: FaIcon(FontAwesomeIcons.house, size: 20),
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.book),
+                  icon: FaIcon(FontAwesomeIcons.bookOpen, size: 20),
                   label: 'Bible',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite),
+                  icon: FaIcon(FontAwesomeIcons.heart, size: 20),
                   label: 'Devotions',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.quiz),
-                  label: 'Quizzes',
+                  icon: FaIcon(FontAwesomeIcons.cog, size: 20),
+                  label: 'Settings',
                 ),
               ],
               currentIndex: _selectedIndex,
@@ -78,7 +79,7 @@ class HomePageState extends State<HomePage> {
               type: BottomNavigationBarType.fixed,
               backgroundColor: const ColorScheme.light().surface,
               selectedItemColor: const Color(0xFF3498DB),
-              unselectedItemColor: const Color(0xFFBDC3C7),
+              unselectedItemColor: Colors.grey[600],
               selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
               unselectedLabelStyle:
                   const TextStyle(fontWeight: FontWeight.normal),
