@@ -1,4 +1,4 @@
-import 'package:catholicpal/screens/home/bible_page.dart';
+import 'package:catholicpal/screens/bible/bible_home_page.dart';
 import 'package:catholicpal/screens/home/devotions_page.dart';
 import 'package:catholicpal/screens/home/dashboard_page.dart';
 import 'package:catholicpal/screens/home/settings_page.dart';
@@ -18,7 +18,7 @@ class HomePageState extends State<HomePage> {
   // List of widget pages
   final List<Widget> _pages = [
     const HomeContent(),
-    const BiblePage(),
+    const BibleHomePage(),
     const DevotionsPage(),
     const SettingsPage(),
   ];
