@@ -56,22 +56,26 @@ class HomePageState extends State<HomePage> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(30),
             child: BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: FaIcon(FontAwesomeIcons.house, size: 20),
+              items: [
+                _buildBottomNavigationBarItem(
+                  icon: FontAwesomeIcons.house,
                   label: 'Home',
+                  index: 0,
                 ),
-                BottomNavigationBarItem(
-                  icon: FaIcon(FontAwesomeIcons.bookOpen, size: 20),
+                _buildBottomNavigationBarItem(
+                  icon: FontAwesomeIcons.bookOpen,
                   label: 'Bible',
+                  index: 1,
                 ),
-                BottomNavigationBarItem(
-                  icon: FaIcon(FontAwesomeIcons.heart, size: 20),
+                _buildBottomNavigationBarItem(
+                  icon: FontAwesomeIcons.heart,
                   label: 'Devotions',
+                  index: 2,
                 ),
-                BottomNavigationBarItem(
-                  icon: FaIcon(FontAwesomeIcons.cog, size: 20),
+                _buildBottomNavigationBarItem(
+                  icon: FontAwesomeIcons.cog,
                   label: 'Settings',
+                  index: 3,
                 ),
               ],
               currentIndex: _selectedIndex,
@@ -88,6 +92,30 @@ class HomePageState extends State<HomePage> {
           ),
         ),
       ),
+    );
+  }
+
+  BottomNavigationBarItem _buildBottomNavigationBarItem({
+    required IconData icon,
+    required String label,
+    required int index,
+  }) {
+    final bool isSelected = _selectedIndex == index;
+
+    return BottomNavigationBarItem(
+      icon: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: isSelected ? Colors.lightGreenAccent.withOpacity(0.3) : Colors.transparent,
+        ),
+        child: FaIcon(
+          icon,
+          size: 20,
+          color: isSelected ? const Color(0xFF27AE60) : Colors.grey[600],
+        ),
+      ),
+      label: label,
     );
   }
 }
