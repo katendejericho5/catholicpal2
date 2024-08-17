@@ -1,49 +1,44 @@
-import 'package:catholicpal/screens/widgets/cards.dart';
-import 'package:catholicpal/screens/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
-class AllPrayersPage extends StatelessWidget {
+import 'package:catholicpal/screens/widgets/cards.dart';
+import 'package:catholicpal/screens/widgets/custom_appbar.dart';
+
+class CategoryPrayersPage extends StatelessWidget {
+  final String category;
+
+  // Example prayers for demonstration, replace with actual data
   final List<CardWidget> prayers = [
     CardWidget(
-      title: 'Our Father',
+      title: 'Prayer 1',
       color: Colors.blue[50]!,
-      iconPath: 'assets/prayer-svgrepo-com.svg',
+      iconPath: 'assets/maghrib-prayer-svgrepo-com.svg',
     ),
     CardWidget(
-      title: 'Hail Mary',
+      title: 'Prayer 2',
       color: Colors.red[50]!,
       iconPath: 'assets/prayer-beads-svgrepo-com.svg',
     ),
     CardWidget(
-      title: 'Glory Be',
+      title: 'Prayer 3',
       color: Colors.green[50]!,
       iconPath: 'assets/prayer-svgrepo-com.svg',
     ),
     CardWidget(
-      title: 'Apostles’ Creed',
+      title: 'Prayer 4',
       color: const Color(0xFFF3E5F5),
-      iconPath: 'assets/breviary-svgrepo-com.svg',
-    ),
-    CardWidget(
-      title: 'Nicene Creed',
-      color: Colors.orange[50]!,
-      iconPath: 'assets/prayer-beads-svgrepo-com.svg',
-    ),
-    CardWidget(
-      title: 'Hail Holy Queen',
-      color: Colors.yellow[50]!,
-      iconPath: 'assets/prayer-svgrepo-com.svg',
+      iconPath: 'assets/catholic-christian-church-svgrepo-com.svg',
     ),
     // Add more prayers as needed
   ];
 
-  AllPrayersPage({super.key});
+  CategoryPrayersPage({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: 'All Prayers',
+      appBar: CustomAppBar(
+        title: '$category Prayers',
+        // You can uncomment and use the icon if needed
         // icon: Icons.menu_book_rounded,
         // iconColor: Colors.deepOrange,
       ),
@@ -71,4 +66,3 @@ class AllPrayersPage extends StatelessWidget {
     );
   }
 }
-

@@ -1,5 +1,4 @@
-import 'package:catholicpal/screens/home/all_prayers_page.dart';
-import 'package:catholicpal/screens/home/prayer_details.dart';
+import 'package:catholicpal/screens/home/category_prayers.dart';
 import 'package:catholicpal/screens/home/saints_details_page.dart';
 import 'package:catholicpal/screens/widgets/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,6 +9,35 @@ class HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Categories data
+    final List<Map<String, dynamic>> categories = [
+      {
+        'title': 'Chaplets',
+        'image':
+            'https://images.pexels.com/photos/1615776/pexels-photo-1615776.jpeg?auto=compress&cs=tinysrgb&w=600'
+      },
+      {
+        'title': 'Traditional Prayers',
+        'image':
+            'https://images.pexels.com/photos/2774546/pexels-photo-2774546.jpeg?auto=compress&cs=tinysrgb&w=600'
+      },
+      {
+        'title': 'Holy Spirit',
+        'image':
+            'https://images.pexels.com/photos/267748/pexels-photo-267748.jpeg?auto=compress&cs=tinysrgb&w=600'
+      },
+      {
+        'title': 'Rosary',
+        'image':
+            'https://images.pexels.com/photos/208216/pexels-photo-208216.jpeg?auto=compress&cs=tinysrgb&w=600'
+      },
+      {
+        'title': 'Easter',
+        'image':
+            'https://images.pexels.com/photos/2356140/pexels-photo-2356140.jpeg?auto=compress&cs=tinysrgb&w=600'
+      },
+    ];
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: SingleChildScrollView(
@@ -72,117 +100,71 @@ class HomeContent extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-            // Prayers Section
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Prayers',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AllPrayersPage()),
-                    );
-                  },
-                  child: Container(
-                    width: 80,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'See All',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            // Categories Section
+            const Text(
+              'Prayer Categories',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
             ),
 
             const SizedBox(height: 10),
 
-            // Horizontal list of prayers
+            // Row of categories
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  prayerContainer(
-                    imageUrl:
-                        'https://images.pexels.com/photos/1615776/pexels-photo-1615776.jpeg?auto=compress&cs=tinysrgb&w=600',
-                    title: 'Morning Prayer',
+                children: categories.map((category) {
+                  return GestureDetector(
                     onTap: () {
-                      // navidate to the home page
-
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const PrayerDetailsPage(),
+                          builder: (context) => CategoryPrayersPage(
+                            category: category['title'],
+                          ),
                         ),
                       );
                     },
-                    isFavorite: true,
-                    onFavoriteTap: () {
-                      // Handle favorite tap
-                    },
-                  ),
-                  const SizedBox(width: 10),
-                  prayerContainer(
-                    imageUrl:
-                        'https://images.pexels.com/photos/2774546/pexels-photo-2774546.jpeg?auto=compress&cs=tinysrgb&w=600',
-                    title: 'Evening Prayer',
-                    isFavorite: true,
-                    onTap: () {},
-                    onFavoriteTap: () {
-                      // Handle favorite tap
-                    },
-                  ),
-                  const SizedBox(width: 10),
-                  prayerContainer(
-                    imageUrl:
-                        'https://images.pexels.com/photos/267748/pexels-photo-267748.jpeg?auto=compress&cs=tinysrgb&w=600',
-                    title: 'Night Prayer',
-                    isFavorite: true,
-                    onTap: () {},
-                    onFavoriteTap: () {
-                      // Handle favorite tap
-                    },
-                  ),
-                  const SizedBox(width: 10),
-                  prayerContainer(
-                    imageUrl:
-                        'https://images.pexels.com/photos/208216/pexels-photo-208216.jpeg?auto=compress&cs=tinysrgb&w=600',
-                    title: 'Noon Prayer',
-                    isFavorite: true,
-                    onTap: () {},
-                    onFavoriteTap: () {
-                      // Handle favorite tap
-                    },
-                  ),
-                  const SizedBox(width: 10),
-                  prayerContainer(
-                    imageUrl:
-                        'https://images.pexels.com/photos/2356140/pexels-photo-2356140.jpeg?auto=compress&cs=tinysrgb&w=600',
-                    title: 'Thanksgiving Prayer',
-                    isFavorite: true,
-                    onTap: () {},
-                    onFavoriteTap: () {
-                      // Handle favorite tap
-                    },
-                  ),
-                ],
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      margin: const EdgeInsets.only(right: 10),
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              Image.network(
+                                category['image'],
+                                fit: BoxFit.cover,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                color: Colors.black54,
+                                child: Text(
+                                  category['title'],
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
             ),
 
@@ -334,7 +316,7 @@ class HomeContent extends StatelessWidget {
                   quizContainer(
                     onTap: () {},
                     imageUrl:
-                        'https://images.pexels.com/photos/4607986/pexels-photo-4607986.jpeg?auto=compress&cs=tinysrgb&w=600',
+                        'https://images.pexels.com/photos/5687170/pexels-photo-5687170.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Quiz 1',
                     isFavorite: true,
                     onFavoriteTap: () {
@@ -345,7 +327,7 @@ class HomeContent extends StatelessWidget {
                   quizContainer(
                     onTap: () {},
                     imageUrl:
-                        'https://images.pexels.com/photos/7092344/pexels-photo-7092344.jpeg?auto=compress&cs=tinysrgb&w=600',
+                        'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Quiz 2',
                     isFavorite: true,
                     onFavoriteTap: () {
@@ -356,19 +338,8 @@ class HomeContent extends StatelessWidget {
                   quizContainer(
                     onTap: () {},
                     imageUrl:
-                        'https://images.pexels.com/photos/6839189/pexels-photo-6839189.jpeg?auto=compress&cs=tinysrgb&w=600',
+                        'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Quiz 3',
-                    isFavorite: true,
-                    onFavoriteTap: () {
-                      // Handle favorite tap
-                    },
-                  ),
-                  const SizedBox(width: 10),
-                  quizContainer(
-                    onTap: () {},
-                    imageUrl:
-                        'https://images.pexels.com/photos/3565151/pexels-photo-3565151.jpeg?auto=compress&cs=tinysrgb&w=600',
-                    title: 'Quiz 4',
                     isFavorite: true,
                     onFavoriteTap: () {
                       // Handle favorite tap
