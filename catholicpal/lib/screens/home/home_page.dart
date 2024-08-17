@@ -19,7 +19,7 @@ class HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     const HomeContent(),
     const BibleHomePage(),
-    const DevotionsPage(),
+    DevotionsPage(),
     const SettingsPage(),
   ];
 
@@ -41,7 +41,7 @@ class HomePageState extends State<HomePage> {
         children: _pages,
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 20, left: 10, right: 10),
+        padding: const EdgeInsets.only(bottom: 8, left: 10, right: 10),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),

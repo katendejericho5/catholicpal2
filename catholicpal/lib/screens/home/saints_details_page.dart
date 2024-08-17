@@ -111,7 +111,7 @@ class DetailsPage extends StatelessWidget {
                   children: [
                     Container(
                       decoration: const BoxDecoration(
-                        color: Colors.blue,
+                        color: Colors.greenAccent,
                         borderRadius: BorderRadius.all(
                           Radius.circular(16),
                         ),
@@ -122,9 +122,9 @@ class DetailsPage extends StatelessWidget {
                           Tab(text: 'Overview'),
                           Tab(text: 'Prayer'),
                         ],
-                        labelColor: Colors.white,
+                        labelColor: Colors.black,
                         unselectedLabelColor: Colors.grey[300],
-                        // indicatorColor: Colors.white,
+                        indicatorColor: Colors.white,
                       ),
                     ),
                     const Expanded(
@@ -137,12 +137,15 @@ class DetailsPage extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Overview',
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blueAccent,
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Overview',
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.greenAccent,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(height: 10),
@@ -162,12 +165,15 @@ class DetailsPage extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Prayer',
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blueAccent,
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Prayer',
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.greenAccent,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(height: 10),

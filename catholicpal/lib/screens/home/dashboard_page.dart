@@ -1,5 +1,6 @@
 import 'package:catholicpal/screens/home/all_prayers_page.dart';
-import 'package:catholicpal/screens/home/details_page.dart';
+import 'package:catholicpal/screens/home/prayer_details.dart';
+import 'package:catholicpal/screens/home/saints_details_page.dart';
 import 'package:catholicpal/screens/widgets/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
@@ -123,7 +124,16 @@ class HomeContent extends StatelessWidget {
                     imageUrl:
                         'https://images.pexels.com/photos/1615776/pexels-photo-1615776.jpeg?auto=compress&cs=tinysrgb&w=600',
                     title: 'Morning Prayer',
-                    onTap: () {},
+                    onTap: () {
+                      // navidate to the home page
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PrayerDetailsPage(),
+                        ),
+                      );
+                    },
                     isFavorite: true,
                     onFavoriteTap: () {
                       // Handle favorite tap
