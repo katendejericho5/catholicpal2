@@ -87,8 +87,7 @@ class HomeContent extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const AllPrayersPage()),
+                      MaterialPageRoute(builder: (context) => AllPrayersPage()),
                     );
                   },
                   child: Container(
