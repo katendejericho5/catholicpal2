@@ -1,7 +1,8 @@
+import 'package:catholicpal/screens/home/prayer_details.dart';
 import 'package:flutter/material.dart';
-
 import 'package:catholicpal/screens/widgets/cards.dart';
 import 'package:catholicpal/screens/widgets/custom_appbar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CategoryPrayersPage extends StatelessWidget {
   final String category;
@@ -23,9 +24,9 @@ class CategoryPrayersPage extends StatelessWidget {
       color: Colors.green[50]!,
       iconPath: 'assets/prayer-svgrepo-com.svg',
     ),
-    CardWidget(
+    const CardWidget(
       title: 'Prayer 4',
-      color: const Color(0xFFF3E5F5),
+      color: Color(0xFFF3E5F5),
       iconPath: 'assets/catholic-christian-church-svgrepo-com.svg',
     ),
     // Add more prayers as needed
@@ -38,30 +39,64 @@ class CategoryPrayersPage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: '$category Prayers',
-        // You can uncomment and use the icon if needed
+        // Uncomment and use the icon if needed
         // icon: Icons.menu_book_rounded,
         // iconColor: Colors.deepOrange,
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(16),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 1.4, // Adjust height of the cards
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                prefixIcon: const Padding(
+                  padding: EdgeInsets.all(12),
+                  child: FaIcon(
+                    FontAwesomeIcons.search,
+                    size: 20,
+                  ),
+                ),
+                hintText: 'Search...',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none,
+                ),
+                fillColor: Colors.grey[200],
+                filled: true,
+              ),
+            ),
+            const SizedBox(height: 30),
+            Expanded(
+              child: GridView.builder(
+                padding: EdgeInsets.zero,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.4, // Adjust height of the cards
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                ),
+                itemCount: prayers.length,
+                itemBuilder: (context, index) {
+                  final prayer = prayers[index];
+                  return CardWidget(
+                    title: prayer.title,
+                    color: prayer.color,
+                    iconPath: prayer.iconPath,
+                    onTap: () {
+                      // Handle prayer card tap
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PrayerDetailsPage(),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
         ),
-        itemCount: prayers.length,
-        itemBuilder: (context, index) {
-          final prayer = prayers[index];
-          return CardWidget(
-            title: prayer.title,
-            color: prayer.color,
-            iconPath: prayer.iconPath,
-            onTap: () {
-              // Handle prayer card tap
-            },
-          );
-        },
       ),
     );
   }

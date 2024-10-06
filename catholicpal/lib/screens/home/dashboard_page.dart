@@ -101,12 +101,40 @@ class HomeContent extends StatelessWidget {
             const SizedBox(height: 30),
 
             // Categories Section
-            const Text(
-              'Prayer Categories',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Categories',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    // Navigate to Quizzes page
+                  },
+                  child: Container(
+                    width: 80,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'See All',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
 
             const SizedBox(height: 10),

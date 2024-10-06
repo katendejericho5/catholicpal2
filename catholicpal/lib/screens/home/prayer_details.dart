@@ -9,7 +9,7 @@ class PrayerDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: -5,
+        toolbarHeight: 0,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -90,7 +90,9 @@ class PrayerDetailsPage extends StatelessWidget {
                           color: Colors.black,
                           size: 30,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                     ),
                   ),
@@ -99,27 +101,27 @@ class PrayerDetailsPage extends StatelessWidget {
             ),
 
             const SizedBox(
-              height: 20,
-            ), // Spacing between the image and prayer content
-
+              height: 5,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              child: Divider(
+                color: Colors.grey,
+                thickness: 1,
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
             // Prayer Section with Frosted GlassBox
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Prayer',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueAccent,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Lord Jesus Christ, you have called us to be your disciples and to follow you. We ask that you strengthen our faith and help us to remain true to your teachings. May Saint Peter’s example inspire us to live a life of devotion and love. Amen.',
+                      'Lord Jesus Christ, you have called us to be your disciples and to follow you. We ask that you strengthen our faith and help us to remain true to your teachings. May Saint Peter’s example inspire us to live a life of devotion and love.\nAmen.',
                       style: TextStyle(fontSize: 16),
                     ),
                     // Add more prayer content here
