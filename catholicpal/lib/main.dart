@@ -21,6 +21,9 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => MainProvider(),
         ),
+        // ChangeNotifierProvider(
+        //   create: (context) => NewsProvider(),
+        // ),
       ],
       child: const MyApp(),
     ),

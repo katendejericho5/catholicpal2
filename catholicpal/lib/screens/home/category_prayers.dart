@@ -4,10 +4,32 @@ import 'package:catholicpal/screens/widgets/cards.dart';
 import 'package:catholicpal/screens/widgets/custom_appbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CategoryPrayersPage extends StatelessWidget {
+class CategoryPrayersPage extends StatefulWidget {
   final String category;
 
-  // Example prayers for demonstration, replace with actual data
+  CategoryPrayersPage({super.key, required this.category});
+
+  @override
+  State<CategoryPrayersPage> createState() => _CategoryPrayersPageState();
+}
+
+class _CategoryPrayersPageState extends State<CategoryPrayersPage> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the ScrollController
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    // Dispose the ScrollController
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   final List<CardWidget> prayers = [
     CardWidget(
       title: 'Prayer 1',
@@ -32,16 +54,12 @@ class CategoryPrayersPage extends StatelessWidget {
     // Add more prayers as needed
   ];
 
-  CategoryPrayersPage({super.key, required this.category});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: '$category Prayers',
-        // Uncomment and use the icon if needed
-        // icon: Icons.menu_book_rounded,
-        // iconColor: Colors.deepOrange,
+        title: '${widget.category} Prayers',
+        scrollController: _scrollController,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

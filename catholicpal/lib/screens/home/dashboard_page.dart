@@ -1,8 +1,10 @@
 import 'package:catholicpal/screens/home/category_prayers.dart';
 import 'package:catholicpal/screens/home/saints_details_page.dart';
+import 'package:catholicpal/screens/widgets/catholic_app_carousel.dart';
 import 'package:catholicpal/screens/widgets/widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
@@ -51,9 +53,9 @@ class HomeContent extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                     Text(
                       'Hi John',
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
@@ -61,7 +63,7 @@ class HomeContent extends StatelessWidget {
                     const SizedBox(height: 8),
                     Text(
                       'Good morning',
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                         fontSize: 18,
                         color: Colors.grey[600],
                       ),
@@ -77,61 +79,37 @@ class HomeContent extends StatelessWidget {
             ),
 
             const SizedBox(height: 20),
-
-            // Search bar
-            TextField(
-              decoration: InputDecoration(
-                prefixIcon: const Padding(
-                  padding: EdgeInsets.all(12),
-                  child: FaIcon(
-                    FontAwesomeIcons.search,
-                    size: 20,
-                  ),
-                ),
-                hintText: 'Search...',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide.none,
-                ),
-                fillColor: Colors.grey[200],
-                filled: true,
-              ),
-            ),
-
+            const CatholicAppCarousel(),
             const SizedBox(height: 30),
 
             // Categories Section
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Categories',
-                  style: TextStyle(
+                 Text(
+                  'Prayer Categories',
+                  style: GoogleFonts.poppins(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
-                    // Navigate to Quizzes page
+                    // Navigate to the page
                   },
                   child: Container(
-                    width: 80,
-                    height: 40,
+                    width: 40, // Adjusted width for the icon
+                    height: 40, // Adjusted height for the icon
                     decoration: BoxDecoration(
                       color: Colors.grey[300],
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: const Center(
-                      child: Text(
-                        'See All',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+                        child: HugeIcon(
+                      icon: HugeIcons.strokeRoundedArrowRight03,
+                      color: Colors.black,
+                      size: 24.0,
+                    )),
                   ),
                 ),
               ],
@@ -178,7 +156,7 @@ class HomeContent extends StatelessWidget {
                                 color: Colors.black54,
                                 child: Text(
                                   category['title'],
-                                  style: const TextStyle(
+                                  style: GoogleFonts.poppins(
                                     color: Colors.white,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -202,34 +180,30 @@ class HomeContent extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                 Text(
                   'Saints',
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
-                    // Navigate to Saints page
+                    // Navigate to the page
                   },
                   child: Container(
-                    width: 80,
-                    height: 40,
+                    width: 40, // Adjusted width for the icon
+                    height: 40, // Adjusted height for the icon
                     decoration: BoxDecoration(
                       color: Colors.grey[300],
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: const Center(
-                      child: Text(
-                        'See All',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+                        child: HugeIcon(
+                      icon: HugeIcons.strokeRoundedArrowRight03,
+                      color: Colors.black,
+                      size: 24.0,
+                    )),
                   ),
                 ),
               ],
@@ -301,34 +275,30 @@ class HomeContent extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Quizzes',
-                  style: TextStyle(
+                 Text(
+                  'Sacraments',
+                  style: GoogleFonts.poppins(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
-                    // Navigate to Quizzes page
+                    // Navigate to the page
                   },
                   child: Container(
-                    width: 80,
-                    height: 40,
+                    width: 40, // Adjusted width for the icon
+                    height: 40, // Adjusted height for the icon
                     decoration: BoxDecoration(
                       color: Colors.grey[300],
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: const Center(
-                      child: Text(
-                        'See All',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+                        child: HugeIcon(
+                      icon: HugeIcons.strokeRoundedArrowRight03,
+                      color: Colors.black,
+                      size: 24.0,
+                    )),
                   ),
                 ),
               ],
@@ -376,6 +346,7 @@ class HomeContent extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 70),
           ],
         ),
       ),

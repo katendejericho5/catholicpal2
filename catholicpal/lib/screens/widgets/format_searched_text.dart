@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // Function to format searched text with highlighted matches
 Text formatSearchText({
@@ -32,7 +33,7 @@ Text formatSearchText({
     textSpans.add(
       TextSpan(
         text: input.substring(match.start, match.end),
-        style: TextStyle(
+        style: GoogleFonts.poppins(
           color: Theme.of(context).colorScheme.primary,
           fontWeight: FontWeight.bold,
         ),

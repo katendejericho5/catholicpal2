@@ -1,9 +1,9 @@
-
 import 'package:catholicpal/models/bible_model/verse.dart';
 import 'package:catholicpal/providers/app_provider.dart';
 import 'package:catholicpal/screens/widgets/format_searched_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 import 'package:provider/provider.dart';
 
@@ -75,7 +75,11 @@ class _SearchPageState extends State<SearchPage> {
                   _results.clear();
                 });
               },
-              icon: const Icon(Icons.close_rounded),
+              icon: const HugeIcon(
+                icon: HugeIcons.strokeRoundedSearch01,
+                color: Colors.black,
+                size: 24.0,
+              ),
             ),
         ],
       ),

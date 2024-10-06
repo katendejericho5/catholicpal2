@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({super.key});
@@ -46,9 +47,9 @@ class DetailsPage extends StatelessWidget {
                           bottomRight: Radius.circular(30),
                         ),
                       ),
-                      child: const Text(
+                      child: Text(
                         'Saint Peter',
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -127,12 +128,12 @@ class DetailsPage extends StatelessWidget {
                         indicatorColor: Colors.white,
                       ),
                     ),
-                    const Expanded(
+                    Expanded(
                       child: TabBarView(
                         children: [
                           // Overview Tab
                           Padding(
-                            padding: EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.all(16.0),
                             child: SingleChildScrollView(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,17 +142,17 @@ class DetailsPage extends StatelessWidget {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       'Overview',
-                                      style: TextStyle(
+                                      style: GoogleFonts.poppins(
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.greenAccent,
                                       ),
                                     ),
                                   ),
-                                  SizedBox(height: 10),
+                                  const SizedBox(height: 10),
                                   Text(
                                     'Saint Peter was one of the twelve apostles of Jesus Christ. According to the New Testament, he was a fisherman by trade. Saint Peter is considered a central figure in Christianity, and his teachings are fundamental to the faith.',
-                                    style: TextStyle(fontSize: 16),
+                                    style: GoogleFonts.poppins(fontSize: 16),
                                   ),
                                   // Add more overview content here
                                 ],
@@ -160,7 +161,7 @@ class DetailsPage extends StatelessWidget {
                           ),
                           // Prayer Tab
                           Padding(
-                            padding: EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.all(16.0),
                             child: SingleChildScrollView(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,17 +170,17 @@ class DetailsPage extends StatelessWidget {
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       'Prayer',
-                                      style: TextStyle(
+                                      style: GoogleFonts.poppins(
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.greenAccent,
                                       ),
                                     ),
                                   ),
-                                  SizedBox(height: 10),
+                                  const SizedBox(height: 10),
                                   Text(
                                     'Lord Jesus Christ, you have called us to be your disciples and to follow you. We ask that you strengthen our faith and help us to remain true to your teachings. May Saint Peter’s example inspire us to live a life of devotion and love. Amen.',
-                                    style: TextStyle(fontSize: 16),
+                                    style: GoogleFonts.poppins(fontSize: 16),
                                   ),
                                   // Add more prayer content here
                                 ],

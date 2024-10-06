@@ -1,71 +1,147 @@
-import 'package:catholicpal/screens/widgets/cards.dart';
-import 'package:catholicpal/screens/widgets/custom_appbar.dart';
+import 'package:catholicpal/screens/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:catholicpal/screens/widgets/custom_appbar.dart';
 
-class DevotionsPage extends StatelessWidget {
-  final List<CardWidget> devotions = [
-    CardWidget(
-      title: 'Rosary',
-      color: Colors.blue[50]!,
-      iconPath: 'assets/breviary-svgrepo-com.svg',
-    ),
-    CardWidget(
-      title: 'Divine Mercy',
-      color: Colors.red[50]!,
-      iconPath: 'assets/breviary-svgrepo-com.svg',
-    ),
-    CardWidget(
-      title: 'Stations of the Cross',
-      color: Colors.green[50]!,
-      iconPath: 'assets/prayer-svgrepo-com.svg',
-    ),
-    const CardWidget(
-      title: 'Novenas',
-      color: Color(0xFFF3E5F5),
-      iconPath: 'assets/prayer-svgrepo-com.svg',
-    ),
-    CardWidget(
-      title: 'Litanies',
-      color: Colors.orange[50]!,
-      iconPath: 'assets/breviary-svgrepo-com.svg',
-    ),
-    CardWidget(
-      title: 'Adoration',
-      color: Colors.yellow[50]!,
-      iconPath: 'assets/prayer-beads-svgrepo-com.svg',
-    ),
+class DevotionsPage extends StatefulWidget {
+  const DevotionsPage({super.key});
+
+  @override
+  State<DevotionsPage> createState() => _DevotionsPageState();
+}
+
+class _DevotionsPageState extends State<DevotionsPage> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the ScrollController
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    // Dispose the ScrollController
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  final List<Map<String, dynamic>> devotions = [
+    {
+      'title': 'Rosary',
+      'imageUrl':
+          'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'isFavorite': false,
+    },
+    {
+      'title': 'Divine Mercy',
+      'imageUrl':
+          'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'isFavorite': false,
+    },
+    {
+      'title': 'Stations of the Cross',
+      'imageUrl':
+          'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'isFavorite': false,
+    },
+    {
+      'title': 'Novenas',
+      'imageUrl':
+          'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'isFavorite': false,
+    },
+    {
+      'title': 'Litanies',
+      'imageUrl':
+          'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'isFavorite': false,
+    },
+    {
+      'title': 'Adoration',
+      'imageUrl':
+          'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'isFavorite': false,
+    },
   ];
 
-  DevotionsPage({super.key});
+  void _toggleFavorite(int index) {
+    setState(() {
+      devotions[index]['isFavorite'] = !devotions[index]['isFavorite'];
+    });
+  }
+
+  void _onDevotionTap(int index) {
+    // Handle devotion tap
+    print('Tapped on: ${devotions[index]['title']}');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
+      appBar: CustomAppBar(
         title: 'Devotions',
-        icon: Icons.favorite,
-        iconColor: Colors.deepOrange,
+        scrollController: _scrollController,
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(16),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 1.4,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 6),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 6),
+              child: TextField(
+                decoration: InputDecoration(
+                  prefixIcon: const Padding(
+                    padding: EdgeInsets.all(12),
+                    child: FaIcon(
+                      FontAwesomeIcons.search,
+                      size: 20,
+                    ),
+                  ),
+                  hintText: 'Search...',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide.none,
+                  ),
+                  fillColor: Colors.grey[200],
+                  filled: true,
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: MasonryGridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  itemBuilder: (context, index) {
+                    // Randomly determine the height for each card
+                    double height =
+                        (index % 2 == 0) ? 180 : 240; // Different heights
+
+                    return SizedBox(
+                      height: height,
+                      child: customImageContainer(
+                        imageUrl: devotions[index]['imageUrl'],
+                        title: devotions[index]['title'],
+                        isFavorite: devotions[index]['isFavorite'],
+                        onFavoriteTap: () => _toggleFavorite(index),
+                        onTap: () => _onDevotionTap(index),
+                        height: height, // Pass the custom height
+                        showFavorite: true,
+                      ),
+                    );
+                  },
+                  itemCount: devotions.length,
+                ),
+              ),
+            ),
+          ],
         ),
-        itemCount: devotions.length,
-        itemBuilder: (context, index) {
-          final devotion = devotions[index];
-          return CardWidget(
-            title: devotion.title,
-            color: devotion.color,
-            iconPath: devotion.iconPath,
-            onTap: () {
-              // Handle card tap
-            },
-          );
-        },
       ),
     );
   }

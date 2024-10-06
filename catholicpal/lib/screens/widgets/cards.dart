@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CardWidget extends StatelessWidget {
   final String title;
@@ -33,7 +34,7 @@ class CardWidget extends StatelessWidget {
                 flex: 3,
                 child: Text(
                   title,
-                  style: const TextStyle(
+                  style: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Colors.black87,

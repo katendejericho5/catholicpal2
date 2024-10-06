@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
+import 'package:google_fonts/google_fonts.dart';
+
 class PrayerDetailsPage extends StatelessWidget {
   const PrayerDetailsPage({super.key});
 
@@ -47,9 +49,9 @@ class PrayerDetailsPage extends StatelessWidget {
                           bottomRight: Radius.circular(30),
                         ),
                       ),
-                      child: const Text(
+                      child:  Text(
                         'Morning  Prayer',
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -114,15 +116,15 @@ class PrayerDetailsPage extends StatelessWidget {
               height: 5,
             ),
             // Prayer Section with Frosted GlassBox
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30),
+             Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Lord Jesus Christ, you have called us to be your disciples and to follow you. We ask that you strengthen our faith and help us to remain true to your teachings. May Saint Peter’s example inspire us to live a life of devotion and love.\nAmen.',
-                      style: TextStyle(fontSize: 16),
+                      style: GoogleFonts.poppins(fontSize: 16),
                     ),
                     // Add more prayer content here
                   ],

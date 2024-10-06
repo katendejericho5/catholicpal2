@@ -3,6 +3,7 @@ import 'package:catholicpal/models/bible_model/chapter.dart';
 import 'package:catholicpal/providers/app_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:expandable/expandable.dart';
@@ -107,7 +108,7 @@ class _BooksPageState extends State<BooksPage> {
                                   child: Center(
                                     child: Text(
                                       chapter.title.toString(),
-                                      style: const TextStyle(fontSize: 15),
+                                      style: GoogleFonts.poppins(fontSize: 15),
                                     ),
                                   ),
                                 ),

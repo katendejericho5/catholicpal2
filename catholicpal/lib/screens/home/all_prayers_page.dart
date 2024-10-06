@@ -2,7 +2,29 @@ import 'package:catholicpal/screens/widgets/cards.dart';
 import 'package:catholicpal/screens/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
-class AllPrayersPage extends StatelessWidget {
+class AllPrayersPage extends StatefulWidget {
+  AllPrayersPage({super.key});
+
+  @override
+  State<AllPrayersPage> createState() => _AllPrayersPageState();
+}
+
+class _AllPrayersPageState extends State<AllPrayersPage> {
+  late ScrollController _scrollController;
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the ScrollController
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    // Dispose the ScrollController
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   final List<CardWidget> prayers = [
     CardWidget(
       title: 'Our Father',
@@ -19,9 +41,9 @@ class AllPrayersPage extends StatelessWidget {
       color: Colors.green[50]!,
       iconPath: 'assets/prayer-svgrepo-com.svg',
     ),
-    CardWidget(
+    const CardWidget(
       title: 'Apostles’ Creed',
-      color: const Color(0xFFF3E5F5),
+      color: Color(0xFFF3E5F5),
       iconPath: 'assets/breviary-svgrepo-com.svg',
     ),
     CardWidget(
@@ -37,15 +59,12 @@ class AllPrayersPage extends StatelessWidget {
     // Add more prayers as needed
   ];
 
-  AllPrayersPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
+      appBar: CustomAppBar(
         title: 'All Prayers',
-        // icon: Icons.menu_book_rounded,
-        // iconColor: Colors.deepOrange,
+        scrollController: _scrollController,
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(16),
@@ -71,4 +90,3 @@ class AllPrayersPage extends StatelessWidget {
     );
   }
 }
-

@@ -1,9 +1,11 @@
-import 'package:catholicpal/screens/bible/bible_home_page.dart';
 import 'package:catholicpal/screens/home/devotions_page.dart';
 import 'package:catholicpal/screens/home/dashboard_page.dart';
-import 'package:catholicpal/screens/home/settings_page.dart';
+import 'package:catholicpal/screens/settings/settings_page.dart';
+import 'package:catholicpal/screens/home/updates_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,8 +20,8 @@ class HomePageState extends State<HomePage> {
   // List of widget pages
   final List<Widget> _pages = [
     const HomeContent(),
-    const BibleHomePage(),
-    DevotionsPage(),
+    const UpdatesPage(),
+    const DevotionsPage(),
     const SettingsPage(),
   ];
 
@@ -58,35 +60,35 @@ class HomePageState extends State<HomePage> {
             child: BottomNavigationBar(
               items: [
                 _buildBottomNavigationBarItem(
-                  icon: FontAwesomeIcons.house,
+                  icon: HugeIcons.strokeRoundedHome03,
                   label: 'Home',
                   index: 0,
                 ),
                 _buildBottomNavigationBarItem(
-                  icon: FontAwesomeIcons.bookOpen,
-                  label: 'Bible',
+                  icon: HugeIcons.strokeRoundedWorkUpdate,
+                  label: 'Updates',
                   index: 1,
                 ),
                 _buildBottomNavigationBarItem(
-                  icon: FontAwesomeIcons.heart,
+                  icon: HugeIcons.strokeRoundedUserGroup,
                   label: 'Devotions',
                   index: 2,
                 ),
                 _buildBottomNavigationBarItem(
-                  icon: FontAwesomeIcons.cog,
+                  icon: HugeIcons.strokeRoundedUserSettings01,
                   label: 'Settings',
                   index: 3,
                 ),
               ],
               currentIndex: _selectedIndex,
               onTap: _onItemTapped,
-              type: BottomNavigationBarType.fixed,
+              type: BottomNavigationBarType.shifting, // Use shifting mode
               backgroundColor: const ColorScheme.light().surface,
               selectedItemColor: const Color(0xFF3498DB),
               unselectedItemColor: Colors.grey[600],
-              selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+              selectedLabelStyle: GoogleFonts.poppins(fontWeight: FontWeight.bold),
               unselectedLabelStyle:
-                  const TextStyle(fontWeight: FontWeight.normal),
+                  GoogleFonts.poppins(fontWeight: FontWeight.normal),
               elevation: 0,
             ),
           ),
@@ -113,10 +115,11 @@ class HomePageState extends State<HomePage> {
         ),
         child: FaIcon(
           icon,
-          size: 20,
+          size: 24,
           color: isSelected ? const Color(0xFF27AE60) : Colors.grey[600],
         ),
       ),
+      // Only show label when active (shifting will handle this behavior)
       label: label,
     );
   }

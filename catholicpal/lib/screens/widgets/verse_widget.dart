@@ -1,6 +1,7 @@
 import 'package:catholicpal/models/bible_model/verse.dart';
 import 'package:catholicpal/providers/app_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class VerseWidget extends StatelessWidget {
@@ -29,7 +30,7 @@ class VerseWidget extends StatelessWidget {
                   text: verse.verse == 1
                       ? "${verse.chapter}"
                       : "${verse.verse.toString()} ",
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                     fontSize: verse.verse == 1 ? 45 : 12,
                     fontWeight:
                         verse.verse == 1 ? FontWeight.bold : FontWeight.w500,
@@ -39,7 +40,7 @@ class VerseWidget extends StatelessWidget {
                 // TextSpan for the verse text
                 TextSpan(
                   text: verse.text.trim(),
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                     color: isSelected ? Colors.greenAccent : null,
                     decorationColor: Colors.greenAccent.withOpacity(0.5),
                     decorationStyle: TextDecorationStyle.dotted,
