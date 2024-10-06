@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,7 +25,7 @@ class DetailsPage extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.60,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(
+                      image: CachedNetworkImageProvider(
                           'https://images.pexels.com/photos/2123307/pexels-photo-2123307.jpeg?auto=compress&cs=tinysrgb&w=600'),
                       fit: BoxFit.cover,
                     ),

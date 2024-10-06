@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
@@ -26,7 +27,7 @@ class PrayerDetailsPage extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.60,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(
+                      image: CachedNetworkImageProvider(
                           'https://images.pexels.com/photos/1615776/pexels-photo-1615776.jpeg?auto=compress&cs=tinysrgb&w=600'),
                       fit: BoxFit.cover,
                     ),
@@ -49,7 +50,7 @@ class PrayerDetailsPage extends StatelessWidget {
                           bottomRight: Radius.circular(30),
                         ),
                       ),
-                      child:  Text(
+                      child: Text(
                         'Morning  Prayer',
                         style: GoogleFonts.poppins(
                           color: Colors.white,
@@ -116,7 +117,7 @@ class PrayerDetailsPage extends StatelessWidget {
               height: 5,
             ),
             // Prayer Section with Frosted GlassBox
-             Padding(
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: SingleChildScrollView(
                 child: Column(

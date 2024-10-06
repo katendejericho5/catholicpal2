@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -109,7 +110,7 @@ class _CatholicAppCarouselState extends State<CatholicAppCarousel> {
       width: double.infinity,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage(imageUrl),
+          image: CachedNetworkImageProvider(imageUrl),
           fit: BoxFit.cover,
         ),
       ),

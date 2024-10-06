@@ -1,27 +1,28 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:catholicpal/models/saint_of_day.dart';
+import 'package:catholicpal/models/prayer_of_the_day.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart' as xml;
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:math';
 
-class SaintOfTheDayPage extends StatefulWidget {
-  const SaintOfTheDayPage({Key? key}) : super(key: key);
+class PrayerOfTheDayPage extends StatefulWidget {
+  const PrayerOfTheDayPage({Key? key}) : super(key: key);
 
   @override
-  _SaintOfTheDayPageState createState() => _SaintOfTheDayPageState();
+  _PrayerOfTheDayPageState createState() => _PrayerOfTheDayPageState();
 }
 
-class _SaintOfTheDayPageState extends State<SaintOfTheDayPage> {
-  Future<SaintOfTheDay> fetchSaintOfTheDay() async {
-    final response = await http.get(Uri.parse(
-        'https://feeds.feedburner.com/catholicnewsagency/saintoftheday'));
+class _PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
+  Future<PrayerOfTheDay> fetchPrayerOfTheDay() async {
+    final response =
+        await http.get(Uri.parse('https://www.catholic.org/xml/rss_pofd.php'));
     if (response.statusCode == 200) {
       var raw = xml.XmlDocument.parse(response.body);
       var element = raw.findAllElements('item').first;
-      return SaintOfTheDay.fromXml(element);
+      return PrayerOfTheDay.fromXml(element);
     } else {
-      throw Exception('Failed to load Saint of the Day');
+      throw Exception('Failed to load Prayer of the Day');
     }
   }
 
@@ -34,51 +35,55 @@ class _SaintOfTheDayPageState extends State<SaintOfTheDayPage> {
     }
   }
 
+  String getRandomImageUrl() {
+    int randomNumber = Random().nextInt(1000);
+    return 'https://picsum.photos/seed/$randomNumber/400/300';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Saint of the Day'),
+        title: const Text('Prayer of the Day'),
         elevation: 0,
       ),
-      body: FutureBuilder<SaintOfTheDay>(
-        future: fetchSaintOfTheDay(),
+      body: FutureBuilder<PrayerOfTheDay>(
+        future: fetchPrayerOfTheDay(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (snapshot.hasData) {
-            SaintOfTheDay saint = snapshot.data!;
+            PrayerOfTheDay prayer = snapshot.data!;
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (saint.imageUrl.isNotEmpty)
-                    Container(
-                      margin: const EdgeInsets.only(left: 15, right: 15),
-                      width: double.infinity,
-                      height: 200, // Use provided height or default to 150
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(
-                          image: CachedNetworkImageProvider(
-                            saint.imageUrl,
-                          ),
-                          fit: BoxFit.cover,
+                  Container(
+                    margin: const EdgeInsets.only(left: 15, right: 15),
+                    width: double.infinity,
+                    height: 200, // Use provided height or default to 150
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      image: DecorationImage(
+                        image: CachedNetworkImageProvider(
+                          getRandomImageUrl(),
                         ),
+                        fit: BoxFit.cover,
                       ),
                     ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          saint.saintName,
+                          prayer.title,
                           style: Theme.of(context)
                               .textTheme
-                              .headlineMedium
+                              .headlineSmall
                               ?.copyWith(
                                 color: Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.bold,
@@ -86,21 +91,17 @@ class _SaintOfTheDayPageState extends State<SaintOfTheDayPage> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Feast Day: ${saint.formattedDate}',
-                          style: Theme.of(context).textTheme.titleMedium,
+                          'Published: ${prayer.formattedDate}',
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          saint.description,
+                          prayer.description,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 16),
                         ElevatedButton(
-                          onPressed: () => _launchUrl(saint.link),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 32, vertical: 16),
-                          ),
+                          onPressed: () => _launchUrl(prayer.link),
                           child: const Text('Read More'),
                         ),
                       ],

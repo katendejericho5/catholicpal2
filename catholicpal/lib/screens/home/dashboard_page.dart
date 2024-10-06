@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:catholicpal/screens/home/category_prayers.dart';
 import 'package:catholicpal/screens/home/saints_details_page.dart';
+import 'package:catholicpal/screens/widgets/cached_image.dart';
 import 'package:catholicpal/screens/widgets/catholic_app_carousel.dart';
 import 'package:catholicpal/screens/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +55,7 @@ class HomeContent extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text(
+                    Text(
                       'Hi John',
                       style: GoogleFonts.poppins(
                         fontSize: 24,
@@ -72,7 +74,7 @@ class HomeContent extends StatelessWidget {
                 ),
                 const CircleAvatar(
                   radius: 30,
-                  backgroundImage: NetworkImage(
+                  backgroundImage: CachedNetworkImageProvider(
                       'https://images.unsplash.com/photo-1583314965950-cd54a8b6db84?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww'),
                 ),
               ],
@@ -86,7 +88,7 @@ class HomeContent extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                 Text(
+                Text(
                   'Prayer Categories',
                   style: GoogleFonts.poppins(
                     fontSize: 22,
@@ -147,8 +149,8 @@ class HomeContent extends StatelessWidget {
                           child: Stack(
                             fit: StackFit.expand,
                             children: [
-                              Image.network(
-                                category['image'],
+                              ShimmerCachedImage(
+                                imageUrl: category['image'],
                                 fit: BoxFit.cover,
                               ),
                               Container(
@@ -180,7 +182,7 @@ class HomeContent extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                 Text(
+                Text(
                   'Saints',
                   style: GoogleFonts.poppins(
                     fontSize: 22,
@@ -275,7 +277,7 @@ class HomeContent extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                 Text(
+                Text(
                   'Sacraments',
                   style: GoogleFonts.poppins(
                     fontSize: 22,

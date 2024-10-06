@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -8,8 +10,8 @@ Widget customImageContainer({
   required bool isFavorite,
   required VoidCallback onFavoriteTap,
   required VoidCallback onTap,
-  double? height, // Add optional height parameter
-  required bool showFavorite, // Add optional parameter to show favorites
+  double? height,
+  required bool showFavorite,
 }) {
   return GestureDetector(
     onTap: onTap,
@@ -21,32 +23,49 @@ Widget customImageContainer({
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             image: DecorationImage(
-              image: NetworkImage(imageUrl),
+              image: CachedNetworkImageProvider(imageUrl),
               fit: BoxFit.cover,
             ),
           ),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              width: 150,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.5), // Dark translucent color
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(15),
-                  bottomRight: Radius.circular(15),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              fit: BoxFit.cover,
+              placeholder: (context, url) => Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
+                child: Container(
+                  color: Colors.white,
+                  height: height ?? 150,
+                  width: 150,
                 ),
               ),
-              child: Center(
-                child: Text(
-                  title,
-                  style:  GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            width: 150,
+            height: 50,
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.5), // Dark translucent color
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(15),
+                bottomRight: Radius.circular(15),
+              ),
+            ),
+            child: Center(
+              child: Text(
+                title,
+                style: GoogleFonts.poppins(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
           ),

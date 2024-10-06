@@ -1,4 +1,7 @@
+import 'package:catholicpal/models/prayer_of_the_day.dart';
+import 'package:catholicpal/screens/home/daily_reading_page.dart';
 import 'package:catholicpal/screens/home/news_screen.dart';
+import 'package:catholicpal/screens/home/prayer_of_the_day_page.dart';
 import 'package:catholicpal/screens/home/saint_of_the_day_page.dart';
 import 'package:catholicpal/screens/widgets/custom_appbar.dart';
 import 'package:catholicpal/screens/widgets/widgets.dart';
@@ -64,6 +67,12 @@ class _UpdatesPageState extends State<UpdatesPage> {
                 switch (section.title) {
                   case 'Daily Readings':
                     // Navigate to Daily Readings Page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DailyReadingsPage(),
+                      ),
+                    );
                     break;
                   case 'Saint of the Day':
                     // Navigate to Saint of the Day Page
@@ -75,8 +84,14 @@ class _UpdatesPageState extends State<UpdatesPage> {
                     break;
                   case 'Prayer of the Day':
                     // Navigate to Prayer of the Day Page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PrayerOfTheDayPage(),
+                      ),
+                    );
                     break;
-                  case 'Latest News':
+                  case 'Daily News':
                     Navigator.push(
                       context,
                       MaterialPageRoute(
