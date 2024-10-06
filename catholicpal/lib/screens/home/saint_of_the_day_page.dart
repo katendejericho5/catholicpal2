@@ -13,8 +13,8 @@ class SaintOfTheDayPage extends StatefulWidget {
 
 class _SaintOfTheDayPageState extends State<SaintOfTheDayPage> {
   Future<SaintOfTheDay> fetchSaintOfTheDay() async {
-    final response =
-        await http.get(Uri.parse('https://www.catholic.org/xml/rss_sofd.php'));
+    final response = await http.get(Uri.parse(
+        'https://feeds.feedburner.com/catholicnewsagency/saintoftheday'));
     if (response.statusCode == 200) {
       var raw = xml.XmlDocument.parse(response.body);
       var element = raw.findAllElements('item').first;
@@ -50,50 +50,62 @@ class _SaintOfTheDayPageState extends State<SaintOfTheDayPage> {
           } else if (snapshot.hasData) {
             SaintOfTheDay saint = snapshot.data!;
             return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      saint.saintName,
-                      style:
-                          Theme.of(context).textTheme.headlineMedium?.copyWith(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (saint.imageUrl.isNotEmpty)
+                    Container(
+                      margin: const EdgeInsets.only(left: 15, right: 15),
+                      width: double.infinity,
+                      height: 200, // Use provided height or default to 150
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            saint.imageUrl,
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          saint.saintName,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(
                                 color: Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.bold,
                               ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      saint.formattedDate,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      saint.description,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    const SizedBox(height: 24),
-                    ElevatedButton(
-                      onPressed: () => _launchUrl(saint.link),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 32,
-                          vertical: 16,
                         ),
-                      ),
-                      child: const Text(
-                        'Read More',
-                        style: TextStyle(),
-                      ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Feast Day: ${saint.formattedDate}',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          saint.description,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        const SizedBox(height: 24),
+                        ElevatedButton(
+                          onPressed: () => _launchUrl(saint.link),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 32, vertical: 16),
+                          ),
+                          child: const Text('Read More'),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Source: ${saint.author}',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             );
           } else {
