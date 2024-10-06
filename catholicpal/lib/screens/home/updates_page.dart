@@ -1,4 +1,5 @@
 import 'package:catholicpal/screens/home/news_screen.dart';
+import 'package:catholicpal/screens/home/saint_of_the_day_page.dart';
 import 'package:catholicpal/screens/widgets/custom_appbar.dart';
 import 'package:catholicpal/screens/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +67,11 @@ class _UpdatesPageState extends State<UpdatesPage> {
                     break;
                   case 'Saint of the Day':
                     // Navigate to Saint of the Day Page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SaintOfTheDayPage()),
+                    );
                     break;
                   case 'Prayer of the Day':
                     // Navigate to Prayer of the Day Page

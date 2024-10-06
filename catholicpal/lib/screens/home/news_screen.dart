@@ -1,36 +1,87 @@
 import 'package:catholicpal/models/updates_model.dart';
+import 'package:catholicpal/screens/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:xml/xml.dart' as xml;
+import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http; // Add this import
 
-class NewsScreen extends StatelessWidget {
+class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
 
-  Future<List<NewsArticle>> getArticles(BuildContext context) async {
-    String xmlString =
-        await DefaultAssetBundle.of(context).loadString('assets/news.xml');
-    var raw = xml.XmlDocument.parse(xmlString);
-    var elements =
-        raw.findAllElements('item'); // Use 'item' for individual news articles
-    return elements.map((element) {
-      return NewsArticle(
-        title: element.findElements('title').first.text,
-        description: element.findElements('description').first.text,
-        link: element.findElements('link').first.text,
-        author: element.findElements('author').first.text,
-        pubDate: element.findElements('pubDate').first.text,
+  @override
+  State<NewsScreen> createState() => _NewsScreenState();
+}
+
+class _NewsScreenState extends State<NewsScreen> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  Future<List<NewsArticle>> getArticles() async {
+    final response =
+        await http.get(Uri.parse('https://www.catholic.org/xml/rss_news.php'));
+
+    if (response.statusCode == 200) {
+      var raw = xml.XmlDocument.parse(response.body);
+      var elements = raw.findAllElements('item');
+      return elements.map((element) {
+        return NewsArticle(
+          title: element.findElements('title').firstOrNull?.text ?? 'No Title',
+          description: element.findElements('description').firstOrNull?.text ??
+              'No Description',
+          link: element.findElements('link').firstOrNull?.text ?? '',
+          author: element.findElements('author').firstOrNull?.text ??
+              'Unknown Author',
+          pubDate: element.findElements('pubDate').firstOrNull?.text ?? '',
+        );
+      }).toList();
+    } else {
+      throw Exception('Failed to load news feed');
+    }
+  }
+
+  Future<void> _launchUrl(String url) async {
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(
+        uri,
+        mode: LaunchMode.inAppBrowserView,
       );
-    }).toList();
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  String _formatDate(String dateString) {
+    try {
+      DateTime date =
+          DateFormat("EEE, dd MMM yyyy HH:mm:ss Z").parse(dateString);
+      return DateFormat('MMMM d, y').format(date);
+    } catch (e) {
+      return dateString; // Return original string if parsing fails
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("News"),
-        backgroundColor: Colors.teal,
+      appBar: CustomAppBar(
+        title: 'Catholic News',
+        scrollController: _scrollController,
       ),
       body: FutureBuilder<List<NewsArticle>>(
-        future: getArticles(context),
+        future: getArticles(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -38,66 +89,78 @@ class NewsScreen extends StatelessWidget {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (snapshot.hasData) {
             List<NewsArticle> articles = snapshot.data!;
-            return ListView.builder(
-              itemCount: articles.length,
-              itemBuilder: (context, index) {
-                final article = articles[index];
-                return Card(
-                  elevation: 5,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          article.title,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          article.description,
-                          style: const TextStyle(
-                              fontSize: 16, color: Colors.black54),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'By: ${article.author}',
-                          style: const TextStyle(
-                              fontSize: 14, fontStyle: FontStyle.italic),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Published on: ${article.pubDate}',
-                          style:
-                              const TextStyle(fontSize: 14, color: Colors.grey),
-                        ),
-                        const SizedBox(height: 8),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: TextButton(
-                            onPressed: () {
-                              // Handle logic to open the article link
-                              // E.g., launch URL in browser
-                            },
-                            child: const Text(
-                              'Read More',
-                              style: TextStyle(color: Colors.teal),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+            return RefreshIndicator(
+              onRefresh: () async {
+                setState(() {});
               },
+              child: ListView.builder(
+                controller: _scrollController,
+                physics: const AlwaysScrollableScrollPhysics(),
+                itemCount: articles.length,
+                itemBuilder: (context, index) {
+                  final article = articles[index];
+                  return Card(
+                    elevation: 3,
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: InkWell(
+                      onTap: () => _launchUrl(article.link),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              article.title,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              article.description,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'By: ${article.author}',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                ),
+                                Text(
+                                  _formatDate(article.pubDate),
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ],
+                            ),
+                            ElevatedButton(
+                              onPressed: () => _launchUrl(article.link),
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 32,
+                                  vertical: 16,
+                                ),
+                              ),
+                              child: const Text(
+                                'Read More',
+                                style: TextStyle(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
             );
           } else {
             return const Center(child: Text('No news available'));

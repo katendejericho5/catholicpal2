@@ -17,16 +17,6 @@ class NewsArticle {
         _author = author,
         _pubDate = pubDate;
 
-  factory NewsArticle.fromJson(Map<String, dynamic> json) {
-    return NewsArticle(
-      title: json['title'],
-      description: json['description'],
-      link: json['link'],
-      author: json['author'],
-      pubDate: json['pubDate'],
-    );
-  }
-
   get title => _title;
   get description => _description;
   get link => _link;
