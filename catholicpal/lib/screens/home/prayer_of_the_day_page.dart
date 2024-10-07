@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:catholicpal/models/prayer_of_the_day.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart' as xml;
 import 'package:url_launcher/url_launcher.dart';
@@ -14,13 +15,50 @@ class PrayerOfTheDayPage extends StatefulWidget {
 }
 
 class PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
+  late Box<PrayerOfTheDay> prayerBox;
+
+  @override
+  void initState() {
+    super.initState();
+    _openHiveBox();
+  }
+
+  Future<void> _openHiveBox() async {
+    prayerBox = await Hive.openBox<PrayerOfTheDay>('prayerOfTheDay');
+  }
+
+  Future<PrayerOfTheDay?> fetchCachedPrayerOfTheDay() async {
+    // Try to get cached prayer from Hive
+    if (prayerBox.isNotEmpty) {
+      return prayerBox.get(0);
+    }
+    return null;
+  }
+
+  Future<void> savePrayerOfTheDay(PrayerOfTheDay prayer) async {
+    // Save the prayer into Hive (overwrite if exists)
+    await prayerBox.put(0, prayer);
+  }
+
   Future<PrayerOfTheDay> fetchPrayerOfTheDay() async {
+    // Check if cached data is available
+    PrayerOfTheDay? cachedPrayer = await fetchCachedPrayerOfTheDay();
+    if (cachedPrayer != null) {
+      return cachedPrayer;
+    }
+
+    // If no cache, fetch data from the internet
     final response =
         await http.get(Uri.parse('https://www.catholic.org/xml/rss_pofd.php'));
     if (response.statusCode == 200) {
       var raw = xml.XmlDocument.parse(response.body);
       var element = raw.findAllElements('item').first;
-      return PrayerOfTheDay.fromXml(element);
+      PrayerOfTheDay prayer = PrayerOfTheDay.fromXml(element);
+
+      // Save fetched prayer to Hive cache
+      await savePrayerOfTheDay(prayer);
+
+      return prayer;
     } else {
       throw Exception('Failed to load Prayer of the Day');
     }
