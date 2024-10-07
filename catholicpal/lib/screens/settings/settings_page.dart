@@ -35,6 +35,7 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: CustomAppBar(
         title: 'Settings',
         scrollController: _scrollController,
+        actions: [],
       ),
       body: ListView(
         children: [

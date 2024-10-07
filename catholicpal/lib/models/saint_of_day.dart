@@ -1,14 +1,26 @@
-import 'package:intl/intl.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:xml/xml.dart' as xml;
+import 'package:intl/intl.dart';
 import 'package:html/parser.dart' show parse;
 import 'package:html/dom.dart' as dom;
 
-class SaintOfTheDay {
+part 'saint_of_day.g.dart';
+
+@HiveType(typeId: 0)
+class SaintOfTheDay extends HiveObject {
+  @HiveField(0)
   final String title;
+  @HiveField(1)
   final String link;
+  @HiveField(2)
   final String description;
+  @HiveField(3)
   final String imageUrl;
+  @HiveField(4)
   final DateTime feastDate;
+  @HiveField(5)
+  final DateTime lastUpdated;
 
   SaintOfTheDay({
     required this.title,
@@ -16,6 +28,7 @@ class SaintOfTheDay {
     required this.description,
     required this.imageUrl,
     required this.feastDate,
+    required this.lastUpdated,
   });
 
   factory SaintOfTheDay.fromXml(xml.XmlElement element) {
@@ -43,6 +56,7 @@ class SaintOfTheDay {
       description: description,
       imageUrl: imageUrl,
       feastDate: feastDate,
+      lastUpdated: DateTime.now(),
     );
   }
 

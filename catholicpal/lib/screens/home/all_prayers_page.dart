@@ -65,6 +65,7 @@ class _AllPrayersPageState extends State<AllPrayersPage> {
       appBar: CustomAppBar(
         title: 'All Prayers',
         scrollController: _scrollController,
+        actions: [],
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(16),

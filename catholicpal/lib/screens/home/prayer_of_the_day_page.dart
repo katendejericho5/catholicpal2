@@ -7,13 +7,13 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:math';
 
 class PrayerOfTheDayPage extends StatefulWidget {
-  const PrayerOfTheDayPage({Key? key}) : super(key: key);
+  const PrayerOfTheDayPage({super.key});
 
   @override
-  _PrayerOfTheDayPageState createState() => _PrayerOfTheDayPageState();
+  PrayerOfTheDayPageState createState() => PrayerOfTheDayPageState();
 }
 
-class _PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
+class PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
   Future<PrayerOfTheDay> fetchPrayerOfTheDay() async {
     final response =
         await http.get(Uri.parse('https://www.catholic.org/xml/rss_pofd.php'));

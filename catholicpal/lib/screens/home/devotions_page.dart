@@ -83,7 +83,7 @@ class _DevotionsPageState extends State<DevotionsPage> {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Devotions',
-        scrollController: _scrollController,
+        scrollController: _scrollController, actions: [],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 6),

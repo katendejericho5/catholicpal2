@@ -26,7 +26,7 @@ final List<Section> sections = [
     description: 'Stay updated with the latest news.',
   ),
   Section(
-    title: 'Resources',
+    title: 'Catholic Answers',
     imageUrl:
         'https://images.pexels.com/photos/1557251/pexels-photo-1557251.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     description: 'Useful Resources to check out.',

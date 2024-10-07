@@ -60,6 +60,7 @@ class _CategoryPrayersPageState extends State<CategoryPrayersPage> {
       appBar: CustomAppBar(
         title: '${widget.category} Prayers',
         scrollController: _scrollController,
+        actions: [],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

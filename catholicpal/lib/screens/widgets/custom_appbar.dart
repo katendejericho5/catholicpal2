@@ -20,7 +20,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.scrollOffset = 34,
     this.appBarColor = Colors.white,
     this.boxShadowColor = Colors.black,
-    this.titleFontWeight = FontWeight.bold,
+    this.titleFontWeight = FontWeight.bold, required List<IconButton> actions,
   });
 
   @override

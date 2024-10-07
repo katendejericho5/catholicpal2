@@ -1,4 +1,4 @@
-import 'package:catholicpal/models/prayer_of_the_day.dart';
+import 'package:catholicpal/screens/home/catholic_answers_page.dart';
 import 'package:catholicpal/screens/home/daily_reading_page.dart';
 import 'package:catholicpal/screens/home/news_screen.dart';
 import 'package:catholicpal/screens/home/prayer_of_the_day_page.dart';
@@ -39,6 +39,7 @@ class _UpdatesPageState extends State<UpdatesPage> {
       appBar: CustomAppBar(
         title: 'Updates',
         scrollController: _scrollController,
+        actions: const [],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -99,8 +100,14 @@ class _UpdatesPageState extends State<UpdatesPage> {
                       ),
                     );
                     break;
-                  case 'Resources':
+                  case 'Catholic Answers':
                     // Navigate to Resources Page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CatholicAnswersNewsScreen(),
+                      ),
+                    );
                     break;
                   default:
                     // Handle default case
