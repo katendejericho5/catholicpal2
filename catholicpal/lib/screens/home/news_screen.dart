@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:catholicpal/models/news_model.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart' as xml;
 import 'package:url_launcher/url_launcher.dart';
@@ -13,13 +14,51 @@ class NewsScreen extends StatefulWidget {
 }
 
 class NewsScreenState extends State<NewsScreen> {
+  late Box<List<DailyNews>> newsBox;
+
+  @override
+  void initState() {
+    super.initState();
+    _openHiveBox();
+  }
+
+  Future<void> _openHiveBox() async {
+    newsBox = await Hive.openBox<List<DailyNews>>('dailyNews');
+  }
+
+  Future<List<DailyNews>> fetchCachedDailyNews() async {
+    // Try to get cached news from Hive
+    if (newsBox.isNotEmpty) {
+      return newsBox.get(0) ?? [];
+    }
+    return [];
+  }
+
+  Future<void> saveDailyNews(List<DailyNews> newsList) async {
+    // Save the news list to Hive (overwrite if exists)
+    await newsBox.put(0, newsList);
+  }
+
   Future<List<DailyNews>> fetchDailyNews() async {
+    // Check if cached data is available
+    List<DailyNews> cachedNews = await fetchCachedDailyNews();
+    if (cachedNews.isNotEmpty) {
+      return cachedNews;
+    }
+
+    // If no cache, fetch data from the internet
     final response = await http.get(
-        Uri.parse('https://feeds.feedburner.com/catholicnewsagency/dailynews'));
+      Uri.parse('https://feeds.feedburner.com/catholicnewsagency/dailynews'),
+    );
     if (response.statusCode == 200) {
       var raw = xml.XmlDocument.parse(response.body);
       var elements = raw.findAllElements('item');
-      return elements.map((element) => DailyNews.fromXml(element)).toList();
+      List<DailyNews> newsList = elements.map((element) => DailyNews.fromXml(element)).toList();
+
+      // Save fetched news to Hive cache
+      await saveDailyNews(newsList);
+
+      return newsList;
     } else {
       throw Exception('Failed to load Daily News');
     }
@@ -63,7 +102,7 @@ class NewsScreenState extends State<NewsScreen> {
                         Container(
                           margin: const EdgeInsets.only(left: 15, right: 15),
                           width: double.infinity,
-                          height: 200, // Use provided height or default to 150
+                          height: 200,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(

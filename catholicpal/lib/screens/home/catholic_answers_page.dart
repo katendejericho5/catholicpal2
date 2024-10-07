@@ -69,7 +69,8 @@ class CatholicAnswersNewsScreenState extends State<CatholicAnswersNewsScreen> {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Catholic Answers',
-        scrollController: _scrollController, actions: [],
+        scrollController: _scrollController,
+        actions: const [],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
