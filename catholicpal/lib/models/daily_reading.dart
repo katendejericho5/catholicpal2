@@ -1,6 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:xml/xml.dart' as xml;
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+part 'daily_reading.g.dart';
 
 @HiveType(typeId: 4)
 class DailyReading {

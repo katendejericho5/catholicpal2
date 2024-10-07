@@ -15,7 +15,7 @@ class PrayerOfTheDayPage extends StatefulWidget {
 }
 
 class PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
-  late Box<PrayerOfTheDay> prayerBox;
+  Box<PrayerOfTheDay>? prayerBox;
 
   @override
   void initState() {
@@ -23,39 +23,47 @@ class PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
     _openHiveBox();
   }
 
+  @override
+  void dispose() {
+    prayerBox?.close();
+    super.dispose();
+  }
+
   Future<void> _openHiveBox() async {
+    // Ensure Hive is initialized properly
+    await Hive.initFlutter();
     prayerBox = await Hive.openBox<PrayerOfTheDay>('prayerOfTheDay');
   }
 
   Future<PrayerOfTheDay?> fetchCachedPrayerOfTheDay() async {
-    // Try to get cached prayer from Hive
-    if (prayerBox.isNotEmpty) {
-      return prayerBox.get(0);
+    // Fetch cached data if available
+    if (prayerBox != null && prayerBox!.isNotEmpty) {
+      return prayerBox!.getAt(0);
     }
     return null;
   }
 
   Future<void> savePrayerOfTheDay(PrayerOfTheDay prayer) async {
-    // Save the prayer into Hive (overwrite if exists)
-    await prayerBox.put(0, prayer);
+    // Save or update prayer data in the cache
+    await prayerBox?.put(0, prayer);
   }
 
   Future<PrayerOfTheDay> fetchPrayerOfTheDay() async {
-    // Check if cached data is available
+    // Attempt to fetch cached data
     PrayerOfTheDay? cachedPrayer = await fetchCachedPrayerOfTheDay();
     if (cachedPrayer != null) {
       return cachedPrayer;
     }
 
-    // If no cache, fetch data from the internet
+    // If no cache, fetch from network
     final response =
         await http.get(Uri.parse('https://www.catholic.org/xml/rss_pofd.php'));
     if (response.statusCode == 200) {
-      var raw = xml.XmlDocument.parse(response.body);
-      var element = raw.findAllElements('item').first;
-      PrayerOfTheDay prayer = PrayerOfTheDay.fromXml(element);
+      var rawXml = xml.XmlDocument.parse(response.body);
+      var item = rawXml.findAllElements('item').first;
+      PrayerOfTheDay prayer = PrayerOfTheDay.fromXml(item);
 
-      // Save fetched prayer to Hive cache
+      // Save fetched data to cache
       await savePrayerOfTheDay(prayer);
 
       return prayer;
@@ -74,6 +82,7 @@ class PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
   }
 
   String getRandomImageUrl() {
+    // Generate a random image URL from picsum.photos
     int randomNumber = Random().nextInt(1000);
     return 'https://picsum.photos/seed/$randomNumber/400/300';
   }
@@ -99,9 +108,9 @@ class PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(left: 15, right: 15),
+                    margin: const EdgeInsets.only(left: 15, right: 15, top: 15),
                     width: double.infinity,
-                    height: 200, // Use provided height or default to 150
+                    height: 200,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       image: DecorationImage(

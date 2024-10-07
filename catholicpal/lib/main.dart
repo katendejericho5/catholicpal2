@@ -1,3 +1,5 @@
+import 'package:catholicpal/models/catholic_answers_model.dart';
+import 'package:catholicpal/models/daily_reading.dart';
 import 'package:catholicpal/models/news_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,12 +36,16 @@ void main() async {
   Hive.registerAdapter(SaintOfTheDayAdapter());
   Hive.registerAdapter(PrayerOfTheDayAdapter());
   Hive.registerAdapter(DailyNewsAdapter());
+  Hive.registerAdapter(CatholicAnswersNewsAdapter());
+  Hive.registerAdapter(DailyReadingAdapter());
 
   // Open the boxes
   await Hive.openBox<SaintOfTheDay>('saintOfTheDay');
   await Hive.openBox<PrayerOfTheDay>(
       'prayerOfTheDay'); // Add this for PrayerOfTheDay
   await Hive.openBox<DailyNews>('dailyNews');
+  await Hive.openBox<CatholicAnswersNews>('catholicAnswersNews');
+  await Hive.openBox<DailyReading>('dailyReading');
 
   runApp(
     MultiProvider(
@@ -66,6 +72,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   late Box<SaintOfTheDay> saintBox;
   late Box<PrayerOfTheDay> prayerBox; // Add this for PrayerOfTheDay
   late Box<DailyNews> newsBox;
+  late Box<CatholicAnswersNews> catholicAnswersNewsBox;
+  late Box<DailyReading> dailyReadingBox;
 
   @override
   void initState() {
@@ -75,6 +83,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     prayerBox = Hive.box<PrayerOfTheDay>(
         'prayerOfTheDay'); // Initialize the PrayerOfTheDay box
     newsBox = Hive.box<DailyNews>('dailyNews');
+    catholicAnswersNewsBox =
+        Hive.box<CatholicAnswersNews>('catholicAnswersNews');
+    dailyReadingBox = Hive.box<DailyReading>('dailyReading');
 
     Future.delayed(
       const Duration(milliseconds: 100),
@@ -147,6 +158,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       await newsBox.compact();
       await newsBox.close();
     }
+    if (catholicAnswersNewsBox.isOpen) {
+      await catholicAnswersNewsBox.compact();
+      await catholicAnswersNewsBox.close();
+    }
+    if (dailyReadingBox.isOpen) {
+      await dailyReadingBox.compact();
+      await dailyReadingBox.close();
+    }
   }
 
   Future<void> _openHiveBox() async {
@@ -159,6 +178,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     }
     if (!newsBox.isOpen) {
       newsBox = await Hive.openBox<DailyNews>('dailyNews');
+    }
+    if (!catholicAnswersNewsBox.isOpen) {
+      catholicAnswersNewsBox =
+          await Hive.openBox<CatholicAnswersNews>('catholicAnswersNews');
+    }
+    if (!dailyReadingBox.isOpen) {
+      dailyReadingBox = await Hive.openBox<DailyReading>('dailyReading');
     }
   }
 

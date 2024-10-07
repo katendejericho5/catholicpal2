@@ -18,7 +18,7 @@ class CatholicAnswersNewsScreen extends StatefulWidget {
 }
 
 class CatholicAnswersNewsScreenState extends State<CatholicAnswersNewsScreen> {
-  late Future<List<CatholicAnswersNews>> _newsFuture;
+  Future<List<CatholicAnswersNews>>? _newsFuture;
   late ScrollController _scrollController;
 
   // Hive Box name
@@ -40,6 +40,8 @@ class CatholicAnswersNewsScreenState extends State<CatholicAnswersNewsScreen> {
   @override
   void dispose() {
     _scrollController.dispose();
+    // close box
+    Hive.box(newsBoxName).close();
     super.dispose();
   }
 
