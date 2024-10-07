@@ -1,9 +1,9 @@
 import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:catholicpal/models/catholic_answers_model.dart';
 import 'package:catholicpal/screens/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shimmer/shimmer.dart';
 import 'package:xml/xml.dart' as xml;
@@ -19,34 +19,58 @@ class CatholicAnswersNewsScreen extends StatefulWidget {
 
 class CatholicAnswersNewsScreenState extends State<CatholicAnswersNewsScreen> {
   late Future<List<CatholicAnswersNews>> _newsFuture;
-
   late ScrollController _scrollController;
+
+  // Hive Box name
+  final String newsBoxName = 'catholic_answers_news';
 
   @override
   void initState() {
     super.initState();
-    _newsFuture = fetchCatholicAnswersNews();
     _scrollController = ScrollController();
+
+    // Initialize Hive box for caching news
+    Hive.openBox(newsBoxName).then((_) {
+      setState(() {
+        _newsFuture = fetchCatholicAnswersNews();
+      });
+    });
   }
 
   @override
   void dispose() {
-    // Dispose the ScrollController
     _scrollController.dispose();
     super.dispose();
   }
 
   Future<List<CatholicAnswersNews>> fetchCatholicAnswersNews() async {
-    final response = await http.get(Uri.parse(
-        'https://shop.catholic.com/rss.php?action=newblogs&type=rss'));
-    if (response.statusCode == 200) {
-      var raw = xml.XmlDocument.parse(response.body);
-      var elements = raw.findAllElements('item');
-      return elements
-          .map((element) => CatholicAnswersNews.fromXml(element))
-          .toList();
-    } else {
-      throw Exception('Failed to load Catholic Answers News');
+    // Try to get data from the network
+    try {
+      final response = await http.get(Uri.parse(
+          'https://shop.catholic.com/rss.php?action=newblogs&type=rss'));
+      if (response.statusCode == 200) {
+        var raw = xml.XmlDocument.parse(response.body);
+        var elements = raw.findAllElements('item');
+        List<CatholicAnswersNews> newsList = elements
+            .map((element) => CatholicAnswersNews.fromXml(element))
+            .toList();
+
+        // Cache the news data in Hive
+        var newsBox = Hive.box(newsBoxName);
+        newsBox.put('newsList', newsList);
+
+        return newsList;
+      } else {
+        throw Exception('Failed to load Catholic Answers News');
+      }
+    } catch (e) {
+      // If fetching from network fails, load cached news
+      var newsBox = Hive.box(newsBoxName);
+      if (newsBox.containsKey('newsList')) {
+        return List<CatholicAnswersNews>.from(newsBox.get('newsList'));
+      } else {
+        throw Exception('No internet and no cached data available');
+      }
     }
   }
 

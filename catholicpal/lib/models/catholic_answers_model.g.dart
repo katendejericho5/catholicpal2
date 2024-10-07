@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'news_model.dart';
+part of 'catholic_answers_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class DailyNewsAdapter extends TypeAdapter<DailyNews> {
+class CatholicAnswersNewsAdapter extends TypeAdapter<CatholicAnswersNews> {
   @override
-  final int typeId = 2;
+  final int typeId = 3;
 
   @override
-  DailyNews read(BinaryReader reader) {
+  CatholicAnswersNews read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return DailyNews(
+    return CatholicAnswersNews(
       title: fields[0] as String,
       link: fields[1] as String,
       description: fields[2] as String,
@@ -26,7 +26,7 @@ class DailyNewsAdapter extends TypeAdapter<DailyNews> {
   }
 
   @override
-  void write(BinaryWriter writer, DailyNews obj) {
+  void write(BinaryWriter writer, CatholicAnswersNews obj) {
     writer
       ..writeByte(5)
       ..writeByte(0)
@@ -47,7 +47,7 @@ class DailyNewsAdapter extends TypeAdapter<DailyNews> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DailyNewsAdapter &&
+      other is CatholicAnswersNewsAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

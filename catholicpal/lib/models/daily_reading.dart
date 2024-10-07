@@ -1,10 +1,19 @@
 import 'package:intl/intl.dart';
 import 'package:xml/xml.dart' as xml;
+import 'package:hive/hive.dart';
 
+@HiveType(typeId: 4)
 class DailyReading {
+  @HiveField(0)
   final String title;
+
+  @HiveField(1)
   final String link;
+
+  @HiveField(2)
   final String description;
+
+  @HiveField(3)
   final DateTime publishDate;
 
   DailyReading({
