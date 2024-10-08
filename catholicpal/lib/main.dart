@@ -146,61 +146,62 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      // App is in background
-      _closeHiveBox();
-    } else if (state == AppLifecycleState.resumed) {
-      // App is in foreground
-      _openHiveBox();
-    }
-  }
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   if (state == AppLifecycleState.paused) {
+  //     // App is in background
+  //     _closeHiveBox();
+  //   } else if (state == AppLifecycleState.resumed) {
+  //     // App is in foreground
+  //     _openHiveBox();
+  //   }
 
-  Future<void> _closeHiveBox() async {
-    if (saintBox.isOpen) {
-      await saintBox.compact();
-      await saintBox.close();
-    }
+  // }
 
-    if (prayerBox.isOpen) {
-      await prayerBox.compact();
-      await prayerBox.close();
-    }
+  // Future<void> _closeHiveBox() async {
+  //   if (saintBox.isOpen) {
+  //     await saintBox.compact();
+  //     await saintBox.close();
+  //   }
 
-    if (newsBox.isOpen) {
-      await newsBox.compact();
-      await newsBox.close();
-    }
-    if (catholicAnswersNewsBox.isOpen) {
-      await catholicAnswersNewsBox.compact();
-      await catholicAnswersNewsBox.close();
-    }
-    if (dailyReadingBox.isOpen) {
-      await dailyReadingBox.compact();
-      await dailyReadingBox.close();
-    }
-  }
+  //   if (prayerBox.isOpen) {
+  //     await prayerBox.compact();
+  //     await prayerBox.close();
+  //   }
 
-  Future<void> _openHiveBox() async {
-    if (!saintBox.isOpen) {
-      saintBox = await Hive.openBox<SaintOfTheDay>('saintOfTheDay');
-    }
+  //   if (newsBox.isOpen) {
+  //     await newsBox.compact();
+  //     await newsBox.close();
+  //   }
+  //   if (catholicAnswersNewsBox.isOpen) {
+  //     await catholicAnswersNewsBox.compact();
+  //     await catholicAnswersNewsBox.close();
+  //   }
+  //   if (dailyReadingBox.isOpen) {
+  //     await dailyReadingBox.compact();
+  //     await dailyReadingBox.close();
+  //   }
+  // }
 
-    if (!prayerBox.isOpen) {
-      prayerBox = await Hive.openBox<PrayerOfTheDay>('prayerOfTheDay');
-    }
-    if (!newsBox.isOpen) {
-      newsBox = await Hive.openBox<DailyNews>('dailyNews');
-    }
-    if (!catholicAnswersNewsBox.isOpen) {
-      catholicAnswersNewsBox =
-          await Hive.openBox<CatholicAnswersNews>('catholicAnswersNews');
-    }
-    if (!dailyReadingBox.isOpen) {
-      dailyReadingBox = await Hive.openBox<DailyReading>('dailyReading');
-    }
-  }
+  // Future<void> _openHiveBox() async {
+  //   if (!saintBox.isOpen) {
+  //     saintBox = await Hive.openBox<SaintOfTheDay>('saintOfTheDay');
+  //   }
+
+  //   if (!prayerBox.isOpen) {
+  //     prayerBox = await Hive.openBox<PrayerOfTheDay>('prayerOfTheDay');
+  //   }
+  //   if (!newsBox.isOpen) {
+  //     newsBox = await Hive.openBox<DailyNews>('dailyNews');
+  //   }
+  //   if (!catholicAnswersNewsBox.isOpen) {
+  //     catholicAnswersNewsBox =
+  //         await Hive.openBox<CatholicAnswersNews>('catholicAnswersNews');
+  //   }
+  //   if (!dailyReadingBox.isOpen) {
+  //     dailyReadingBox = await Hive.openBox<DailyReading>('dailyReading');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

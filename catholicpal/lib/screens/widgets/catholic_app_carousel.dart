@@ -41,8 +41,8 @@ class _CatholicAppCarouselState extends State<CatholicAppCarousel> {
       {
         'title': 'Saint of the Day',
         'content': saintOfTheDay?.title ?? 'No saint information available',
-        'imageUrl':
-            'https://images.pexels.com/photos/19474817/pexels-photo-19474817/free-photo-of-traditional-painting-in-a-church-in-italy.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'imageUrl': saintOfTheDay?.imageUrl ??
+            ' https://images.pexels.com/photos/19474817/pexels-photo-19474817/free-photo-of-traditional-painting-in-a-church-in-italy.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'navigateTo': const SaintOfTheDayPage(),
       },
       {
