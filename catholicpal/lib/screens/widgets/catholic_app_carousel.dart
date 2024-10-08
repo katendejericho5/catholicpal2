@@ -150,8 +150,7 @@ class _CatholicAppCarouselState extends State<CatholicAppCarousel> {
               end: Alignment.bottomCenter,
               colors: [
                 Colors.transparent,
-                Colors.black.withOpacity(
-                    0.5), // Slightly lighter for better text visibility
+                Colors.black.withOpacity(0.5),
               ],
             ),
           ),

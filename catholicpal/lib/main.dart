@@ -2,6 +2,7 @@ import 'package:catholicpal/models/catholic_answers_model.dart';
 import 'package:catholicpal/models/daily_reading.dart';
 import 'package:catholicpal/models/news_model.dart';
 import 'package:catholicpal/providers/daily_reading_provider.dart';
+import 'package:catholicpal/providers/devotions_provider.dart';
 import 'package:catholicpal/providers/prayer_of_the_day_provider.dart';
 import 'package:catholicpal/providers/saint_of_the_day_provider.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +67,9 @@ void main() async {
         // SaintOfTheDayProvider
         ChangeNotifierProvider(
           create: (context) => SaintOfTheDayProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DevotionProvider(),
         ),
       ],
       child: const MyApp(),

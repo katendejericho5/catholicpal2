@@ -87,7 +87,7 @@ class _DailyReadingsPageState extends State<DailyReadingsPage> {
   Future<void> _launchUrl(String url) async {
     Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.inAppWebView);
+      await launchUrl(uri, mode: LaunchMode.inAppBrowserView);
     } else {
       throw 'Could not launch $url';
     }

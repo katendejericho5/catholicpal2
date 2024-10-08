@@ -1,8 +1,12 @@
+import 'package:catholicpal/providers/devotions_provider.dart';
+import 'package:catholicpal/screens/home/devotion_details.dart';
 import 'package:catholicpal/screens/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:catholicpal/screens/widgets/custom_appbar.dart';
+import 'package:catholicpal/models/devotion_model.dart';
 
 class DevotionsPage extends StatefulWidget {
   const DevotionsPage({super.key});
@@ -19,6 +23,11 @@ class _DevotionsPageState extends State<DevotionsPage> {
     super.initState();
     // Initialize the ScrollController
     _scrollController = ScrollController();
+
+    // Load devotions using the provider
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<DevotionProvider>(context, listen: false).loadDevotions();
+    });
   }
 
   @override
@@ -28,54 +37,19 @@ class _DevotionsPageState extends State<DevotionsPage> {
     super.dispose();
   }
 
-  final List<Map<String, dynamic>> devotions = [
-    {
-      'title': 'Rosary',
-      'imageUrl':
-          'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'isFavorite': false,
-    },
-    {
-      'title': 'Divine Mercy',
-      'imageUrl':
-          'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'isFavorite': false,
-    },
-    {
-      'title': 'Stations of the Cross',
-      'imageUrl':
-          'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'isFavorite': false,
-    },
-    {
-      'title': 'Novenas',
-      'imageUrl':
-          'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'isFavorite': false,
-    },
-    {
-      'title': 'Litanies',
-      'imageUrl':
-          'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'isFavorite': false,
-    },
-    {
-      'title': 'Adoration',
-      'imageUrl':
-          'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'isFavorite': false,
-    },
-  ];
-
-  void _toggleFavorite(int index) {
-    setState(() {
-      devotions[index]['isFavorite'] = !devotions[index]['isFavorite'];
-    });
+  void _toggleFavorite(int index, Devotion devotion) {
+    // Implement logic to toggle favorite
+    // Here, you might call a method from the provider to update the favorite status
   }
 
-  void _onDevotionTap(int index) {
-    // Handle devotion tap
-    print('Tapped on: ${devotions[index]['title']}');
+  void _onDevotionTap(Devotion devotion) {
+    // Navigate to the details page
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DevotionDetailsPage(devotion: devotion),
+      ),
+    );
   }
 
   @override
@@ -83,7 +57,8 @@ class _DevotionsPageState extends State<DevotionsPage> {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Devotions',
-        scrollController: _scrollController, actions: [],
+        scrollController: _scrollController,
+        actions: const [],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 6),
@@ -114,29 +89,38 @@ class _DevotionsPageState extends State<DevotionsPage> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: MasonryGridView.count(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 16,
-                  itemBuilder: (context, index) {
-                    // Randomly determine the height for each card
-                    double height =
-                        (index % 2 == 0) ? 180 : 240; // Different heights
+                child: Consumer<DevotionProvider>(
+                  builder: (context, devotionProvider, child) {
+                    if (devotionProvider.devotions.isEmpty) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
 
-                    return SizedBox(
-                      height: height,
-                      child: customImageContainer(
-                        imageUrl: devotions[index]['imageUrl'],
-                        title: devotions[index]['title'],
-                        isFavorite: devotions[index]['isFavorite'],
-                        onFavoriteTap: () => _toggleFavorite(index),
-                        onTap: () => _onDevotionTap(index),
-                        height: height, // Pass the custom height
-                        showFavorite: true,
-                      ),
+                    return MasonryGridView.count(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 16,
+                      crossAxisSpacing: 16,
+                      itemBuilder: (context, index) {
+                        final devotion = devotionProvider.devotions[index];
+
+                        double height = (index % 2 == 0) ? 180 : 240;
+
+                        return SizedBox(
+                          height: height,
+                          child: customImageContainer(
+                            imageUrl: devotion.imageUrl,
+                            title: devotion.name,
+                            isFavorite: false, // Add logic for favorite status
+                            onFavoriteTap: () =>
+                                _toggleFavorite(index, devotion),
+                            onTap: () => _onDevotionTap(devotion),
+                            height: height,
+                            showFavorite: true,
+                          ),
+                        );
+                      },
+                      itemCount: devotionProvider.devotions.length,
                     );
                   },
-                  itemCount: devotions.length,
                 ),
               ),
             ),
