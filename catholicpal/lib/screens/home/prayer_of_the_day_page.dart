@@ -6,7 +6,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart' as xml;
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:math';
 
 class PrayerOfTheDayPage extends StatefulWidget {
   const PrayerOfTheDayPage({super.key});
