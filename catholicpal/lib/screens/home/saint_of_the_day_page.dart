@@ -128,10 +128,13 @@ class SaintOfTheDayPageState extends State<SaintOfTheDayPage>
                 if (isLoading && saint == null) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (saint == null) {
-                  return Center(
-                      child: Text(errorMessage.isEmpty
-                          ? 'No data available'
-                          : errorMessage));
+                  if (kDebugMode) {
+                    print(errorMessage.isEmpty
+                        ? 'No data available'
+                        : errorMessage);
+                  }
+                  return const Center(
+                      child: Text('Oops! Something went wrong'));
                 }
                 return SingleChildScrollView(
                   controller: _scrollController,

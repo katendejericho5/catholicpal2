@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:catholicpal/models/prayer_of_the_day.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -16,11 +17,15 @@ class PrayerOfTheDayPage extends StatefulWidget {
 
 class PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
   Box<PrayerOfTheDay>? prayerBox;
+  PrayerOfTheDay? prayerOfTheDay;
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _openHiveBox();
+    _openHiveBox().then((_) {
+      _fetchPrayerOfTheDay();
+    });
   }
 
   @override
@@ -30,43 +35,70 @@ class PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
   }
 
   Future<void> _openHiveBox() async {
-    // Ensure Hive is initialized properly
+    // Initialize Hive and open the box for PrayerOfTheDay
     await Hive.initFlutter();
+    if (!Hive.isAdapterRegistered(0)) {
+      Hive.registerAdapter(PrayerOfTheDayAdapter());
+    }
     prayerBox = await Hive.openBox<PrayerOfTheDay>('prayerOfTheDay');
   }
 
-  Future<PrayerOfTheDay?> fetchCachedPrayerOfTheDay() async {
-    // Fetch cached data if available
+  Future<void> _fetchPrayerOfTheDay() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      // Try to get cached prayer
+      PrayerOfTheDay? cachedPrayer = await _getCachedPrayerOfTheDay();
+
+      if (cachedPrayer != null) {
+        setState(() {
+          prayerOfTheDay = cachedPrayer;
+          isLoading = false;
+        });
+      } else {
+        // If no cached prayer, fetch from network
+        PrayerOfTheDay fetchedPrayer = await _fetchFromNetwork();
+        await _savePrayerOfTheDay(fetchedPrayer);
+
+        setState(() {
+          prayerOfTheDay = fetchedPrayer;
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error fetching prayer: $e');
+      }
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<PrayerOfTheDay?> _getCachedPrayerOfTheDay() async {
+    // Return the cached prayer if available
     if (prayerBox != null && prayerBox!.isNotEmpty) {
       return prayerBox!.getAt(0);
     }
     return null;
   }
 
-  Future<void> savePrayerOfTheDay(PrayerOfTheDay prayer) async {
+  Future<void> _savePrayerOfTheDay(PrayerOfTheDay prayer) async {
     // Save or update prayer data in the cache
     await prayerBox?.put(0, prayer);
   }
 
-  Future<PrayerOfTheDay> fetchPrayerOfTheDay() async {
-    // Attempt to fetch cached data
-    PrayerOfTheDay? cachedPrayer = await fetchCachedPrayerOfTheDay();
-    if (cachedPrayer != null) {
-      return cachedPrayer;
-    }
-
-    // If no cache, fetch from network
+  Future<PrayerOfTheDay> _fetchFromNetwork() async {
+    // Fetch prayer data from the network
     final response =
         await http.get(Uri.parse('https://www.catholic.org/xml/rss_pofd.php'));
+
     if (response.statusCode == 200) {
       var rawXml = xml.XmlDocument.parse(response.body);
       var item = rawXml.findAllElements('item').first;
-      PrayerOfTheDay prayer = PrayerOfTheDay.fromXml(item);
-
-      // Save fetched data to cache
-      await savePrayerOfTheDay(prayer);
-
-      return prayer;
+      return PrayerOfTheDay.fromXml(item);
     } else {
       throw Exception('Failed to load Prayer of the Day');
     }
@@ -81,10 +113,9 @@ class PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
     }
   }
 
-  String getRandomImageUrl() {
+  String getImageUrl() {
     // Generate a random image URL from picsum.photos
-    int randomNumber = Random().nextInt(1000);
-    return 'https://picsum.photos/seed/$randomNumber/400/300';
+    return 'https://images.pexels.com/photos/1615776/pexels-photo-1615776.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
   }
 
   @override
@@ -94,74 +125,65 @@ class PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
         title: const Text('Prayer of the Day'),
         elevation: 0,
       ),
-      body: FutureBuilder<PrayerOfTheDay>(
-        future: fetchPrayerOfTheDay(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (snapshot.hasData) {
-            PrayerOfTheDay prayer = snapshot.data!;
-            return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 15, right: 15, top: 15),
-                    width: double.infinity,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      image: DecorationImage(
-                        image: CachedNetworkImageProvider(
-                          getRandomImageUrl(),
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : prayerOfTheDay != null
+              ? SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin:
+                            const EdgeInsets.only(left: 15, right: 15, top: 15),
+                        width: double.infinity,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          image: DecorationImage(
+                            image: CachedNetworkImageProvider(
+                              getImageUrl(),
+                            ),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        fit: BoxFit.cover,
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              prayerOfTheDay!.title,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              'Published: ${prayerOfTheDay!.formattedDate}',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              prayerOfTheDay!.description,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                            const SizedBox(height: 16),
+                            ElevatedButton(
+                              onPressed: () => _launchUrl(prayerOfTheDay!.link),
+                              child: const Text('Read More'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          prayer.title,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Published: ${prayer.formattedDate}',
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          prayer.description,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        const SizedBox(height: 16),
-                        ElevatedButton(
-                          onPressed: () => _launchUrl(prayer.link),
-                          child: const Text('Read More'),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
-          } else {
-            return const Center(child: Text('No data available'));
-          }
-        },
-      ),
+                )
+              : const Center(child: Text('No data available')),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:catholicpal/models/news_model.dart';
 import 'package:catholicpal/screens/widgets/custom_appbar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -110,7 +111,10 @@ class NewsScreenState extends State<NewsScreen> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
+              if (kDebugMode) {
+                print(snapshot.error);
+              }
+              return const Center(child: Text('Oops! Something went wrong'));
             } else if (snapshot.hasData) {
               List<DailyNews> newsList = snapshot.data!;
               return ListView.builder(

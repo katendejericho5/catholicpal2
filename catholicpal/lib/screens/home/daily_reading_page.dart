@@ -1,4 +1,5 @@
 import 'package:catholicpal/models/daily_reading.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:hive_flutter/hive_flutter.dart';
@@ -114,10 +115,11 @@ class DailyReadingsPageState extends State<DailyReadingsPage> {
                 if (isLoading && reading == null) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (reading == null) {
-                  return Center(
-                      child: Text(errorMessage.isEmpty
-                          ? 'No data available'
-                          : errorMessage));
+                  if (kDebugMode) {
+                    print(errorMessage);
+                  }
+                  return const Center(
+                      child: Text('Oops! Something went wrong'));
                 }
                 return SingleChildScrollView(
                   child: Padding(
