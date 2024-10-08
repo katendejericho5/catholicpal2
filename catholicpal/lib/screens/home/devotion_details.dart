@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:catholicpal/models/devotion_model.dart'; // Import the Devotion model
+import 'package:catholicpal/models/devotion_model.dart';
+import 'package:shimmer/shimmer.dart'; // Import the Devotion model
 
 class DevotionDetailsPage extends StatelessWidget {
   final Devotion devotion;
@@ -18,13 +20,33 @@ class DevotionDetailsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Devotion Image
-              Image.network(
-                devotion.imageUrl,
-                fit: BoxFit.cover,
-                height: 250,
-                width: double.infinity,
+              Container(
+                height: MediaQuery.of(context).size.height*0.4,
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.only(
+                  left: 5,
+                  right: 10,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: CachedNetworkImage(
+                    imageUrl: devotion.imageUrl,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        color: Colors.white,
+                        height: 50,
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
+                ),
               ),
+
               const SizedBox(height: 20),
               // Devotion Name
               Text(
@@ -61,7 +83,6 @@ class DevotionDetailsPage extends StatelessWidget {
                   return ListTile(
                     title: Text(prayer.name),
                     subtitle: Text(prayer.details),
-                    leading: Image.asset(prayer.iconAssetUrl, width: 40, height: 40),
                   );
                 }).toList(),
               ),
@@ -78,7 +99,6 @@ class DevotionDetailsPage extends StatelessWidget {
                   return ListTile(
                     title: Text(saint.name),
                     subtitle: Text(saint.description),
-                    leading: Image.network(saint.imageUrl, width: 40, height: 40),
                   );
                 }).toList(),
               ),
