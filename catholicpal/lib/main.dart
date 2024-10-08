@@ -1,6 +1,9 @@
 import 'package:catholicpal/models/catholic_answers_model.dart';
 import 'package:catholicpal/models/daily_reading.dart';
 import 'package:catholicpal/models/news_model.dart';
+import 'package:catholicpal/providers/daily_reading_provider.dart';
+import 'package:catholicpal/providers/prayer_of_the_day_provider.dart';
+import 'package:catholicpal/providers/saint_of_the_day_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -52,6 +55,17 @@ void main() async {
       providers: [
         ChangeNotifierProvider(
           create: (context) => MainProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DailyReadingProvider(),
+        ),
+        // PrayerOfTheDayProvider
+        ChangeNotifierProvider(
+          create: (context) => PrayerOfTheDayProvider(),
+        ),
+        // SaintOfTheDayProvider
+        ChangeNotifierProvider(
+          create: (context) => SaintOfTheDayProvider(),
         ),
       ],
       child: const MyApp(),
