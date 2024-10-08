@@ -2,11 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
-
 import 'package:google_fonts/google_fonts.dart';
+import 'package:catholicpal/models/prayer_model.dart'; // Import your Prayer model
 
 class PrayerDetailsPage extends StatelessWidget {
-  const PrayerDetailsPage({super.key});
+  final Prayer prayer; // Add a Prayer parameter
+
+  const PrayerDetailsPage(
+      {super.key, required this.prayer}); // Update constructor
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,7 @@ class PrayerDetailsPage extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        'Morning  Prayer',
+                        prayer.name,
                         style: GoogleFonts.poppins(
                           color: Colors.white,
                           fontSize: 24,
@@ -124,10 +127,10 @@ class PrayerDetailsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Lord Jesus Christ, you have called us to be your disciples and to follow you. We ask that you strengthen our faith and help us to remain true to your teachings. May Saint Peter’s example inspire us to live a life of devotion and love.\nAmen.',
+                      prayer.details,
                       style: GoogleFonts.poppins(fontSize: 16),
                     ),
-                    // Add more prayer content here
+                    // You can add more content here if needed
                   ],
                 ),
               ),

@@ -1,47 +1,42 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:catholicpal/screens/home/category_prayers.dart';
-import 'package:catholicpal/screens/home/saints_details_page.dart';
+import 'dart:async';
 import 'package:catholicpal/screens/widgets/cached_image.dart';
-import 'package:catholicpal/screens/widgets/catholic_app_carousel.dart';
-import 'package:catholicpal/screens/widgets/widgets.dart';
+import 'package:catholicpal/services/prayer_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:catholicpal/models/categories_model.dart';
+import 'package:catholicpal/screens/home/category_prayers.dart';
+import 'package:catholicpal/screens/home/saints_details_page.dart';
+import 'package:catholicpal/screens/widgets/widgets.dart';
+import 'package:catholicpal/screens/widgets/catholic_app_carousel.dart';
 
-class HomeContent extends StatelessWidget {
+class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Categories data
-    final List<Map<String, dynamic>> categories = [
-      {
-        'title': 'Chaplets',
-        'image':
-            'https://images.pexels.com/photos/1615776/pexels-photo-1615776.jpeg?auto=compress&cs=tinysrgb&w=600'
-      },
-      {
-        'title': 'Traditional Prayers',
-        'image':
-            'https://images.pexels.com/photos/2774546/pexels-photo-2774546.jpeg?auto=compress&cs=tinysrgb&w=600'
-      },
-      {
-        'title': 'Holy Spirit',
-        'image':
-            'https://images.pexels.com/photos/267748/pexels-photo-267748.jpeg?auto=compress&cs=tinysrgb&w=600'
-      },
-      {
-        'title': 'Rosary',
-        'image':
-            'https://images.pexels.com/photos/208216/pexels-photo-208216.jpeg?auto=compress&cs=tinysrgb&w=600'
-      },
-      {
-        'title': 'Easter',
-        'image':
-            'https://images.pexels.com/photos/2356140/pexels-photo-2356140.jpeg?auto=compress&cs=tinysrgb&w=600'
-      },
-    ];
+  _HomeContentState createState() => _HomeContentState();
+}
 
+class _HomeContentState extends State<HomeContent> {
+  List<Category> categories = []; // Initialize an empty list for categories
+  final DataService _dataService =
+      DataService(); // Create an instance of DataService
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCategories(); // Load categories when the widget is initialized
+  }
+
+  Future<void> _loadCategories() async {
+    final fetchedCategories = await _dataService.loadCategories();
+    setState(() {
+      categories = fetchedCategories; // Update the categories state
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: SingleChildScrollView(
@@ -74,7 +69,7 @@ class HomeContent extends StatelessWidget {
                 ),
                 const CircleAvatar(
                   radius: 30,
-                  backgroundImage: CachedNetworkImageProvider(
+                  backgroundImage: NetworkImage(
                       'https://images.unsplash.com/photo-1583314965950-cd54a8b6db84?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww'),
                 ),
               ],
@@ -107,11 +102,12 @@ class HomeContent extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: const Center(
-                        child: HugeIcon(
-                      icon: HugeIcons.strokeRoundedArrowRight03,
-                      color: Colors.black,
-                      size: 24.0,
-                    )),
+                      child: HugeIcon(
+                        icon: HugeIcons.strokeRoundedArrowRight03,
+                        color: Colors.black,
+                        size: 24.0,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -130,7 +126,8 @@ class HomeContent extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => CategoryPrayersPage(
-                            category: category['title'],
+                            categoryId: category.id,
+                            categoryName: category.name,
                           ),
                         ),
                       );
@@ -150,14 +147,16 @@ class HomeContent extends StatelessWidget {
                             fit: StackFit.expand,
                             children: [
                               ShimmerCachedImage(
-                                imageUrl: category['image'],
+                                imageUrl: category
+                                    .imageUrl, // Use category.image assuming your Category model has this property
                                 fit: BoxFit.cover,
                               ),
                               Container(
                                 alignment: Alignment.center,
                                 color: Colors.black54,
                                 child: Text(
-                                  category['title'],
+                                  category
+                                      .name, // Use category.title assuming your Category model has this property
                                   style: GoogleFonts.poppins(
                                     color: Colors.white,
                                     fontSize: 18,
@@ -201,11 +200,12 @@ class HomeContent extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: const Center(
-                        child: HugeIcon(
-                      icon: HugeIcons.strokeRoundedArrowRight03,
-                      color: Colors.black,
-                      size: 24.0,
-                    )),
+                      child: HugeIcon(
+                        icon: HugeIcons.strokeRoundedArrowRight03,
+                        color: Colors.black,
+                        size: 24.0,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -296,11 +296,12 @@ class HomeContent extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: const Center(
-                        child: HugeIcon(
-                      icon: HugeIcons.strokeRoundedArrowRight03,
-                      color: Colors.black,
-                      size: 24.0,
-                    )),
+                      child: HugeIcon(
+                        icon: HugeIcons.strokeRoundedArrowRight03,
+                        color: Colors.black,
+                        size: 24.0,
+                      ),
+                    ),
                   ),
                 ),
               ],

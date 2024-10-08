@@ -1,7 +1,7 @@
 import 'package:catholicpal/screens/widgets/cards.dart';
 import 'package:catholicpal/screens/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
-
+// TODO : include also all acteogors page
 class AllPrayersPage extends StatefulWidget {
   AllPrayersPage({super.key});
 

@@ -1,0 +1,179 @@
+{
+  "prayers": [
+    {
+      "id": "3",
+      "categoryId": "1",
+      "name": "Chaplet of Divine Mercy",
+      "iconAssetUrl": "assets/prayer-at-altar-cross-religion-church-svgrepo-com.svg",
+      "details": "Eternal Father, I offer You the Body, Blood, Soul, and Divinity of Your dearly beloved Son, Our Lord Jesus Christ."
+    },
+    {
+      "id": "4",
+      "categoryId": "1",
+      "name": "Chaplet of St. Michael",
+      "iconAssetUrl": "assets/prayer-svgrepo-com.svg",
+      "details": "St. Michael the Archangel, defend us in battle; be our protection against the wickedness and snares of the devil."
+    },
+    {
+      "id": "5",
+      "categoryId": "1",
+      "name": "Chaplet of the Holy Wounds",
+      "iconAssetUrl": "assets/prayer-svgrepo-com (3).svg",
+      "details": "I adore Thee, O Holy Wounds of my Savior. May the grace of your healing be with me."
+    },
+    {
+      "id": "6",
+      "categoryId": "1",
+      "name": "Chaplet of the Sacred Heart",
+      "iconAssetUrl": "assets/prayer-svgrepo-com (2).svg",
+      "details": "O Sacred Heart of Jesus, I place all my trust in Thee."
+    },
+    {
+      "id": "7",
+      "categoryId": "1",
+      "name": "Chaplet of the Seven Sorrows",
+      "iconAssetUrl": "assets/prayer-svgrepo-com (1).svg",
+      "details": "Through her sorrows, may we find strength and comfort in our own sufferings."
+    },
+    {
+      "id": "8",
+      "categoryId": "2",
+      "name": "Our Father",
+      "iconAssetUrl": "assets/prayer-pray-svgrepo-com.svg",
+      "details": "Our Father, who art in heaven, hallowed be Thy name..."
+    },
+    {
+      "id": "9",
+      "categoryId": "2",
+      "name": "Hail Mary",
+      "iconAssetUrl": "assets/prayer-faith-svgrepo-com.svg",
+      "details": "Hail Mary, full of grace, the Lord is with Thee..."
+    },
+    {
+      "id": "10",
+      "categoryId": "2",
+      "name": "Glory Be",
+      "iconAssetUrl": "assets/prayer-faith-svgrepo-com (1).svg",
+      "details": "Glory be to the Father, and to the Son, and to the Holy Spirit..."
+    },
+    {
+      "id": "11",
+      "categoryId": "2",
+      "name": "Act of Contrition",
+      "iconAssetUrl": "assets/prayer-beads-svgrepo-com.svg",
+      "details": "O my God, I am heartily sorry for having offended Thee..."
+    },
+    {
+      "id": "12",
+      "categoryId": "2",
+      "name": "Apostles' Creed",
+      "iconAssetUrl": "assets/maghrib-prayer-svgrepo-com.svg",
+      "details": "I believe in God, the Father almighty, Creator of heaven and earth..."
+    },
+    {
+      "id": "13",
+      "categoryId": "3",
+      "name": "Prayer to the Holy Spirit",
+      "iconAssetUrl": "assets/prayer-svgrepo-com.svg",
+      "details": "Come, Holy Spirit, fill the hearts of your faithful and enkindle in them the fire of your love."
+    },
+    {
+      "id": "14",
+      "categoryId": "3",
+      "name": "Holy Spirit Novena",
+      "iconAssetUrl": "assets/prayer-at-altar-cross-religion-church-svgrepo-com.svg",
+      "details": "I pray for the gifts of the Holy Spirit to guide me in my decisions."
+    },
+    {
+      "id": "15",
+      "categoryId": "3",
+      "name": "Prayer for Guidance",
+      "iconAssetUrl": "assets/prayer-svgrepo-com (2).svg",
+      "details": "Holy Spirit, guide my thoughts and actions today."
+    },
+    {
+      "id": "16",
+      "categoryId": "3",
+      "name": "Prayer for Peace",
+      "iconAssetUrl": "assets/prayer-svgrepo-com (3).svg",
+      "details": "Come, Holy Spirit, bring peace to my heart and mind."
+    },
+    {
+      "id": "17",
+      "categoryId": "3",
+      "name": "Prayer for Wisdom",
+      "iconAssetUrl": "assets/prayer-pray-svgrepo-com.svg",
+      "details": "Holy Spirit, grant me the wisdom to see the truth."
+    },
+    {
+      "id": "18",
+      "categoryId": "4",
+      "name": "Rosary for Healing",
+      "iconAssetUrl": "assets/prayer-faith-svgrepo-com (1).svg",
+      "details": "Pray the Rosary for the healing of our bodies and souls."
+    },
+    {
+      "id": "19",
+      "categoryId": "4",
+      "name": "Rosary of the Seven Sorrows",
+      "iconAssetUrl": "assets/prayer-svgrepo-com (1).svg",
+      "details": "Meditate on the sorrows of Mary, our Mother."
+    },
+    {
+      "id": "20",
+      "categoryId": "4",
+      "name": "Rosary of Joyful Mysteries",
+      "iconAssetUrl": "assets/prayer-pray-svgrepo-com.svg",
+      "details": "Reflect on the joyful mysteries of Jesus and Mary."
+    },
+    {
+      "id": "21",
+      "categoryId": "4",
+      "name": "Rosary of Luminous Mysteries",
+      "iconAssetUrl": "assets/catholic-christian-church-svgrepo-com.svg",
+      "details": "Meditate on the mysteries of Christ's public life."
+    },
+    {
+      "id": "22",
+      "categoryId": "4",
+      "name": "Rosary of Sorrowful Mysteries",
+      "iconAssetUrl": "assets/breviary-svgrepo-com.svg",
+      "details": "Reflect on the passion and death of Christ."
+    },
+    {
+      "id": "23",
+      "categoryId": "5",
+      "name": "Easter Vigil Prayer",
+      "iconAssetUrl": "assets/prayer-at-altar-cross-religion-church-svgrepo-com.svg",
+      "details": "May this Easter bring joy and new beginnings."
+    },
+    {
+      "id": "24",
+      "categoryId": "5",
+      "name": "Prayer of the Resurrection",
+      "iconAssetUrl": "assets/maghrib-prayer-svgrepo-com.svg",
+      "details": "Celebrate the victory of Christ over death."
+    },
+    {
+      "id": "25",
+      "categoryId": "5",
+      "name": "Easter Morning Prayer",
+      "iconAssetUrl": "assets/prayer-beads-svgrepo-com.svg",
+      "details": "Thank you, Lord, for the gift of eternal life."
+    },
+    {
+      "id": "26",
+      "categoryId": "5",
+      "name": "Easter Blessing Prayer",
+      "iconAssetUrl": "assets/catholic-christian-church-svgrepo-com.svg",
+      "details": "May God's blessings be with us this Easter."
+    },
+    {
+      "id": "27",
+      "categoryId": "5",
+      "name": "Prayer for Joy",
+      "iconAssetUrl": "assets/breviary-svgrepo-com.svg",
+      "details": "Rejoice! He is risen! Let us celebrate His love."
+    }
+  ]
+}
