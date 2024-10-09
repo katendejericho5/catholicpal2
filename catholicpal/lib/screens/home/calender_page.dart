@@ -1,10 +1,9 @@
-// ignore_for_file: unnecessary_import
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:catholicpal/models/celebration_model.dart';
 import 'package:catholicpal/models/liturgical_day_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
@@ -53,6 +52,7 @@ class LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
                   _focusedDay = focusedDay;
                 });
                 calendarProvider.fetchLiturgicalDay(selectedDay);
+                _showCompactLiturgicalDayDialog(context, selectedDay);
               },
               calendarStyle: CalendarStyle(
                 selectedDecoration: BoxDecoration(
@@ -64,31 +64,6 @@ class LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
                   shape: BoxShape.circle,
                 ),
               ),
-            ),
-            Consumer<CalendarProvider>(
-              builder: (context, provider, child) {
-                if (provider.isLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (provider.hasError) {
-                  return Center(
-                    child: Text(
-                      'Error loading data',
-                      style:
-                          TextStyle(color: Theme.of(context).colorScheme.error),
-                    ),
-                  );
-                } else if (provider.liturgicalDay != null) {
-                  return _buildLiturgicalInfo(provider.liturgicalDay!);
-                } else {
-                  return const Center(
-                    child: Text(
-                      'Select a day to see liturgical data.',
-                      style:
-                          TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
-                    ),
-                  );
-                }
-              },
             ),
           ],
         ),
@@ -116,11 +91,6 @@ class LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
             ),
           ),
           Positioned(
-            top: 10,
-            left: 10,
-            child: Container(),
-          ),
-          Positioned(
             bottom: 16,
             left: 16,
             child: Text(
@@ -137,43 +107,133 @@ class LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
     );
   }
 
-  Widget _buildLiturgicalInfo(LiturgicalDay liturgicalDay) {
+  void _showCompactLiturgicalDayDialog(
+      BuildContext context, DateTime selectedDay) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Consumer<CalendarProvider>(
+          builder: (context, provider, child) {
+            if (provider.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (provider.hasError) {
+              return AlertDialog(
+                title: const Text('Error'),
+                content: const Text('Failed to load liturgical data.'),
+                actions: [
+                  TextButton(
+                    child: const Text('OK'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ],
+              );
+            } else if (provider.liturgicalDay != null) {
+              return _buildCompactLiturgicalDayDialog(provider.liturgicalDay!);
+            } else {
+              return const AlertDialog(
+                title: Text('No Data'),
+                content: Text('No liturgical data available for this date.'),
+              );
+            }
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildCompactLiturgicalDayDialog(LiturgicalDay liturgicalDay) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.9,
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.8,
+          maxWidth: 500,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildDialogHeader(liturgicalDay.date),
+            Flexible(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      _buildInfoSection(liturgicalDay),
+                      const SizedBox(height: 8),
+                      _buildCelebrationsSection(liturgicalDay.celebrations),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            _buildDialogFooter(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDialogHeader(DateTime date) {
     return Container(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      child: Row(
         children: [
-          _buildDateHeader(liturgicalDay.date),
-          const SizedBox(height: 16),
-          _buildInfoRow('Season', liturgicalDay.season, Icons.event),
-          _buildInfoRow(
-              'Week', liturgicalDay.seasonWeek.toString(), Icons.view_week),
-          _buildInfoRow('Weekday', liturgicalDay.weekday, Icons.calendar_today),
-          const SizedBox(height: 24),
-          Text(
-            'Celebrations',
-            style: Theme.of(context).textTheme.titleLarge,
+          Expanded(
+            child: Text(
+              DateFormat('MMMM d, yyyy').format(date),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
-          const SizedBox(height: 8),
-          _buildCelebrationsList(liturgicalDay.celebrations),
         ],
       ),
     );
   }
 
-  Widget _buildDateHeader(DateTime date) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Text(
-        DateFormat('MMMM d, yyyy').format(date),
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
+  Widget _buildInfoSection(LiturgicalDay liturgicalDay) {
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Liturgical Information',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            const SizedBox(height: 16),
+            _buildInfoRow(
+              'Season',
+              liturgicalDay.season,
+              HugeIcons.strokeRoundedCalendar01,
+            ),
+            _buildInfoRow(
+              'Week',
+              liturgicalDay.seasonWeek.toString(),
+              HugeIcons.strokeRoundedTimeSetting02,
+            ),
+            _buildInfoRow(
+              'Weekday',
+              liturgicalDay.weekday,
+              HugeIcons.strokeRoundedSunset,
+            ),
+          ],
         ),
       ),
     );
@@ -184,7 +244,7 @@ class LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
-          Icon(icon, color: Theme.of(context).primaryColor),
+          Icon(icon, color: Theme.of(context).primaryColor, size: 24,),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
@@ -209,43 +269,107 @@ class LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
     );
   }
 
+  Widget _buildCelebrationsSection(List<Celebration> celebrations) {
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Celebrations',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            const SizedBox(height: 16),
+            _buildCelebrationsList(celebrations),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildCelebrationsList(List<Celebration> celebrations) {
     if (celebrations.isEmpty) {
-      return const Card(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text('No celebrations for this day.'),
-        ),
+      return const Padding(
+        padding: EdgeInsets.symmetric(vertical: 8.0),
+        child: Text('No celebrations for this day.'),
       );
     }
 
-    return ListView.builder(
+    return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: celebrations.length,
+      separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (context, index) {
         final celebration = celebrations[index];
-        return Card(
-          elevation: 2,
-          margin: const EdgeInsets.only(bottom: 8),
-          child: ListTile(
-            title: Text(
-              celebration.title,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            subtitle: Text(
-              'Rank: ${celebration.rank}',
-            ),
-            leading: CircleAvatar(
-              backgroundColor: _getCelebrationColor(celebration.colour),
-              child: Text(
-                celebration.colour[0].toUpperCase(),
-                style: const TextStyle(color: Colors.white),
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                // width: 32,
+                // height: 32,
+                decoration: BoxDecoration(
+                  color: _getCelebrationColor(celebration.colour),
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Text(
+                    celebration.colour[0].toUpperCase(),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      celebration.title,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Rank: ${celebration.rank}',
+                      style: const TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         );
       },
+    );
+  }
+
+  Widget _buildDialogFooter() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        onPressed: () => Navigator.of(context).pop(),
+        style: ElevatedButton.styleFrom(
+          minimumSize: const Size(double.infinity, 50),
+          shadowColor: Theme.of(context).primaryColor,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+          surfaceTintColor: Theme.of(context).primaryColor,
+        ),
+        child: const Text('Close'),
+      ),
     );
   }
 
@@ -264,4 +388,3 @@ class LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
     }
   }
 }
-
