@@ -79,7 +79,7 @@ class DailyReadingProvider with ChangeNotifier {
     if (readingBox != null) {
       await readingBox!.close();
       readingBox = null;
-      notifyListeners(); // Notify listeners in case you need to update UI after closing
+      notifyListeners();
     }
   }
 }

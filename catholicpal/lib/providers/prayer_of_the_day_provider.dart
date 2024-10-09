@@ -71,12 +71,11 @@ class PrayerOfTheDayProvider extends ChangeNotifier {
     }
   }
 
-  /// Close the Hive box when it's no longer needed
   Future<void> closeBox() async {
     if (prayerBox != null) {
       await prayerBox!.close();
       prayerBox = null;
-      notifyListeners(); // Notify listeners in case you need to update UI after closing
+      notifyListeners();
     }
   }
 }

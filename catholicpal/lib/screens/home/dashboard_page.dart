@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:catholicpal/screens/home/calender_page.dart';
 import 'package:catholicpal/screens/widgets/cached_image.dart';
 import 'package:catholicpal/services/prayer_service.dart';
 import 'package:flutter/material.dart';
@@ -194,6 +195,12 @@ class _HomeContentState extends State<HomeContent> {
                 GestureDetector(
                   onTap: () {
                     // Navigate to the page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LiturgicalCalendarScreen(),
+                      ),
+                    );
                   },
                   child: Container(
                     width: 40,
@@ -275,7 +282,6 @@ class _HomeContentState extends State<HomeContent> {
                             ),
                           ),
                         ),
-                       
                       );
                     },
                   );

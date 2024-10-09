@@ -1,6 +1,7 @@
 import 'package:catholicpal/models/catholic_answers_model.dart';
 import 'package:catholicpal/models/daily_reading.dart';
 import 'package:catholicpal/models/news_model.dart';
+import 'package:catholicpal/providers/calendar_provider.dart';
 import 'package:catholicpal/providers/daily_reading_provider.dart';
 import 'package:catholicpal/providers/devotions_provider.dart';
 import 'package:catholicpal/providers/prayer_of_the_day_provider.dart';
@@ -73,7 +74,12 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => DevotionProvider()..loadDevotions(),
         ),
-        ChangeNotifierProvider(create: (_) => SaintsProvider()..loadSaints()),
+        ChangeNotifierProvider(
+          create: (_) => SaintsProvider()..loadSaints(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CalendarProvider(),
+        ),
       ],
       child: const MyApp(),
     ),
@@ -181,9 +187,10 @@ ThemeData getDarkThemeFlexSeed() {
   return ThemeData(
     useMaterial3: true,
     colorScheme: SeedColorScheme.fromSeeds(
-        primaryKey: Colors.green,
-        secondaryKey: Colors.amber.shade900,
-        tertiaryKey: Colors.grey.shade600,
-        brightness: Brightness.dark),
+      primaryKey: Colors.green,
+      secondaryKey: Colors.amber.shade900,
+      tertiaryKey: Colors.grey.shade600,
+      brightness: Brightness.dark,
+    ),
   );
 }

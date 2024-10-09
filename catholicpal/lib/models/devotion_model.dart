@@ -1,5 +1,4 @@
 import 'package:catholicpal/models/prayer_model.dart';
-import 'package:catholicpal/models/saints_model.dart';
 
 class Devotion {
   final String name;
