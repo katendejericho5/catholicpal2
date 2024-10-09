@@ -114,7 +114,7 @@ class _DevotionsPageState extends State<DevotionsPage> {
                                 _toggleFavorite(index, devotion),
                             onTap: () => _onDevotionTap(devotion),
                             height: height,
-                            showFavorite: true,
+                            showFavorite: false,
                           ),
                         );
                       },
