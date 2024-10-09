@@ -11,7 +11,6 @@ import 'package:catholicpal/screens/home/saints_details_page.dart';
 import 'package:catholicpal/screens/widgets/widgets.dart';
 import 'package:catholicpal/screens/widgets/catholic_app_carousel.dart';
 import 'package:provider/provider.dart';
-import 'package:catholicpal/models/saints_model.dart';
 import 'package:catholicpal/providers/saints_provider.dart';
 
 class HomeContent extends StatefulWidget {

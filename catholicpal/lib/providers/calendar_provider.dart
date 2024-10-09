@@ -27,6 +27,7 @@ class CalendarProvider with ChangeNotifier {
       final response = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));  // Added timeout
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
+        print("Response data:'''''''''''''''''' $data");
         
         // Check if data is not null and contains expected fields
         if (data != null && data.isNotEmpty) {
