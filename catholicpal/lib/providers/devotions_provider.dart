@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'package:catholicpal/models/devotion_model.dart';
 import 'package:catholicpal/models/prayer_model.dart';
-import 'package:catholicpal/models/saints_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -17,7 +16,9 @@ class DevotionProvider with ChangeNotifier {
     try {
       final String response =
           await rootBundle.loadString('assets/devotions.json');
+      print('JSON Response: $response'); // Print the raw JSON response
       final List<dynamic> data = jsonDecode(response);
+      print('Decoded JSON: $data'); // Print the decoded JSON
       _devotions =
           data.map((devotionData) => Devotion.fromJson(devotionData)).toList();
       notifyListeners();
@@ -42,16 +43,6 @@ class DevotionProvider with ChangeNotifier {
     final devotion = getDevotionByName(devotionName);
     if (devotion != null) {
       return devotion.prayers;
-    } else {
-      return []; // Return empty list if devotion is not found
-    }
-  }
-
-  // Function to fetch associated saints by devotion name
-  List<Saint> getSaintsByDevotion(String devotionName) {
-    final devotion = getDevotionByName(devotionName);
-    if (devotion != null) {
-      return devotion.associatedSaintsOrPersons;
     } else {
       return []; // Return empty list if devotion is not found
     }

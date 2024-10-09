@@ -9,6 +9,9 @@ import 'package:catholicpal/screens/home/category_prayers.dart';
 import 'package:catholicpal/screens/home/saints_details_page.dart';
 import 'package:catholicpal/screens/widgets/widgets.dart';
 import 'package:catholicpal/screens/widgets/catholic_app_carousel.dart';
+import 'package:provider/provider.dart';
+import 'package:catholicpal/models/saints_model.dart';
+import 'package:catholicpal/providers/saints_provider.dart';
 
 class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
@@ -18,20 +21,22 @@ class HomeContent extends StatefulWidget {
 }
 
 class _HomeContentState extends State<HomeContent> {
-  List<Category> categories = []; // Initialize an empty list for categories
-  final DataService _dataService =
-      DataService(); // Create an instance of DataService
+  List<Category> categories = [];
+  final DataService _dataService = DataService();
 
   @override
   void initState() {
     super.initState();
-    _loadCategories(); // Load categories when the widget is initialized
+    _loadCategories();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<SaintsProvider>(context, listen: false).loadSaints();
+    });
   }
 
   Future<void> _loadCategories() async {
     final fetchedCategories = await _dataService.loadCategories();
     setState(() {
-      categories = fetchedCategories; // Update the categories state
+      categories = fetchedCategories;
     });
   }
 
@@ -95,8 +100,8 @@ class _HomeContentState extends State<HomeContent> {
                     // Navigate to the page
                   },
                   child: Container(
-                    width: 40, // Adjusted width for the icon
-                    height: 40, // Adjusted height for the icon
+                    width: 40,
+                    height: 40,
                     decoration: BoxDecoration(
                       color: Colors.grey[300],
                       borderRadius: BorderRadius.circular(15),
@@ -147,16 +152,14 @@ class _HomeContentState extends State<HomeContent> {
                             fit: StackFit.expand,
                             children: [
                               ShimmerCachedImage(
-                                imageUrl: category
-                                    .imageUrl, // Use category.image assuming your Category model has this property
+                                imageUrl: category.imageUrl,
                                 fit: BoxFit.cover,
                               ),
                               Container(
                                 alignment: Alignment.center,
                                 color: Colors.black54,
                                 child: Text(
-                                  category
-                                      .name, // Use category.title assuming your Category model has this property
+                                  category.name,
                                   style: GoogleFonts.poppins(
                                     color: Colors.white,
                                     fontSize: 18,
@@ -193,8 +196,8 @@ class _HomeContentState extends State<HomeContent> {
                     // Navigate to the page
                   },
                   child: Container(
-                    width: 40, // Adjusted width for the icon
-                    height: 40, // Adjusted height for the icon
+                    width: 40,
+                    height: 40,
                     decoration: BoxDecoration(
                       color: Colors.grey[300],
                       borderRadius: BorderRadius.circular(15),
@@ -214,60 +217,69 @@ class _HomeContentState extends State<HomeContent> {
             const SizedBox(height: 10),
 
             // Horizontal list of saints
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  saintContainer(
-                    imageUrl:
-                        'https://images.pexels.com/photos/2123307/pexels-photo-2123307.jpeg?auto=compress&cs=tinysrgb&w=600',
-                    title: 'Saint Peter',
-                    isFavorite: true,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const DetailsPage()),
+            SizedBox(
+              height: 150,
+              child: Consumer<SaintsProvider>(
+                builder: (context, saintsProvider, child) {
+                  if (saintsProvider.saints.isEmpty) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: saintsProvider.saints.length,
+                    itemBuilder: (context, index) {
+                      final saint = saintsProvider.saints[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  SaintsDetailsPage(saint: saint),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: 150,
+                          height: 150,
+                          margin: const EdgeInsets.only(right: 10),
+                          child: Card(
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Stack(
+                                fit: StackFit.expand,
+                                children: [
+                                  ShimmerCachedImage(
+                                    imageUrl: saint.imageUrl,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    color: Colors.black54,
+                                    child: Text(
+                                      saint.name,
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                       
                       );
                     },
-                    onFavoriteTap: () {
-                      // Handle favorite tap
-                    },
-                  ),
-                  const SizedBox(width: 10),
-                  saintContainer(
-                    imageUrl:
-                        'https://images.pexels.com/photos/10628580/pexels-photo-10628580.jpeg?auto=compress&cs=tinysrgb&w=600',
-                    title: 'Saint Paul',
-                    isFavorite: true,
-                    onTap: () {},
-                    onFavoriteTap: () {
-                      // Handle favorite tap
-                    },
-                  ),
-                  const SizedBox(width: 10),
-                  saintContainer(
-                    imageUrl:
-                        'https://images.pexels.com/photos/5418210/pexels-photo-5418210.jpeg?auto=compress&cs=tinysrgb&w=600',
-                    title: 'Saint Mary',
-                    isFavorite: true,
-                    onTap: () {},
-                    onFavoriteTap: () {
-                      // Handle favorite tap
-                    },
-                  ),
-                  const SizedBox(width: 10),
-                  saintContainer(
-                    imageUrl:
-                        'https://images.pexels.com/photos/3993922/pexels-photo-3993922.jpeg?auto=compress&cs=tinysrgb&w=600',
-                    title: 'Saint Francis',
-                    isFavorite: true,
-                    onTap: () {},
-                    onFavoriteTap: () {
-                      // Handle favorite tap
-                    },
-                  ),
-                ],
+                  );
+                },
               ),
             ),
 
@@ -289,8 +301,8 @@ class _HomeContentState extends State<HomeContent> {
                     // Navigate to the page
                   },
                   child: Container(
-                    width: 40, // Adjusted width for the icon
-                    height: 40, // Adjusted height for the icon
+                    width: 40,
+                    height: 40,
                     decoration: BoxDecoration(
                       color: Colors.grey[300],
                       borderRadius: BorderRadius.circular(15),

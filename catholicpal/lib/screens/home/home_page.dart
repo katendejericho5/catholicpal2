@@ -82,11 +82,12 @@ class HomePageState extends State<HomePage> {
               ],
               currentIndex: _selectedIndex,
               onTap: _onItemTapped,
-              type: BottomNavigationBarType.shifting, // Use shifting mode
+              type: BottomNavigationBarType.fixed,
               backgroundColor: const ColorScheme.light().surface,
               selectedItemColor: const Color(0xFF3498DB),
               unselectedItemColor: Colors.grey[600],
-              selectedLabelStyle: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+              selectedLabelStyle:
+                  GoogleFonts.poppins(fontWeight: FontWeight.bold),
               unselectedLabelStyle:
                   GoogleFonts.poppins(fontWeight: FontWeight.normal),
               elevation: 0,

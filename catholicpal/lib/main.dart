@@ -5,6 +5,8 @@ import 'package:catholicpal/providers/daily_reading_provider.dart';
 import 'package:catholicpal/providers/devotions_provider.dart';
 import 'package:catholicpal/providers/prayer_of_the_day_provider.dart';
 import 'package:catholicpal/providers/saint_of_the_day_provider.dart';
+import 'package:catholicpal/providers/saints_provider.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -58,19 +60,20 @@ void main() async {
           create: (context) => MainProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => DailyReadingProvider(),
+          create: (context) => DailyReadingProvider()..loadDailyReading(),
         ),
         // PrayerOfTheDayProvider
         ChangeNotifierProvider(
-          create: (context) => PrayerOfTheDayProvider(),
+          create: (context) => PrayerOfTheDayProvider()..loadPrayerOfTheDay(),
         ),
         // SaintOfTheDayProvider
         ChangeNotifierProvider(
-          create: (context) => SaintOfTheDayProvider(),
+          create: (context) => SaintOfTheDayProvider()..loadSaintOfTheDay(),
         ),
         ChangeNotifierProvider(
-          create: (context) => DevotionProvider(),
+          create: (context) => DevotionProvider()..loadDevotions(),
         ),
+        ChangeNotifierProvider(create: (_) => SaintsProvider()..loadSaints()),
       ],
       child: const MyApp(),
     ),
@@ -150,78 +153,37 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //   if (state == AppLifecycleState.paused) {
-  //     // App is in background
-  //     _closeHiveBox();
-  //   } else if (state == AppLifecycleState.resumed) {
-  //     // App is in foreground
-  //     _openHiveBox();
-  //   }
-
-  // }
-
-  // Future<void> _closeHiveBox() async {
-  //   if (saintBox.isOpen) {
-  //     await saintBox.compact();
-  //     await saintBox.close();
-  //   }
-
-  //   if (prayerBox.isOpen) {
-  //     await prayerBox.compact();
-  //     await prayerBox.close();
-  //   }
-
-  //   if (newsBox.isOpen) {
-  //     await newsBox.compact();
-  //     await newsBox.close();
-  //   }
-  //   if (catholicAnswersNewsBox.isOpen) {
-  //     await catholicAnswersNewsBox.compact();
-  //     await catholicAnswersNewsBox.close();
-  //   }
-  //   if (dailyReadingBox.isOpen) {
-  //     await dailyReadingBox.compact();
-  //     await dailyReadingBox.close();
-  //   }
-  // }
-
-  // Future<void> _openHiveBox() async {
-  //   if (!saintBox.isOpen) {
-  //     saintBox = await Hive.openBox<SaintOfTheDay>('saintOfTheDay');
-  //   }
-
-  //   if (!prayerBox.isOpen) {
-  //     prayerBox = await Hive.openBox<PrayerOfTheDay>('prayerOfTheDay');
-  //   }
-  //   if (!newsBox.isOpen) {
-  //     newsBox = await Hive.openBox<DailyNews>('dailyNews');
-  //   }
-  //   if (!catholicAnswersNewsBox.isOpen) {
-  //     catholicAnswersNewsBox =
-  //         await Hive.openBox<CatholicAnswersNews>('catholicAnswersNews');
-  //   }
-  //   if (!dailyReadingBox.isOpen) {
-  //     dailyReadingBox = await Hive.openBox<DailyReading>('dailyReading');
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'CatholicPal',
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
-      theme: ThemeData(
-        colorSchemeSeed: Colors.brown,
-        brightness: Brightness.light,
-      ),
-      darkTheme: ThemeData(
-        colorSchemeSeed: Colors.brown,
-        brightness: Brightness.dark,
-      ),
+      theme: getLightThemeFlexSeed(),
+      darkTheme: getDarkThemeFlexSeed(),
       home: const HomePage(),
     );
   }
+}
+
+ThemeData getLightThemeFlexSeed() {
+  return ThemeData(
+    useMaterial3: true,
+    colorScheme: SeedColorScheme.fromSeeds(
+      primaryKey: Colors.green,
+      secondaryKey: Colors.amber.shade900,
+      tertiaryKey: Colors.grey.shade600,
+    ),
+  );
+}
+
+ThemeData getDarkThemeFlexSeed() {
+  return ThemeData(
+    useMaterial3: true,
+    colorScheme: SeedColorScheme.fromSeeds(
+        primaryKey: Colors.green,
+        secondaryKey: Colors.amber.shade900,
+        tertiaryKey: Colors.grey.shade600,
+        brightness: Brightness.dark),
+  );
 }

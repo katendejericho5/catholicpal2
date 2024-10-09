@@ -21,7 +21,7 @@ class DevotionDetailsPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: MediaQuery.of(context).size.height*0.4,
+                height: MediaQuery.of(context).size.height * 0.4,
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.only(
                   left: 5,
@@ -88,20 +88,6 @@ class DevotionDetailsPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               // Associated Saints or Persons
-              Text(
-                'Associated Saints:',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: devotion.associatedSaintsOrPersons.map((saint) {
-                  return ListTile(
-                    title: Text(saint.name),
-                    subtitle: Text(saint.description),
-                  );
-                }).toList(),
-              ),
             ],
           ),
         ),

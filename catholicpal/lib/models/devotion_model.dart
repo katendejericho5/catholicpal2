@@ -3,37 +3,30 @@ import 'package:catholicpal/models/saints_model.dart';
 
 class Devotion {
   final String name;
-  final String imageUrl;
   final String description;
+  final String imageUrl;
   final String history;
   final List<Prayer> prayers;
-  final List<Saint> associatedSaintsOrPersons;
 
   Devotion({
     required this.name,
-    required this.imageUrl,
     required this.description,
+    required this.imageUrl,
     required this.history,
     required this.prayers,
-    required this.associatedSaintsOrPersons,
   });
 
-  // Factory method to create a Devotion from a JSON map
   factory Devotion.fromJson(Map<String, dynamic> json) {
     return Devotion(
-      name: json['name'] as String,
-      imageUrl: json['imageUrl'] as String,
-      description: json['description'] as String,
-      history: json['history'] as String,
-      prayers: (json['prayers'] as List)
-          .map(
-            (prayerJson) => Prayer.fromJson(prayerJson),
-          )
-          .toList(),
-      associatedSaintsOrPersons: (json['associatedSaintsOrPersons'] as List)
-          .map(
-            (saintJson) => Saint.fromJson(saintJson),
-          )
+      name: json['name'] as String? ?? 'Unknown Name', // Handle null
+      description: json['description'] as String? ??
+          'No description provided', // Handle null
+      imageUrl:
+          json['imageUrl'] as String? ?? 'default_image_url', // Handle null
+      history:
+          json['history'] as String? ?? 'No history provided', // Handle null
+      prayers: (json['prayers'] as List<dynamic>? ?? [])
+          .map((prayerJson) => Prayer.fromJson(prayerJson))
           .toList(),
     );
   }

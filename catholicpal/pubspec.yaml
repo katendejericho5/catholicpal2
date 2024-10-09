@@ -64,6 +64,7 @@ dependencies:
   hive_flutter: ^1.1.0
   connectivity_plus: ^6.0.5
   http: ^1.2.2
+  flex_seed_scheme: ^1.5.0
 
 
 dev_dependencies:

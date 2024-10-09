@@ -1,0 +1,128 @@
+[
+    {
+      "name": "Saint Francis of Assisi",
+      "imageUrl": "https://images.pexels.com/photos/9963253/pexels-photo-9963253.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "lifeSummary": "Saint Francis of Assisi was an Italian Catholic friar, deacon, and preacher. He founded the men's Order of Friars Minor, the women's Order of Saint Clare, and the Third Order of Saint Francis.",
+      "feastDay": "October 4",
+      "patronage": "Animals, environment, Italy",
+      "majorLifeEvents": [
+        "Founded the Franciscan Order",
+        "Received the Stigmata",
+        "Preached to the birds"
+      ],
+      "quotes": [
+        "Preach the Gospel at all times. When necessary, use words.",
+        "For it is in giving that we receive."
+      ],
+      "prayers": [
+        {
+          "id": "1",
+          "categoryId": "1",
+          "name": "Prayer for Peace",
+          "iconAssetUrl": "assets/prayer-faith-svgrepo-com.svg",
+          "details": "Lord, make me an instrument of Your peace; where there is hatred, let me sow love; where there is injury, pardon; where there is doubt, faith."
+        }
+      ]
+    },
+    {
+      "name": "Saint Teresa of Calcutta",
+      "imageUrl": "https://images.pexels.com/photos/11876006/pexels-photo-11876006.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "lifeSummary": "Saint Teresa of Calcutta, known as Mother Teresa, was a nun and missionary known for her charitable work with the poor in India.",
+      "feastDay": "September 5",
+      "patronage": "World Youth Day, missionaries",
+      "majorLifeEvents": [
+        "Founded the Missionaries of Charity",
+        "Won the Nobel Peace Prize",
+        "Served the poor in Calcutta"
+      ],
+      "quotes": [
+        "Not all of us can do great things. But we can do small things with great love.",
+        "If you judge people, you have no time to love them."
+      ],
+      "prayers": [
+        {
+          "id": "2",
+          "categoryId": "2",
+          "name": "Prayer for the Poor",
+          "iconAssetUrl": "assets/prayer-svgrepo-com (3).svg",
+          "details": "Lord, help us to see Your face in every person who is poor and to respond to their needs with love."
+        }
+      ]
+    },
+    {
+      "name": "Saint John Paul II",
+      "imageUrl": "https://images.pexels.com/photos/7218362/pexels-photo-7218362.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "lifeSummary": "Saint John Paul II was the pope from 1978 to 2005, and is known for his contributions to theology and his travels around the world.",
+      "feastDay": "October 22",
+      "patronage": "World Youth Day, families",
+      "majorLifeEvents": [
+        "Elected Pope in 1978",
+        "Survived assassination attempt in 1981",
+        "Canonized in 2014"
+      ],
+      "quotes": [
+        "Do not be afraid. Open wide the doors to Christ.",
+        "The future starts today, not tomorrow."
+      ],
+      "prayers": [
+        {
+          "id": "3",
+          "categoryId": "3",
+          "name": "Prayer to the Holy Spirit",
+          "iconAssetUrl": "assets/prayer-svgrepo-com.svg",
+          "details": "Come, Holy Spirit, fill the hearts of Your faithful and kindle in them the fire of Your love."
+        }
+      ]
+    },
+    {
+      "name": "Saint Therese of Lisieux",
+      "imageUrl": "https://images.pexels.com/photos/25491342/pexels-photo-25491342/free-photo-of-a-statue-of-jesus-in-a-church.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "lifeSummary": "Saint Therese of Lisieux, also known as the Little Flower, was a Carmelite nun known for her 'little way' of loving God.",
+      "feastDay": "October 1",
+      "patronage": "Missions, florists, aviators",
+      "majorLifeEvents": [
+        "Entered the Carmelites at age 15",
+        "Wrote 'The Story of a Soul'",
+        "Declared Doctor of the Church"
+      ],
+      "quotes": [
+        "I will spend my heaven doing good on earth.",
+        "Let us love, since that is what our hearts were made for."
+      ],
+      "prayers": [
+        {
+          "id": "4",
+          "categoryId": "4",
+          "name": "Prayer to Saint Therese",
+          "iconAssetUrl": "assets/maghrib-prayer-svgrepo-com.svg",
+          "details": "Saint Therese, teach us to follow your 'little way' of trust and love."
+        }
+      ]
+    },
+    {
+      "name": "Saint Augustine of Hippo",
+      "imageUrl": "https://images.pexels.com/photos/2340768/pexels-photo-2340768.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "lifeSummary": "Saint Augustine of Hippo was a theologian and philosopher, known for his influential works in Christian doctrine, including 'Confessions' and 'The City of God'.",
+      "feastDay": "August 28",
+      "patronage": "Theologians, printers, brewers",
+      "majorLifeEvents": [
+        "Converted to Christianity",
+        "Became the Bishop of Hippo",
+        "Wrote 'Confessions' and 'The City of God'"
+      ],
+      "quotes": [
+        "You have made us for yourself, O Lord, and our hearts are restless until they rest in you.",
+        "Faith is to believe what you do not see; the reward of this faith is to see what you believe."
+      ],
+      "prayers": [
+        {
+          "id": "prayer5",
+          "categoryId": "cat5",
+          "name": "Prayer to Know God",
+          "iconAssetUrl": "assets/maghrib-prayer-svgrepo-com.svg",
+          "details": "O God, let me know myself; let me know You, so that I may love You."
+        }
+      ]
+    }
+  ]
+  

@@ -1,130 +1,87 @@
 [
-    {
-      "name": "Rosary",
-      "imageUrl": "https://images.pexels.com/photos/2081128/pexels-photo-2081128.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "description": "A traditional prayer in the Catholic Church, focusing on the events in the life of Christ and His mother Mary.",
-      "history": "The Rosary has been used since the Middle Ages and is said to have been given to Saint Dominic by the Virgin Mary.",
-      "prayers": [
-        {
-          "id": "1",
-          "categoryId": "1",
-          "name": "Our Father",
-          "iconAssetUrl": "assets/prayer-faith-svgrepo-com.svg",
-          "details": "Our Father, who art in heaven..."
-        },
-        {
-          "id": "2",
-          "categoryId": "1",
-          "name": "Hail Mary",
-          "iconAssetUrl": "hassets/prayer-svgrepo-com (3).svg",
-          "details": "Hail Mary, full of grace..."
-        }
-      ],
-      "associatedSaintsOrPersons": [
-        {
-          "name": "Saint Dominic",
-          "imageUrl": "https://images.pexels.com/photos/10618845/pexels-photo-10618845.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-          "description": "Founder of the Dominican Order and recipient of the Rosary from the Virgin Mary."
-        },
-        {
-          "name": "Blessed Virgin Mary",
-          "imageUrl": "https://images.pexels.com/photos/10618838/pexels-photo-10618838.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-          "description": "Mother of Jesus and a central figure in Catholic devotion."
-        }
-      ]
-    },
-    {
-      "name": "Sacred Heart",
-      "imageUrl": "https://images.pexels.com/photos/25491342/pexels-photo-25491342/free-photo-of-a-statue-of-jesus-in-a-church.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "description": "A devotion to Jesus Christ’s physical heart as a representation of His divine love for humanity.",
-      "history": "The devotion dates back to the Middle Ages and was widely promoted by Saint Margaret Mary Alacoque in the 17th century.",
-      "prayers": [
-        {
-          "id": "3",
-          "categoryId": "2",
-          "name": "Sacred Heart Prayer",
-          "iconAssetUrl": "assets/prayer-svgrepo-com.svg",
-          "details": "O most Holy Heart of Jesus, fountain of every blessing..."
-        }
-      ],
-      "associatedSaintsOrPersons": [
-        {
-          "name": "Saint Margaret Mary Alacoque",
-          "imageUrl": "https://images.pexels.com/photos/25491342/pexels-photo-25491342/free-photo-of-a-statue-of-jesus-in-a-church.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-          "description": "A French nun and mystic who promoted the devotion to the Sacred Heart of Jesus."
-        }
-      ]
-    },
-    {
-      "name": "Divine Mercy",
-      "imageUrl": "https://images.pexels.com/photos/2340768/pexels-photo-2340768.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      "description": "Devotion to the mercy of God, particularly as revealed to Saint Faustina Kowalska.",
-      "history": "Saint Faustina received visions of Jesus emphasizing God's mercy, and the devotion spread in the 20th century.",
-      "prayers": [
-        {
-          "id": "4",
-          "categoryId": "3",
-          "name": "Divine Mercy Chaplet",
-          "iconAssetUrl": "assets/maghrib-prayer-svgrepo-com.svg",
-          "details": "Eternal Father, I offer you the Body and Blood, Soul and Divinity of your dearly beloved Son..."
-        }
-      ],
-      "associatedSaintsOrPersons": [
-        {
-          "name": "Saint Faustina Kowalska",
-          "imageUrl": "https://images.pexels.com/photos/2340768/pexels-photo-2340768.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-          "description": "A Polish nun who received revelations about the Divine Mercy of God."
-        },
-        {
-          "name": "Pope John Paul II",
-          "imageUrl": "https://images.pexels.com/photos/2340768/pexels-photo-2340768.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-          "description": "Canonized Saint and promoter of Divine Mercy Sunday."
-        }
-      ]
-    },
-    {
-      "name": "Immaculate Conception",
-      "imageUrl": "https://images.pexels.com/photos/2340768/pexels-photo-2340768.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      "description": "The belief that Mary, the mother of Jesus, was conceived without original sin.",
-      "history": "The doctrine of the Immaculate Conception was declared a dogma of the Church by Pope Pius IX in 1854.",
-      "prayers": [
-        {
-          "id": "5",
-          "categoryId": "4",
-          "name": "Hail Holy Queen",
-          "iconAssetUrl": "assets/maghrib-prayer-svgrepo-com.svg",
-          "details": "Hail, Holy Queen, Mother of mercy, our life, our sweetness, and our hope..."
-        }
-      ],
-      "associatedSaintsOrPersons": [
-        {
-          "name": "Blessed Virgin Mary",
-          "imageUrl": "https://images.pexels.com/photos/2340768/pexels-photo-2340768.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-          "description": "Mother of Jesus, conceived without original sin."
-        }
-      ]
-    },
-    {
-      "name": "Saint Michael the Archangel",
-      "imageUrl": "https://images.pexels.com/photos/2340768/pexels-photo-2340768.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      "description": "Devotion to Saint Michael the Archangel, the leader of the heavenly armies.",
-      "history": "Saint Michael has been venerated as the protector of the Church and fighter against evil since the early days of Christianity.",
-      "prayers": [
-        {
-          "id": "6",
-          "categoryId": "5",
-          "name": "Prayer to Saint Michael",
-          "iconAssetUrl": "assets/maghrib-prayer-svgrepo-com.svg",
-          "details": "Saint Michael the Archangel, defend us in battle..."
-        }
-      ],
-      "associatedSaintsOrPersons": [
-        {
-          "name": "Saint Michael",
-          "imageUrl": "https://images.pexels.com/photos/2340768/pexels-photo-2340768.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-          "description": "The Archangel and defender of the Church against evil forces."
-        }
-      ]
-    }
-  ]
-  
+  {
+    "name": "Rosary",
+    "imageUrl": "https://images.pexels.com/photos/2081128/pexels-photo-2081128.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "description": "A traditional prayer in the Catholic Church, focusing on the events in the life of Christ and His mother Mary.",
+    "history": "The Rosary has been used since the Middle Ages and is said to have been given to Saint Dominic by the Virgin Mary.",
+    "prayers": [
+      {
+        "id": "1",
+        "categoryId": "1",
+        "name": "Our Father",
+        "iconAssetUrl": "assets/prayer-faith-svgrepo-com.svg",
+        "details": "Our Father, who art in heaven..."
+      },
+      {
+        "id": "2",
+        "categoryId": "1",
+        "name": "Hail Mary",
+        "iconAssetUrl": "assets/prayer-svgrepo-com (3).svg",
+        "details": "Hail Mary, full of grace..."
+      }
+    ]
+   
+  },
+  {
+    "name": "Sacred Heart",
+    "imageUrl": "https://images.pexels.com/photos/25491342/pexels-photo-25491342/free-photo-of-a-statue-of-jesus-in-a-church.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "description": "A devotion to Jesus Christ’s physical heart as a representation of His divine love for humanity.",
+    "history": "The devotion dates back to the Middle Ages and was widely promoted by Saint Margaret Mary Alacoque in the 17th century.",
+    "prayers": [
+      {
+        "id": "3",
+        "categoryId": "2",
+        "name": "Sacred Heart Prayer",
+        "iconAssetUrl": "assets/prayer-svgrepo-com.svg",
+        "details": "O most Holy Heart of Jesus, fountain of every blessing..."
+      }
+    ]
+  },
+  {
+    "name": "Divine Mercy",
+    "imageUrl": "https://images.pexels.com/photos/2340768/pexels-photo-2340768.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "Devotion to the mercy of God, particularly as revealed to Saint Faustina Kowalska.",
+    "history": "Saint Faustina received visions of Jesus emphasizing God's mercy, and the devotion spread in the 20th century.",
+    "prayers": [
+      {
+        "id": "4",
+        "categoryId": "3",
+        "name": "Divine Mercy Chaplet",
+        "iconAssetUrl": "assets/maghrib-prayer-svgrepo-com.svg",
+        "details": "Eternal Father, I offer you the Body and Blood, Soul and Divinity of your dearly beloved Son..."
+      }
+    ]
+  },
+  {
+    "name": "Immaculate Conception",
+    "imageUrl": "https://images.pexels.com/photos/2340768/pexels-photo-2340768.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "The belief that Mary, the mother of Jesus, was conceived without original sin.",
+    "history": "The doctrine of the Immaculate Conception was declared a dogma of the Church by Pope Pius IX in 1854.",
+    "prayers": [
+      {
+        "id": "5",
+        "categoryId": "4",
+        "name": "Hail Holy Queen",
+        "iconAssetUrl": "assets/maghrib-prayer-svgrepo-com.svg",
+        "details": "Hail, Holy Queen, Mother of mercy, our life, our sweetness, and our hope..."
+      }
+    ]
+    
+  },
+  {
+    "name": "Saint Michael the Archangel",
+    "imageUrl": "https://images.pexels.com/photos/2340768/pexels-photo-2340768.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "description": "Devotion to Saint Michael the Archangel, the leader of the heavenly armies.",
+    "history": "Saint Michael has been venerated as the protector of the Church and fighter against evil since the early days of Christianity.",
+    "prayers": [
+      {
+        "id": "6",
+        "categoryId": "5",
+        "name": "Prayer to Saint Michael",
+        "iconAssetUrl": "assets/maghrib-prayer-svgrepo-com.svg",
+        "details": "Saint Michael the Archangel, defend us in battle..."
+      }
+    ]
+    
+  }
+]
