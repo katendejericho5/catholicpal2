@@ -83,8 +83,8 @@ class HomePageState extends State<HomePage> {
               currentIndex: _selectedIndex,
               onTap: _onItemTapped,
               type: BottomNavigationBarType.fixed,
-              backgroundColor: const ColorScheme.light().surface,
-              selectedItemColor: const Color(0xFF3498DB),
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              selectedItemColor: Theme.of(context).primaryColor,
               unselectedItemColor: Colors.grey[600],
               selectedLabelStyle:
                   GoogleFonts.poppins(fontWeight: FontWeight.bold),

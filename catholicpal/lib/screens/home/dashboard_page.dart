@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:catholicpal/screens/bible/bible_home_page.dart';
 import 'package:catholicpal/screens/home/calender_page.dart';
+import 'package:catholicpal/screens/home/sacraments/baptism/baptism_page.dart';
 import 'package:catholicpal/screens/widgets/cached_image.dart';
 import 'package:catholicpal/services/prayer_service.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +19,10 @@ class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
 
   @override
-  _HomeContentState createState() => _HomeContentState();
+  HomeContentState createState() => HomeContentState();
 }
 
-class _HomeContentState extends State<HomeContent> {
+class HomeContentState extends State<HomeContent> {
   List<Category> categories = [];
   final DataService _dataService = DataService();
 
@@ -304,6 +306,13 @@ class _HomeContentState extends State<HomeContent> {
                 GestureDetector(
                   onTap: () {
                     // Navigate to the page
+                    // BibleHomePage
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const BibleHomePage(),
+                      ),
+                    );
                   },
                   child: Container(
                     width: 40,
@@ -339,6 +348,12 @@ class _HomeContentState extends State<HomeContent> {
                     isFavorite: true,
                     onFavoriteTap: () {
                       // Handle favorite tap
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const BaptismPage(),
+                        ),
+                      );
                     },
                   ),
                   const SizedBox(width: 10),

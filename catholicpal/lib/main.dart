@@ -5,6 +5,7 @@ import 'package:catholicpal/providers/calendar_provider.dart';
 import 'package:catholicpal/providers/daily_reading_provider.dart';
 import 'package:catholicpal/providers/devotions_provider.dart';
 import 'package:catholicpal/providers/prayer_of_the_day_provider.dart';
+import 'package:catholicpal/providers/quiz_provider.dart';
 import 'package:catholicpal/providers/saint_of_the_day_provider.dart';
 import 'package:catholicpal/providers/saints_provider.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -79,6 +80,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => CalendarProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => QuizProvider(),
         ),
       ],
       child: const MyApp(),
