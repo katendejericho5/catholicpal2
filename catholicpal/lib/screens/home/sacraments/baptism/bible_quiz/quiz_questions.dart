@@ -85,13 +85,19 @@ class QuizPageState extends State<QuizPage> {
     return Column(
       children: quizProvider.currentQuestion.options.asMap().entries.map(
         (entry) {
-          // Determine if this option is the correct or wrong answer
-          bool isSelected = entry.key == quizProvider.userAnswer;
+          int index = entry.key;
+          String option = entry.value;
           bool isCorrect =
-              entry.key == quizProvider.currentQuestion.correctAnswerIndex;
-          bool isWrong = quizProvider.answered &&
-              isSelected &&
-              !quizProvider.lastAnswerCorrect;
+              index == quizProvider.currentQuestion.correctAnswerIndex;
+          bool isSelected = index == quizProvider.userAnswer;
+
+          Color getButtonColor() {
+            if (!quizProvider.answered)
+              return Theme.of(context).colorScheme.primary;
+            if (isCorrect) return Colors.green;
+            if (isSelected && !isCorrect) return Colors.red;
+            return Colors.grey.shade400;
+          }
 
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -99,34 +105,23 @@ class QuizPageState extends State<QuizPage> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: quizProvider.answered
-                    ? null // Disable the button if the question is already answered
-                    : () {
-                        quizProvider
-                            .answerQuestion(entry.key); // Mark the answer
-                        _showAnswerFeedback(
-                            entry.key, quizProvider); // Trigger feedback
-                      },
+                    ? null
+                    : () => quizProvider.answerQuestion(index),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  backgroundColor: quizProvider.answered
-                      ? (isCorrect
-                          ? Colors.green // Correct answer is green
-                          : (isWrong
-                              ? Colors.red
-                              : Colors.grey
-                                  .shade400)) // Wrong answer is red, others greyed out
-                      : Theme.of(context)
-                          .colorScheme
-                          .primary, // Default state before answering
+                  backgroundColor: getButtonColor(),
+                  disabledBackgroundColor: getButtonColor(),
                 ),
                 child: Text(
-                  entry.value,
-                  style: const TextStyle(
+                  option,
+                  style: TextStyle(
                     fontSize: 20.0,
-                    color: Colors.white,
+                    color: quizProvider.answered && !isSelected && !isCorrect
+                        ? Colors.grey.shade600
+                        : Colors.white,
                   ),
                 ),
               ),
@@ -240,11 +235,5 @@ class QuizPageState extends State<QuizPage> {
 
   void _animateToNextQuestion() {
     // You can add any animations or transitions here if needed
-  }
-
-  void _showAnswerFeedback(int selectedAnswerIndex, QuizProvider quizProvider) {
-    Future.delayed(const Duration(seconds: 5), () {
-      quizProvider.nextQuestion();
-    });
   }
 }
