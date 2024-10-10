@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart'; // Ensure this package is added in your pubspec.yaml
 
 class BaptismCatechismPage extends StatelessWidget {
@@ -46,9 +47,9 @@ class BaptismCatechismPage extends StatelessWidget {
             ),
             backgroundColor: Colors.white,
             flexibleSpace: FlexibleSpaceBar(
-              title: const Text(
+              title: Text(
                 'Baptism Catechism',
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                   color: Colors.greenAccent,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -126,7 +127,7 @@ class BaptismCatechismPage extends StatelessWidget {
                   Expanded(
                     child: Text(
                       point['title'],
-                      style: const TextStyle(
+                      style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.black87,
@@ -140,7 +141,7 @@ class BaptismCatechismPage extends StatelessWidget {
               const SizedBox(height: 12),
               Text(
                 point['content'],
-                style: const TextStyle(
+                style: GoogleFonts.poppins(
                   fontSize: 16,
                   color: Colors.black54,
                   height: 1.5,

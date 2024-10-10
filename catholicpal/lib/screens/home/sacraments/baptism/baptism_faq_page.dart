@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 
 class BaptismFAQPage extends StatelessWidget {
@@ -48,9 +49,9 @@ class BaptismFAQPage extends StatelessWidget {
               },
             ),
             flexibleSpace: FlexibleSpaceBar(
-              title: const Text(
+              title:  Text(
                 'Baptism FAQ',
-                style: TextStyle(
+                style:  GoogleFonts.poppins(
                   color: Colors.greenAccent,
                   fontWeight: FontWeight.bold,
                   fontSize: 24, // Increased font size for title
@@ -133,7 +134,7 @@ class BaptismFAQPage extends StatelessWidget {
                   children: [
                     Text(
                       faq['question']!,
-                      style: const TextStyle(
+                      style:  GoogleFonts.poppins(
                         fontSize: 20, // Increased font size for question
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -142,7 +143,7 @@ class BaptismFAQPage extends StatelessWidget {
                     const SizedBox(height: 8),
                     Text(
                       faq['answer']!,
-                      style: const TextStyle(
+                      style:  GoogleFonts.poppins(
                         fontSize: 16,
                         height: 1.5,
                         color: Colors.black87,

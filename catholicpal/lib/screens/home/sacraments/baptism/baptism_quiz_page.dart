@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BaptismQuizPage extends StatefulWidget {
   @override
@@ -62,7 +63,7 @@ class _BaptismQuizPageState extends State<BaptismQuizPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Baptism Quiz', style: TextStyle(fontSize: 20)),
+        title:  Text('Baptism Quiz', style:  GoogleFonts.poppins(fontSize: 20)),
         backgroundColor: Colors.blue[700],
       ),
       body: Container(
@@ -93,7 +94,7 @@ class _BaptismQuizPageState extends State<BaptismQuizPage> {
           children: [
             Text(
               questions[currentQuestionIndex]['question'],
-              style: const TextStyle(
+              style:  GoogleFonts.poppins(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
@@ -110,7 +111,7 @@ class _BaptismQuizPageState extends State<BaptismQuizPage> {
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 15),
                     backgroundColor: Colors.blue[700],
-                    textStyle: const TextStyle(fontSize: 16),
+                    textStyle:  GoogleFonts.poppins(fontSize: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -136,9 +137,9 @@ class _BaptismQuizPageState extends State<BaptismQuizPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
+               Text(
                 'Quiz Completed!',
-                style: TextStyle(
+                style:  GoogleFonts.poppins(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.black),
@@ -146,7 +147,7 @@ class _BaptismQuizPageState extends State<BaptismQuizPage> {
               const SizedBox(height: 20),
               Text(
                 'Your Score: $score / ${questions.length}',
-                style: const TextStyle(fontSize: 20, color: Colors.black54),
+                style: GoogleFonts.poppins(fontSize: 20, color: Colors.black54),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
@@ -154,7 +155,7 @@ class _BaptismQuizPageState extends State<BaptismQuizPage> {
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   backgroundColor: Colors.blue[700],
-                  textStyle: const TextStyle(fontSize: 16),
+                  textStyle:  GoogleFonts.poppins(fontSize: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),

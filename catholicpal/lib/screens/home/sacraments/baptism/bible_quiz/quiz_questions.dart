@@ -1,6 +1,8 @@
 import 'package:catholicpal/providers/quiz_provider.dart';
 import 'package:catholicpal/screens/home/sacraments/baptism/bible_quiz/quiz_results_page.dart';
+import 'package:catholicpal/screens/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class QuizPage extends StatefulWidget {
@@ -11,33 +13,60 @@ class QuizPage extends StatefulWidget {
 }
 
 class QuizPageState extends State<QuizPage> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<QuizProvider>(
       builder: (context, quizProvider, child) {
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('Fun Quiz'),
-            centerTitle: true,
-            elevation: 0,
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            iconTheme: const IconThemeData(color: Colors.white),
+          appBar: CustomAppBar(
+            title: 'Quiz',
+            scrollController: _scrollController,
+            actions: const [],
           ),
           body: SingleChildScrollView(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _buildQuestionIndicator(quizProvider),
-                const SizedBox(height: 20),
-                _buildQuestionText(quizProvider),
-                const SizedBox(height: 20),
-                _buildOptions(quizProvider),
-                const SizedBox(height: 20),
-                if (quizProvider.answered) _buildAnswerFeedback(quizProvider),
-                const SizedBox(height: 20),
-                _buildNextButton(context, quizProvider),
-              ],
+            padding: const EdgeInsets.fromLTRB(
+              16.0,
+              0.0,
+              16.0,
+              80.0,
+            ),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              elevation: 8,
+              child: Container(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    _buildQuestionIndicator(quizProvider),
+                    const SizedBox(height: 20),
+                    _buildQuestionText(quizProvider),
+                    const SizedBox(height: 20),
+                    _buildOptions(quizProvider),
+                    const SizedBox(height: 20),
+                    if (quizProvider.answered)
+                      _buildAnswerFeedback(quizProvider),
+                    const SizedBox(height: 20),
+                    _buildNextButton(context, quizProvider),
+                  ],
+                ),
+              ),
             ),
           ),
         );
@@ -48,8 +77,8 @@ class QuizPageState extends State<QuizPage> {
   Widget _buildQuestionIndicator(QuizProvider quizProvider) {
     return Text(
       'Question ${quizProvider.currentQuestionIndex + 1}/${quizProvider.totalQuestions}',
-      textAlign: TextAlign.center,
-      style: const TextStyle(
+      textAlign: TextAlign.left,
+      style: GoogleFonts.poppins(
         fontSize: 20.0,
         fontWeight: FontWeight.bold,
         color: Colors.grey,
@@ -61,22 +90,13 @@ class QuizPageState extends State<QuizPage> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
-      padding: const EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            spreadRadius: 2,
-            blurRadius: 10,
-          ),
-        ],
-      ),
       child: Text(
         quizProvider.currentQuestion.questionText,
-        textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.left,
+        style: GoogleFonts.poppins(
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
@@ -92,8 +112,9 @@ class QuizPageState extends State<QuizPage> {
           bool isSelected = index == quizProvider.userAnswer;
 
           Color getButtonColor() {
-            if (!quizProvider.answered)
-              return Theme.of(context).colorScheme.primary;
+            if (!quizProvider.answered) {
+              return Theme.of(context).colorScheme.primary.withOpacity(0.5);
+            }
             if (isCorrect) return Colors.green;
             if (isSelected && !isCorrect) return Colors.red;
             return Colors.grey.shade400;
@@ -117,7 +138,7 @@ class QuizPageState extends State<QuizPage> {
                 ),
                 child: Text(
                   option,
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                     fontSize: 20.0,
                     color: quizProvider.answered && !isSelected && !isCorrect
                         ? Colors.grey.shade600
@@ -161,7 +182,7 @@ class QuizPageState extends State<QuizPage> {
                 Text(
                   quizProvider.lastAnswerCorrect ? 'Correct!' : 'Wrong!',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
                     color: quizProvider.lastAnswerCorrect
@@ -189,7 +210,7 @@ class QuizPageState extends State<QuizPage> {
                 child: Text(
                   'The correct answer is: ${quizProvider.currentQuestion.options[quizProvider.currentQuestion.correctAnswerIndex]}',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: GoogleFonts.poppins(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -211,24 +232,31 @@ class QuizPageState extends State<QuizPage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
-          backgroundColor: Theme.of(context).colorScheme.secondary,
+          backgroundColor: quizProvider.userAnswer == null
+              ? Colors.grey // Disable the button when no answer is selected
+              : Theme.of(context).colorScheme.secondary, // Enable the button
         ),
+        onPressed: quizProvider.userAnswer == null
+            ? null // Disable the button when no answer is selected
+            : () {
+                if (quizProvider.isQuizFinished) {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const ResultPage(),
+                    ),
+                  );
+                } else {
+                  quizProvider.nextQuestion();
+                  _animateToNextQuestion();
+                }
+              },
         child: Text(
           quizProvider.isQuizFinished ? 'See Results' : 'Next Question',
-          style: const TextStyle(fontSize: 20.0, color: Colors.white),
+          style: GoogleFonts.poppins(
+            fontSize: 20.0,
+            color: Colors.white,
+          ),
         ),
-        onPressed: () {
-          if (quizProvider.isQuizFinished) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => ResultPage(),
-              ),
-            );
-          } else {
-            quizProvider.nextQuestion();
-            _animateToNextQuestion();
-          }
-        },
       ),
     );
   }

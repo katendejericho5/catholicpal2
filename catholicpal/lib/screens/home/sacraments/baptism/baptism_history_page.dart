@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 
 class BaptismHistoryPage extends StatelessWidget {
@@ -24,10 +25,10 @@ class BaptismHistoryPage extends StatelessWidget {
             floating: false,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              title: const Text(
+              title:  Text(
                 'History & Salvation',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style:  GoogleFonts.poppins(
                   color: Colors.greenAccent,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -118,9 +119,9 @@ class BaptismHistoryPage extends StatelessWidget {
                   ),
                   elevation: 0,
                 ),
-                child: const Text(
+                child:  Text(
                   'Learn More',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style:  GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -163,7 +164,7 @@ class BaptismHistoryPage extends StatelessWidget {
                   Expanded(
                     child: Text(
                       title,
-                      style: const TextStyle(
+                      style:  GoogleFonts.poppins(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -175,7 +176,7 @@ class BaptismHistoryPage extends StatelessWidget {
               const SizedBox(height: 12),
               Text(
                 content,
-                style: const TextStyle(
+                style:  GoogleFonts.poppins(
                     fontSize: 16, height: 1.5, color: Colors.black87),
               ),
             ],

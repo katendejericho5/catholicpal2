@@ -3,6 +3,7 @@ import 'package:catholicpal/models/celebration_model.dart';
 import 'package:catholicpal/models/liturgical_day_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -95,7 +96,7 @@ class LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
             left: 16,
             child: Text(
               DateFormat('MMMM yyyy').format(focusedDay),
-              style: const TextStyle(
+              style:  GoogleFonts.poppins(
                 color: Colors.white,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -188,7 +189,7 @@ class LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
           Expanded(
             child: Text(
               DateFormat('MMMM d, yyyy').format(date),
-              style: const TextStyle(
+              style:  GoogleFonts.poppins(
                 color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -211,7 +212,7 @@ class LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
           children: [
             Text(
               'Liturgical Information',
-              style: TextStyle(
+              style:  GoogleFonts.poppins(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).primaryColor,
@@ -252,14 +253,14 @@ class LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
               children: [
                 Text(
                   label,
-                  style: const TextStyle(
+                  style:  GoogleFonts.poppins(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                 ),
                 Text(
                   value,
-                  style: const TextStyle(fontSize: 16),
+                  style: GoogleFonts.poppins(fontSize: 16),
                 ),
               ],
             ),
@@ -280,7 +281,7 @@ class LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
           children: [
             Text(
               'Celebrations',
-              style: TextStyle(
+              style:  GoogleFonts.poppins(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).primaryColor,
@@ -324,7 +325,7 @@ class LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
                 child: Center(
                   child: Text(
                     celebration.colour[0].toUpperCase(),
-                    style: const TextStyle(
+                    style:  GoogleFonts.poppins(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.bold),
@@ -338,13 +339,13 @@ class LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
                   children: [
                     Text(
                       celebration.title,
-                      style: const TextStyle(
+                      style:  GoogleFonts.poppins(
                           fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       'Rank: ${celebration.rank}',
-                      style: const TextStyle(fontSize: 14, color: Colors.grey),
+                      style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey),
                     ),
                   ],
                 ),
