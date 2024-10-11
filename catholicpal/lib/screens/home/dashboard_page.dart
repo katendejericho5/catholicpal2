@@ -328,7 +328,7 @@ class HomeContentState extends State<HomeContent> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  FaithGuideContainer(
+                  GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -337,12 +337,46 @@ class HomeContentState extends State<HomeContent> {
                         ),
                       );
                     },
-                    imageUrl:
-                        'https://images.pexels.com/photos/208356/pexels-photo-208356.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                    title: 'Baptism',
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      margin: const EdgeInsets.only(right: 10),
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              const ShimmerCachedImage(
+                                imageUrl:
+                                    'https://images.pexels.com/photos/208356/pexels-photo-208356.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                                fit: BoxFit.cover,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                color: Colors.black54,
+                                child: Text(
+                                  'Baptism',
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 10),
-                  FaithGuideContainer(
+                  GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -352,15 +386,46 @@ class HomeContentState extends State<HomeContent> {
                         ),
                       );
                     },
-                    imageUrl:
-                        'https://images.pexels.com/photos/25851488/pexels-photo-25851488/free-photo-of-close-up-of-strasbourg-astronomical-clock.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                    title: 'Liturgical Calender',
-                   
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      margin: const EdgeInsets.only(right: 10),
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              const ShimmerCachedImage(
+                                imageUrl:
+                                    'https://images.pexels.com/photos/25851488/pexels-photo-25851488/free-photo-of-close-up-of-strasbourg-astronomical-clock.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                                fit: BoxFit.cover,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                color: Colors.black54,
+                                child: Text(
+                                  'Liturgical Calender',
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 10),
-                  FaithGuideContainer(
-                    title: 'Bible',
-                  
+                  GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -369,8 +434,43 @@ class HomeContentState extends State<HomeContent> {
                         ),
                       );
                     },
-                    imageUrl:
-                        'https://images.pexels.com/photos/372326/pexels-photo-372326.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      margin: const EdgeInsets.only(right: 10),
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              const ShimmerCachedImage(
+                                imageUrl:
+                                    'https://images.pexels.com/photos/372326/pexels-photo-372326.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                                fit: BoxFit.cover,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                color: Colors.black54,
+                                child: Text(
+                                  'Bible',
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

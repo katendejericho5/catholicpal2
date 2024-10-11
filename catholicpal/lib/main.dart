@@ -166,7 +166,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'CatholicPal',
+      title: 'Catholic Pal',
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: getLightThemeFlexSeed(),
