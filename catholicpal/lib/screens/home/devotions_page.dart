@@ -109,12 +109,9 @@ class _DevotionsPageState extends State<DevotionsPage> {
                           child: customImageContainer(
                             imageUrl: devotion.imageUrl,
                             title: devotion.name,
-                            isFavorite: false, // Add logic for favorite status
-                            onFavoriteTap: () =>
-                                _toggleFavorite(index, devotion),
+                            
                             onTap: () => _onDevotionTap(devotion),
                             height: height,
-                            showFavorite: false,
                           ),
                         );
                       },

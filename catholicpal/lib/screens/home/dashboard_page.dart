@@ -340,16 +340,6 @@ class HomeContentState extends State<HomeContent> {
                     imageUrl:
                         'https://images.pexels.com/photos/208356/pexels-photo-208356.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                     title: 'Baptism',
-                    isFavorite: false,
-                    onFavoriteTap: () {
-                      // Handle favorite tap
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const BaptismPage(),
-                        ),
-                      );
-                    },
                   ),
                   const SizedBox(width: 10),
                   FaithGuideContainer(
@@ -365,18 +355,12 @@ class HomeContentState extends State<HomeContent> {
                     imageUrl:
                         'https://images.pexels.com/photos/25851488/pexels-photo-25851488/free-photo-of-close-up-of-strasbourg-astronomical-clock.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                     title: 'Liturgical Calender',
-                    isFavorite: false,
-                    onFavoriteTap: () {
-                      // Handle favorite tap
-                    },
+                   
                   ),
                   const SizedBox(width: 10),
                   FaithGuideContainer(
                     title: 'Bible',
-                    isFavorite: false,
-                    onFavoriteTap: () {
-                      // Handle favorite tap
-                    },
+                  
                     onTap: () {
                       Navigator.push(
                         context,

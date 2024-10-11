@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget customImageContainer({
   required String imageUrl,
   required String title,
-  required bool isFavorite,
-  required VoidCallback onFavoriteTap,
   required VoidCallback onTap,
   double? height,
-  required bool showFavorite,
 }) {
   return GestureDetector(
     onTap: onTap,
@@ -70,33 +66,6 @@ Widget customImageContainer({
             ),
           ),
         ),
-        if (showFavorite) // Only show the favorite icon if showFavorite is true
-          Positioned(
-            top: 0,
-            right: 0,
-            child: Container(
-              width: 40,
-              height: 40,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  bottomLeft: Radius.circular(15),
-                  bottomRight: Radius.circular(15),
-                ),
-              ),
-              child: IconButton(
-                icon: FaIcon(
-                  isFavorite
-                      ? FontAwesomeIcons.solidHeart
-                      : FontAwesomeIcons.heart,
-                  color: Colors.red,
-                  size: 20,
-                ),
-                onPressed: onFavoriteTap,
-              ),
-            ),
-          ),
       ],
     ),
   );
@@ -112,42 +81,32 @@ Widget prayerContainer({
   return customImageContainer(
     imageUrl: imageUrl,
     title: title,
-    isFavorite: isFavorite,
-    onFavoriteTap: onFavoriteTap,
-    onTap: onTap, showFavorite: true, // Pass the onTap callback
+    onTap: onTap, // Pass the onTap callback
   );
 }
 
 Widget saintContainer({
   required String imageUrl,
   required String title,
-  required bool isFavorite,
-  required VoidCallback onFavoriteTap,
   required VoidCallback onTap, // Add this parameter
 }) {
   return customImageContainer(
-      imageUrl: imageUrl,
-      title: title,
-      isFavorite: isFavorite,
-      onFavoriteTap: onFavoriteTap,
-      onTap: onTap, // Pass the onTap callback
-      showFavorite: true);
+    imageUrl: imageUrl,
+    title: title,
+    onTap: onTap, // Pass the onTap callback
+  );
 }
 
 Widget FaithGuideContainer({
   required String imageUrl,
   required String title,
-  required bool isFavorite,
-  required VoidCallback onFavoriteTap,
   required VoidCallback onTap, // Add this parameter
 }) {
   return customImageContainer(
-      imageUrl: imageUrl,
-      title: title,
-      isFavorite: isFavorite,
-      onFavoriteTap: onFavoriteTap,
-      onTap: onTap, // Pass the onTap callback
-      showFavorite: true);
+    imageUrl: imageUrl,
+    title: title,
+    onTap: onTap, // Pass the onTap callback
+  );
 }
 
 class UpdateSection extends StatelessWidget {

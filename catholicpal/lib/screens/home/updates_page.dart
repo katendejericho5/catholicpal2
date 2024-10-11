@@ -57,11 +57,8 @@ class _UpdatesPageState extends State<UpdatesPage> {
             return customImageContainer(
               imageUrl: section.imageUrl,
               title: section.title,
-              isFavorite: false, // Set your logic for favorites
 
-              onFavoriteTap: () {
-                // Handle favorite tap logic
-              },
+              
 
               onTap: () {
                 // Handle image tap logic based on section title
@@ -115,7 +112,6 @@ class _UpdatesPageState extends State<UpdatesPage> {
                 }
               },
               height: 200,
-              showFavorite: false, // Optional height, adjust as needed
             );
           },
         ),
