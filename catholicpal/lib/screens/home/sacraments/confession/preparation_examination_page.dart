@@ -1,4 +1,4 @@
-import 'package:catholicpal/screens/home/sacraments/confession/examination_guide_page.dart';
+import 'package:catholicpal/screens/home/sacraments/confession/examination_guide_content.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -111,7 +111,7 @@ class PreparationExaminationPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ExaminationGuideContent(),
+                      builder: (context) => CategorySelectionPage(),
                     ),
                   );
                 },

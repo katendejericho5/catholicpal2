@@ -2,7 +2,6 @@ import 'package:catholicpal/models/catholic_answers_model.dart';
 import 'package:catholicpal/models/daily_reading.dart';
 import 'package:catholicpal/models/news_model.dart';
 import 'package:catholicpal/providers/calendar_provider.dart';
-import 'package:catholicpal/providers/confession_provider.dart';
 import 'package:catholicpal/providers/daily_reading_provider.dart';
 import 'package:catholicpal/providers/devotions_provider.dart';
 import 'package:catholicpal/providers/prayer_of_the_day_provider.dart';
@@ -84,9 +83,6 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => QuizProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => ExaminationProvider(),
         ),
       ],
       child: const MyApp(),
