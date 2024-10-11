@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:catholicpal/screens/bible/bible_home_page.dart';
 import 'package:catholicpal/screens/home/calender_page.dart';
 import 'package:catholicpal/screens/home/sacraments/baptism/baptism_page.dart';
+import 'package:catholicpal/screens/home/sacraments/confession/confession_page.dart';
 import 'package:catholicpal/screens/widgets/cached_image.dart';
 import 'package:catholicpal/services/prayer_service.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:catholicpal/models/categories_model.dart';
 import 'package:catholicpal/screens/home/category_prayers.dart';
 import 'package:catholicpal/screens/home/saints_details_page.dart';
-import 'package:catholicpal/screens/widgets/widgets.dart';
 import 'package:catholicpal/screens/widgets/catholic_app_carousel.dart';
 import 'package:provider/provider.dart';
 import 'package:catholicpal/providers/saints_provider.dart';
@@ -458,6 +458,54 @@ class HomeContentState extends State<HomeContent> {
                                 color: Colors.black54,
                                 child: Text(
                                   'Bible',
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ConfessionPage(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      margin: const EdgeInsets.only(right: 10),
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              const ShimmerCachedImage(
+                                imageUrl:
+                                    'https://images.pexels.com/photos/372326/pexels-photo-372326.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                                fit: BoxFit.cover,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                color: Colors.black54,
+                                child: Text(
+                                  'Confession',
                                   style: GoogleFonts.poppins(
                                     color: Colors.white,
                                     fontSize: 18,

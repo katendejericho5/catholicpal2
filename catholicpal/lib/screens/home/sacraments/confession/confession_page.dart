@@ -1,21 +1,22 @@
-import 'package:catholicpal/screens/home/sacraments/baptism/baptism_catechism_page.dart';
-import 'package:catholicpal/screens/home/sacraments/baptism/baptism_faq_page.dart';
-import 'package:catholicpal/screens/home/sacraments/baptism/baptism_history_page.dart';
-import 'package:catholicpal/screens/home/sacraments/baptism/baptism_rite_page.dart';
 import 'package:catholicpal/screens/home/sacraments/baptism/bible_quiz/quiz_questions.dart';
+import 'package:catholicpal/screens/home/sacraments/confession/penance_absolution_page.dart';
+import 'package:catholicpal/screens/home/sacraments/confession/preparation_examination_page.dart';
+import 'package:catholicpal/screens/home/sacraments/confession/rite_of_confession_page.dart';
+import 'package:catholicpal/screens/home/sacraments/confession/spiritual_growth_page.dart';
+import 'package:catholicpal/screens/home/sacraments/confession/understanding_reconciliation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:catholicpal/screens/widgets/cards.dart';
 import 'package:catholicpal/screens/widgets/custom_appbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class BaptismPage extends StatefulWidget {
-  const BaptismPage({super.key});
+class ConfessionPage extends StatefulWidget {
+  const ConfessionPage({super.key});
 
   @override
-  State<BaptismPage> createState() => _BaptismPageState();
+  ConfessionPageState createState() => ConfessionPageState();
 }
 
-class _BaptismPageState extends State<BaptismPage> {
+class ConfessionPageState extends State<ConfessionPage> {
   late ScrollController _scrollController;
   late List<Color> _colors;
 
@@ -34,37 +35,48 @@ class _BaptismPageState extends State<BaptismPage> {
 
   List<Color> _generateSpiritualColors() {
     return [
-      const Color(0xffe0f7fa), // Light Cyan
-      const Color(0xfff1f8e9), // Light Green
-      const Color(0xfffce4ec), // Light Pink
-      const Color(0xffede7f6), // Light Purple
-      const Color(0xfffff3e0), // Light Orange
+      const Color(0xFFE3F2FD), // Light Blue (Divine Mercy)
+      const Color(0xFFFFF3E0), // Light Orange (Penance)
+      const Color(0xFFE8F5E9), // Light Green (Hope)
+      const Color(0xFFFCE4EC), // Light Pink (God's Love)
+      const Color(0xFFF3E5F5), // Light Purple (Repentance)
+      const Color(0xFFFFFDE7), // Light Yellow (New Beginning)
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    final baptismItems = [
+    final confessionItems = [
       {
-        'title': 'History & Salvation',
+        'title': 'Reconciliation',
+        'iconPath':             "assets/prayer-at-altar-cross-religion-church-svgrepo-com.svg"
+
+      },
+      {
+        'title': 'Preparation',
+        'iconPath': "assets/prayer-svgrepo-com (3).svg"
+      },
+      {
+        'title': 'Confession Rite',
+        'iconPath': "assets/prayer-svgrepo-com (2).svg"
+      },
+      {
+        'title': 'Penance',
         'iconPath': "assets/prayer-svgrepo-com (1).svg"
       },
       {
-        'title': 'Baptism Rite',
-        'iconPath': "assets/prayer-svgrepo-com (2).svg"
+        'title': 'Quiz',
+        'iconPath': "assets/prayer-svgrepo-com (1).svg"
       },
-      {'title': 'Quiz', 'iconPath': "assets/prayer-svgrepo-com (3).svg"},
-      {'title': 'Catechism', 'iconPath': "assets/prayer-svgrepo-com.svg"},
       {
-        'title': 'FAQ',
-        'iconPath':
-            "assets/prayer-at-altar-cross-religion-church-svgrepo-com.svg"
+        'title': 'Growth',
+        'iconPath': "assets/prayer-svgrepo-com (2).svg"
       },
     ];
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Baptism',
+        title: 'Reconciliation',
         scrollController: _scrollController,
         actions: const [],
       ),
@@ -96,20 +108,19 @@ class _BaptismPageState extends State<BaptismPage> {
                 padding: EdgeInsets.zero,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: 1.4,
+                  childAspectRatio: 1.3,
                   crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
+                  mainAxisSpacing: 14,
                 ),
-                itemCount: baptismItems.length,
+                itemCount: confessionItems.length,
                 itemBuilder: (context, index) {
-                  final item = baptismItems[index];
+                  final item = confessionItems[index];
                   Color color = _colors[index % _colors.length];
                   return CardWidget(
                     title: item['title']!,
                     color: color,
                     iconPath: item['iconPath']!,
                     onTap: () {
-                      // Navigate to the corresponding page
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -129,17 +140,18 @@ class _BaptismPageState extends State<BaptismPage> {
 
   Widget _getPage(String title) {
     switch (title) {
-      case 'History & Salvation':
-        return const BaptismHistoryPage();
-      case 'Baptism Rite':
-        return BaptismRitePage();
+      case 'Reconciliation':
+        return const UnderstandingReconciliationPage();
+      case 'Preparation':
+        return const PreparationExaminationPage();
+      case 'Confession Rite':
+        return const RiteOfConfessionPage();
+      case 'Penance':
+        return const PenanceAbsolutionPage();
       case 'Quiz':
-        // return BaptismQuizPage();
         return const QuizPage();
-      case 'Catechism':
-        return BaptismCatechismPage();
-      case 'FAQ':
-        return BaptismFAQPage();
+      case 'Growth':
+        return const SpiritualGrowthPage();
       default:
         return const Scaffold(body: Center(child: Text('Page not found')));
     }

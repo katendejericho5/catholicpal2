@@ -1,0 +1,34 @@
+[
+    {
+      "name": "Young Adults",
+      "areas": [
+        {
+          "name": "Faith",
+          "checkpoints": [
+            { "question": "Have I neglected prayer?", "isChecked": false },
+            { "question": "Have I doubted God's existence?", "isChecked": false }
+          ]
+        },
+        {
+          "name": "Relationships",
+          "checkpoints": [
+            { "question": "Have I been unkind to others?", "isChecked": false },
+            { "question": "Have I withheld forgiveness?", "isChecked": false }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Married Couples",
+      "areas": [
+        {
+          "name": "Love and Marriage",
+          "checkpoints": [
+            { "question": "Have I been faithful to my spouse?", "isChecked": false },
+            { "question": "Have I neglected time with my spouse?", "isChecked": false }
+          ]
+        }
+      ]
+    }
+  ]
+  

@@ -109,7 +109,6 @@ class _DevotionsPageState extends State<DevotionsPage> {
                           child: customImageContainer(
                             imageUrl: devotion.imageUrl,
                             title: devotion.name,
-                            
                             onTap: () => _onDevotionTap(devotion),
                             height: height,
                           ),

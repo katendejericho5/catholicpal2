@@ -19,7 +19,7 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150, // Increase the width of the card as needed
+      width: 170, // Increase the width of the card as needed
       child: Card(
         elevation: 4,
         shape: RoundedRectangleBorder(
@@ -29,16 +29,18 @@ class CardWidget extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 8.0,
+            ),
             child: Row(
               children: [
                 Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Text(
                     title,
                     style: GoogleFonts.poppins(
-                      fontSize: 12, // Reduce text size
+                      fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: Colors.black87,
                     ),
