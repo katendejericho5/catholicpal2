@@ -134,7 +134,7 @@ Widget saintContainer({
       showFavorite: true);
 }
 
-Widget quizContainer({
+Widget FaithGuideContainer({
   required String imageUrl,
   required String title,
   required bool isFavorite,

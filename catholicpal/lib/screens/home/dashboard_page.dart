@@ -196,12 +196,6 @@ class HomeContentState extends State<HomeContent> {
                 GestureDetector(
                   onTap: () {
                     // Navigate to the page
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LiturgicalCalendarScreen(),
-                      ),
-                    );
                   },
                   child: Container(
                     width: 40,
@@ -297,7 +291,7 @@ class HomeContentState extends State<HomeContent> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Sacraments',
+                  'Faith Guide',
                   style: GoogleFonts.poppins(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -307,12 +301,6 @@ class HomeContentState extends State<HomeContent> {
                   onTap: () {
                     // Navigate to the page
                     // BibleHomePage
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const BibleHomePage(),
-                      ),
-                    );
                   },
                   child: Container(
                     width: 40,
@@ -340,12 +328,19 @@ class HomeContentState extends State<HomeContent> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  quizContainer(
-                    onTap: () {},
+                  FaithGuideContainer(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const BaptismPage(),
+                        ),
+                      );
+                    },
                     imageUrl:
-                        'https://images.pexels.com/photos/5687170/pexels-photo-5687170.jpeg?auto=compress&cs=tinysrgb&w=600',
-                    title: 'Quiz 1',
-                    isFavorite: true,
+                        'https://images.pexels.com/photos/208356/pexels-photo-208356.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                    title: 'Baptism',
+                    isFavorite: false,
                     onFavoriteTap: () {
                       // Handle favorite tap
                       Navigator.push(
@@ -357,26 +352,41 @@ class HomeContentState extends State<HomeContent> {
                     },
                   ),
                   const SizedBox(width: 10),
-                  quizContainer(
-                    onTap: () {},
+                  FaithGuideContainer(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const LiturgicalCalendarScreen(),
+                        ),
+                      );
+                    },
                     imageUrl:
-                        'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
-                    title: 'Quiz 2',
-                    isFavorite: true,
+                        'https://images.pexels.com/photos/25851488/pexels-photo-25851488/free-photo-of-close-up-of-strasbourg-astronomical-clock.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+                    title: 'Liturgical Calender',
+                    isFavorite: false,
                     onFavoriteTap: () {
                       // Handle favorite tap
                     },
                   ),
                   const SizedBox(width: 10),
-                  quizContainer(
-                    onTap: () {},
-                    imageUrl:
-                        'https://images.pexels.com/photos/5647609/pexels-photo-5647609.jpeg?auto=compress&cs=tinysrgb&w=600',
-                    title: 'Quiz 3',
-                    isFavorite: true,
+                  FaithGuideContainer(
+                    title: 'Bible',
+                    isFavorite: false,
                     onFavoriteTap: () {
                       // Handle favorite tap
                     },
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const BibleHomePage(),
+                        ),
+                      );
+                    },
+                    imageUrl:
+                        'https://images.pexels.com/photos/372326/pexels-photo-372326.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
                   ),
                 ],
               ),
