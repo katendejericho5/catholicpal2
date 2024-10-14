@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:catholicpal/models/news_model.dart';
 import 'package:catholicpal/screens/widgets/custom_appbar.dart';
+import 'package:catholicpal/screens/widgets/error_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -114,7 +115,7 @@ class NewsScreenState extends State<NewsScreen> {
               if (kDebugMode) {
                 print(snapshot.error);
               }
-              return const Center(child: Text('Oops! Something went wrong'));
+              return const NoconnectionScreen();
             } else if (snapshot.hasData) {
               List<DailyNews> newsList = snapshot.data!;
               return ListView.builder(

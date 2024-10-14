@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:catholicpal/providers/prayer_of_the_day_provider.dart';
+import 'package:catholicpal/screens/widgets/error_screen.dart';
+import 'package:catholicpal/screens/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -28,6 +30,12 @@ class _PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
     super.dispose();
   }
 
+  Future<void> _refreshPrayerOfTheDay() async {
+    final provider =
+        Provider.of<PrayerOfTheDayProvider>(context, listen: false);
+    await provider.loadPrayerOfTheDay();
+  }
+
   @override
   Widget build(BuildContext context) {
     final prayerProvider = Provider.of<PrayerOfTheDayProvider>(context);
@@ -36,67 +44,76 @@ class _PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
       appBar: AppBar(
         title: const Text('Prayer of the Day'),
         elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => _refreshPrayerOfTheDay,
+          ),
+        ],
       ),
       body: prayerProvider.isLoading
           ? const Center(child: CircularProgressIndicator())
-          : prayerProvider.prayerOfTheDay != null
-              ? SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin:
-                            const EdgeInsets.only(left: 15, right: 15, top: 15),
-                        width: double.infinity,
-                        height: 200,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          image: DecorationImage(
-                            image: CachedNetworkImageProvider(
-                              getImageUrl(),
+          : prayerProvider.prayerOfTheDay == null
+              ? const NoconnectionScreen()
+              : RefreshableWidget(
+                  onRefresh: _refreshPrayerOfTheDay,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(
+                              left: 15, right: 15, top: 15),
+                          width: double.infinity,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                              image: CachedNetworkImageProvider(
+                                getImageUrl(),
+                              ),
+                              fit: BoxFit.cover,
                             ),
-                            fit: BoxFit.cover,
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              prayerProvider.prayerOfTheDay!.title,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Published: ${prayerProvider.prayerOfTheDay!.formattedDate}',
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              prayerProvider.prayerOfTheDay!.description,
-                              style: Theme.of(context).textTheme.bodyLarge,
-                            ),
-                            const SizedBox(height: 16),
-                            ElevatedButton(
-                              onPressed: () => _launchUrl(
-                                  prayerProvider.prayerOfTheDay?.link ?? ''),
-                              child: const Text('Read More'),
-                            ),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                prayerProvider.prayerOfTheDay!.title,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Published: ${prayerProvider.prayerOfTheDay!.formattedDate}',
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                prayerProvider.prayerOfTheDay!.description,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                              const SizedBox(height: 16),
+                              ElevatedButton(
+                                onPressed: () => _launchUrl(
+                                    prayerProvider.prayerOfTheDay?.link ?? ''),
+                                child: const Text('Read More'),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                )
-              : const Center(child: Text('No data available')),
+                ),
     );
   }
 
