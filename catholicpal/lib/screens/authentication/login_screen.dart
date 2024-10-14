@@ -36,7 +36,7 @@ class SignInScreen extends StatelessWidget {
                   ),
                   // const SizedBox(height: 16),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                  SignInForm(),
+                  const SignInForm(),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.2),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
