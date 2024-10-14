@@ -1,6 +1,9 @@
+import 'package:catholicpal/screens/authentication/create_profile_screen.dart';
+import 'package:catholicpal/screens/authentication/login_screen.dart';
 import 'package:flutter/material.dart';
-// TODO: add flutter_svg package
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:catholicpal/providers/auth_provider.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -35,7 +38,6 @@ class SignUpScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Color(0xFF757575)),
                   ),
-                  // const SizedBox(height: 16),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                   const SignUpForm(),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.15),
@@ -77,17 +79,39 @@ class SignUpScreen extends StatelessWidget {
   }
 }
 
-const authOutlineInputBorder = OutlineInputBorder(
-  borderSide: BorderSide(color: Color(0xFF757575)),
-  borderRadius: BorderRadius.all(Radius.circular(100)),
-);
-
-class SignUpForm extends StatelessWidget {
+class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
+
+  @override
+  _SignUpFormState createState() => _SignUpFormState();
+}
+
+class _SignUpFormState extends State<SignUpForm> {
+  final _formKey = GlobalKey<FormState>();
+  final String _email = '';
+  final String _password = '';
+  final String _confirmPassword = '';
+
+  void _submit() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      bool success = await authProvider.register(_email, _password);
+      if (success) {
+        // Navigate to home page or show success message
+      } else {
+        // Show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Registration failed. Please try again.')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Column(
         children: [
           TextFormField(
@@ -159,7 +183,7 @@ class SignUpForm extends StatelessWidget {
           ),
           const SizedBox(height: 32),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: _submit,
             style: ElevatedButton.styleFrom(
               elevation: 0,
               backgroundColor: const Color(0xFFFF7643),
@@ -222,6 +246,12 @@ class NoAccountText extends StatelessWidget {
         GestureDetector(
           onTap: () {
             // Handle navigation to Sign Up
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SignInScreen(),
+              ),
+            );
           },
           child: const Text(
             "Sign Up",

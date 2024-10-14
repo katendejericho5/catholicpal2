@@ -1,8 +1,14 @@
+import 'package:catholicpal/screens/authentication/create_profile_screen.dart';
+import 'package:catholicpal/screens/authentication/register_screen.dart';
+import 'package:catholicpal/screens/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:catholicpal/providers/auth_provider.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +40,6 @@ class SignInScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Color(0xFF757575)),
                   ),
-                  // const SizedBox(height: 16),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                   const SignInForm(),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.2),
@@ -70,17 +75,43 @@ class SignInScreen extends StatelessWidget {
   }
 }
 
-const authOutlineInputBorder = OutlineInputBorder(
-  borderSide: BorderSide(color: Color(0xFF757575)),
-  borderRadius: BorderRadius.all(Radius.circular(100)),
-);
-
-class SignInForm extends StatelessWidget {
+class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
+
+  @override
+  SignInFormState createState() => SignInFormState();
+}
+
+class SignInFormState extends State<SignInForm> {
+  final _formKey = GlobalKey<FormState>();
+  final String _email = '';
+  final String _password = '';
+
+  void _submit() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      bool success = await authProvider.signIn(_email, _password);
+      if (success) {
+        // Navigate to home page or show success message
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const HomePage(),
+          ),
+        );
+      } else {
+        // Show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Sign in failed. Please try again.')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Column(
         children: [
           TextFormField(
@@ -130,7 +161,7 @@ class SignInForm extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: _submit,
             style: ElevatedButton.styleFrom(
               elevation: 0,
               backgroundColor: const Color(0xFFFF7643),
@@ -178,8 +209,8 @@ class SocalCard extends StatelessWidget {
 
 class NoAccountText extends StatelessWidget {
   const NoAccountText({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -193,6 +224,11 @@ class NoAccountText extends StatelessWidget {
         GestureDetector(
           onTap: () {
             // Handle navigation to Sign Up
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const SignUpScreen(),
+              ),
+            );
           },
           child: const Text(
             "Sign Up",

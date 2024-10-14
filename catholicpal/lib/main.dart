@@ -1,6 +1,8 @@
+import 'package:catholicpal/firebase_options.dart';
 import 'package:catholicpal/models/catholic_answers_model.dart';
 import 'package:catholicpal/models/daily_reading.dart';
 import 'package:catholicpal/models/news_model.dart';
+import 'package:catholicpal/providers/auth_provider.dart';
 import 'package:catholicpal/providers/calendar_provider.dart';
 import 'package:catholicpal/providers/daily_reading_provider.dart';
 import 'package:catholicpal/providers/devotions_provider.dart';
@@ -8,6 +10,7 @@ import 'package:catholicpal/providers/prayer_of_the_day_provider.dart';
 import 'package:catholicpal/providers/quiz_provider.dart';
 import 'package:catholicpal/providers/saint_of_the_day_provider.dart';
 import 'package:catholicpal/providers/saints_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -54,6 +57,10 @@ void main() async {
   await Hive.openBox<DailyNews>('dailyNews');
   await Hive.openBox<CatholicAnswersNews>('catholicAnswersNews');
   await Hive.openBox<DailyReading>('dailyReading');
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(
     MultiProvider(
@@ -83,6 +90,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => QuizProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AuthProvider(),
         ),
       ],
       child: const MyApp(),
@@ -171,8 +181,23 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       themeMode: ThemeMode.light,
       theme: getLightThemeFlexSeed(),
       darkTheme: getDarkThemeFlexSeed(),
-      home: const HomePage(),
+      home: const Wrapper(),
     );
+  }
+}
+
+class Wrapper extends StatelessWidget {
+  const Wrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+
+    if (authProvider.user == null) {
+      return AuthScreen();
+    } else {
+      return const HomePage();
+    }
   }
 }
 
