@@ -115,7 +115,11 @@ class CatholicAnswersNewsScreenState extends State<CatholicAnswersNewsScreen> {
               if (kDebugMode) {
                 print(snapshot.error);
               }
-              return const NoconnectionScreen();
+              return NoconnectionScreen(onRetry: () {
+                setState(() {
+                  _newsFuture = fetchCatholicAnswersNews();
+                });
+              });
             } else if (snapshot.hasData) {
               List<CatholicAnswersNews> newsList = snapshot.data!;
               return ListView.builder(

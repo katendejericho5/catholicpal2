@@ -54,7 +54,9 @@ class _PrayerOfTheDayPageState extends State<PrayerOfTheDayPage> {
       body: prayerProvider.isLoading
           ? const Center(child: CircularProgressIndicator())
           : prayerProvider.prayerOfTheDay == null
-              ? const NoconnectionScreen()
+              ? NoconnectionScreen(
+                  onRetry: _refreshPrayerOfTheDay,
+                )
               : RefreshableWidget(
                   onRefresh: _refreshPrayerOfTheDay,
                   child: SingleChildScrollView(

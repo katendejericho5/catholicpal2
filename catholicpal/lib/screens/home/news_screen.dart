@@ -96,7 +96,7 @@ class NewsScreenState extends State<NewsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'DailyNews',
+        title: 'Daily News',
         scrollController: _scrollController,
         actions: const [],
       ),
@@ -115,7 +115,11 @@ class NewsScreenState extends State<NewsScreen> {
               if (kDebugMode) {
                 print(snapshot.error);
               }
-              return const NoconnectionScreen();
+              return NoconnectionScreen(onRetry: () {
+                setState(() {
+                  _newsFuture = fetchNews();
+                });
+              });
             } else if (snapshot.hasData) {
               List<DailyNews> newsList = snapshot.data!;
               return ListView.builder(

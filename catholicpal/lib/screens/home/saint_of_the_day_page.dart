@@ -63,7 +63,9 @@ class _SaintOfTheDayPageState extends State<SaintOfTheDayPage> {
       body: provider.isLoading
           ? const Center(child: CircularProgressIndicator())
           : provider.saint == null
-              ? const NoconnectionScreen()
+              ? NoconnectionScreen(
+                  onRetry: _refreshSaintOfTheDay,
+                )
               : RefreshIndicator(
                   onRefresh: _refreshSaintOfTheDay,
                   child: SingleChildScrollView(

@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class NoconnectionScreen extends StatelessWidget {
-  const NoconnectionScreen({super.key});
+  final VoidCallback onRetry;
+
+  const NoconnectionScreen({
+    Key? key,
+    required this.onRetry,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +31,10 @@ class NoconnectionScreen extends StatelessWidget {
               ),
               const Spacer(flex: 2),
               ErrorInfo(
-                title: "Opps!....",
+                title: "Oops!...",
                 description:
-                    "Something wrong with your connection, Please try again after a moment.",
-                // button: you can pass your custom button,
-                // btnText: default is retry, you can pass your custom text,
-                press: () {
-                  
-                },
+                    "Something is wrong with your connection. Please try again after a moment.",
+                press: onRetry,
               ),
             ],
           ),
@@ -45,13 +46,13 @@ class NoconnectionScreen extends StatelessWidget {
 
 class ErrorInfo extends StatelessWidget {
   const ErrorInfo({
-    super.key,
+    Key? key,
     required this.title,
     required this.description,
     this.button,
     this.btnText,
     required this.press,
-  });
+  }) : super(key: key);
 
   final String title;
   final String description;
@@ -86,11 +87,15 @@ class ErrorInfo extends StatelessWidget {
                 ElevatedButton(
                   onPressed: press,
                   style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 48),
-                      backgroundColor: Colors.black,
-                      foregroundColor: Colors.white,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)))),
+                    minimumSize: const Size(double.infinity, 48),
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                    ),
+                  ),
                   child: Text(btnText ?? "Retry".toUpperCase()),
                 ),
             const SizedBox(height: 16),

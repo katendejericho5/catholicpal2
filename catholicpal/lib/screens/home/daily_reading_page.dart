@@ -49,7 +49,9 @@ class _DailyReadingsPageState extends State<DailyReadingsPage> {
       body: provider.isLoading
           ? const Center(child: CircularProgressIndicator())
           : provider.currentReading == null
-              ? const NoconnectionScreen()
+              ? NoconnectionScreen(
+                  onRetry: _refreshDailyReading,
+                )
               : RefreshableWidget(
                   onRefresh: _refreshDailyReading,
                   child: SingleChildScrollView(
