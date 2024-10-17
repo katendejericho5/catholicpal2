@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:catholicpal/providers/daily_reading_provider.dart';
 import 'package:catholicpal/providers/prayer_of_the_day_provider.dart';
 import 'package:catholicpal/providers/saint_of_the_day_provider.dart';
+import 'package:catholicpal/screens/home/calender_page.dart';
 import 'package:catholicpal/screens/home/daily_reading_page.dart';
 import 'package:catholicpal/screens/home/prayer_of_the_day_page.dart';
 import 'package:catholicpal/screens/home/saint_of_the_day_page.dart';
@@ -52,6 +53,15 @@ class _CatholicAppCarouselState extends State<CatholicAppCarousel> {
             'https://images.pexels.com/photos/9589497/pexels-photo-9589497.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'navigateTo': const DailyReadingsPage(),
       },
+      // liturgical calendar
+      {
+        'title': 'Liturgical Calendar',
+        'content':
+            'Follow the Church\'s Year ✝️\nDiscover Saints, Feasts & Holy Days',
+        'imageUrl':
+            'https://images.pexels.com/photos/10628200/pexels-photo-10628200.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        'navigateTo': const LiturgicalCalendarScreen(),
+      }
     ];
 
     return Card(

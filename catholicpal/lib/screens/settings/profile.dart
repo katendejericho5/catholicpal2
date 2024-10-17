@@ -1,4 +1,5 @@
 import 'package:catholicpal/models/user_model.dart';
+import 'package:catholicpal/screens/widgets/custom_appbar.dart';
 import 'package:catholicpal/screens/widgets/user_preferences.dart';
 import 'package:catholicpal/screens/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,12 +13,32 @@ class ProfilePage extends StatefulWidget {
 }
 
 class ProfilePageState extends State<ProfilePage> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the ScrollController
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    // Dispose the ScrollController
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     const user = UserPreferences.myUser;
 
     return Scaffold(
-      appBar: buildAppBar(context),
+      appBar: CustomAppBar(
+        title: 'Profile',
+        scrollController: _scrollController,
+        actions: const [],
+      ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
@@ -27,10 +48,6 @@ class ProfilePageState extends State<ProfilePage> {
           ),
           const SizedBox(height: 24),
           buildName(user),
-          const SizedBox(height: 24),
-          Center(child: buildUpgradeButton()),
-          const SizedBox(height: 24),
-          const NumbersWidget(),
           const SizedBox(height: 48),
           buildAbout(user),
         ],
@@ -52,10 +69,6 @@ class ProfilePageState extends State<ProfilePage> {
         ],
       );
 
-  Widget buildUpgradeButton() => ButtonWidget(
-        text: 'Upgrade To PRO',
-        onClicked: () {},
-      );
 
   Widget buildAbout(User user) => Container(
         padding: const EdgeInsets.symmetric(horizontal: 48),

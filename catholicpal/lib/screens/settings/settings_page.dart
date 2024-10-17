@@ -44,66 +44,49 @@ class _SettingsPageState extends State<SettingsPage> {
             padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
             child: Column(
               children: [
-                _SingleSection(
-                  title: "General",
-                  children: [
-                    _CustomListTile(
-                        title: "Dark Mode",
-                        icon: HugeIcons.strokeRoundedMoonSlowWind,
-                        onTap: () {},
-                        trailing: Switch(
-                            value: _isDark,
-                            onChanged: (value) {
-                              setState(() {
-                                _isDark = value;
-                              });
-                            })),
-                    _CustomListTile(
-                      title: "Notifications",
-                      icon: HugeIcons.strokeRoundedNotification03,
-                      onTap: () {},
-                    ),
-                    _CustomListTile(
-                      onTap: () {},
-                      title: "Security Status",
-                      icon: CupertinoIcons.lock_shield,
-                    ),
-                  ],
+                _CustomListTile(
+                    title: "Dark Mode",
+                    icon: HugeIcons.strokeRoundedMoonSlowWind,
+                    trailing: Switch(
+                        value: _isDark,
+                        onChanged: (value) {
+                          setState(() {
+                            _isDark = value;
+                          });
+                        })),
+                const _CustomListTile(
+                  title: "Notifications",
+                  icon: HugeIcons.strokeRoundedNotification03,
                 ),
-                const Divider(),
-                _SingleSection(
-                  title: "Personal",
-                  children: [
-                    _CustomListTile(
-                      title: "Profile",
-                      icon: HugeIcons.strokeRoundedUserEdit01,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ProfilePage(),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                const _CustomListTile(
+                    title: "Security Status", icon: CupertinoIcons.lock_shield),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProfilePage(),
+                      ),
+                    );
+                  },
+                  child: const _CustomListTile(
+                    title: "Profile",
+                    icon: HugeIcons.strokeRoundedUserEdit01,
+                  ),
                 ),
-                _SingleSection(
+                const _SingleSection(
                   children: [
                     _CustomListTile(
                       title: "Help & Feedback",
                       icon: HugeIcons.strokeRoundedHelpSquare,
-                      onTap: () {},
                     ),
                     _CustomListTile(
                       title: "About",
                       icon: HugeIcons.strokeRoundedInformationDiamond,
-                      onTap: () {},
                     ),
                     _CustomListTile(
                       title: "Sign out",
                       icon: HugeIcons.strokeRoundedLogout03,
-                      onTap: () {},
                     ),
                   ],
                 ),
@@ -119,12 +102,10 @@ class _SettingsPageState extends State<SettingsPage> {
 class _CustomListTile extends StatelessWidget {
   final String title;
   final IconData icon;
-  final VoidCallback onTap;
   final Widget? trailing;
   const _CustomListTile({
     required this.title,
     required this.icon,
-    required this.onTap,
     this.trailing,
   });
 
