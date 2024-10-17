@@ -37,11 +37,6 @@ class _DevotionsPageState extends State<DevotionsPage> {
     super.dispose();
   }
 
-  void _toggleFavorite(int index, Devotion devotion) {
-    // Implement logic to toggle favorite
-    // Here, you might call a method from the provider to update the favorite status
-  }
-
   void _onDevotionTap(Devotion devotion) {
     // Navigate to the details page
     Navigator.push(

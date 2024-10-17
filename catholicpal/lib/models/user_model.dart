@@ -1,17 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
+class User {
+  final String imagePath;
+  final String name;
+  final String email;
+  final String about;
+  final bool isDarkMode;
 
-class UserModel {
-  final String uid;
-  final String? email;
-  final String? displayName;
-
-  UserModel({required this.uid, this.email, this.displayName});
-
-  factory UserModel.fromFirebaseUser(User user) {
-    return UserModel(
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-    );
-  }
+  const User({
+    required this.imagePath,
+    required this.name,
+    required this.email,
+    required this.about,
+    required this.isDarkMode,
+  });
 }

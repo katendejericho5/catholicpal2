@@ -1,3 +1,4 @@
+import 'package:catholicpal/screens/settings/profile.dart';
 import 'package:catholicpal/screens/widgets/custom_appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     _CustomListTile(
                         title: "Dark Mode",
                         icon: HugeIcons.strokeRoundedMoonSlowWind,
+                        onTap: () {},
                         trailing: Switch(
                             value: _isDark,
                             onChanged: (value) {
@@ -56,38 +58,52 @@ class _SettingsPageState extends State<SettingsPage> {
                                 _isDark = value;
                               });
                             })),
-                    const _CustomListTile(
+                    _CustomListTile(
                       title: "Notifications",
                       icon: HugeIcons.strokeRoundedNotification03,
+                      onTap: () {},
                     ),
-                    const _CustomListTile(
-                        title: "Security Status",
-                        icon: CupertinoIcons.lock_shield),
+                    _CustomListTile(
+                      onTap: () {},
+                      title: "Security Status",
+                      icon: CupertinoIcons.lock_shield,
+                    ),
                   ],
                 ),
                 const Divider(),
-                const _SingleSection(
+                _SingleSection(
                   title: "Personal",
                   children: [
                     _CustomListTile(
                       title: "Profile",
                       icon: HugeIcons.strokeRoundedUserEdit01,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ProfilePage(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
-                const _SingleSection(
+                _SingleSection(
                   children: [
                     _CustomListTile(
                       title: "Help & Feedback",
                       icon: HugeIcons.strokeRoundedHelpSquare,
+                      onTap: () {},
                     ),
                     _CustomListTile(
                       title: "About",
                       icon: HugeIcons.strokeRoundedInformationDiamond,
+                      onTap: () {},
                     ),
                     _CustomListTile(
                       title: "Sign out",
                       icon: HugeIcons.strokeRoundedLogout03,
+                      onTap: () {},
                     ),
                   ],
                 ),
@@ -103,10 +119,14 @@ class _SettingsPageState extends State<SettingsPage> {
 class _CustomListTile extends StatelessWidget {
   final String title;
   final IconData icon;
+  final VoidCallback onTap;
   final Widget? trailing;
-  const _CustomListTile(
-      {Key? key, required this.title, required this.icon, this.trailing})
-      : super(key: key);
+  const _CustomListTile({
+    required this.title,
+    required this.icon,
+    required this.onTap,
+    this.trailing,
+  });
 
   @override
   Widget build(BuildContext context) {

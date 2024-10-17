@@ -1,175 +1,77 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:catholicpal/models/user_model.dart';
+import 'package:catholicpal/screens/widgets/user_preferences.dart';
+import 'package:catholicpal/screens/widgets/widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class ProfilePage1 extends StatelessWidget {
-  const ProfilePage1({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   @override
+  ProfilePageState createState() => ProfilePageState();
+}
+
+class ProfilePageState extends State<ProfilePage> {
+  @override
   Widget build(BuildContext context) {
+    const user = UserPreferences.myUser;
+
     return Scaffold(
-      body: Column(
+      appBar: buildAppBar(context),
+      body: ListView(
+        physics: const BouncingScrollPhysics(),
         children: [
-          const Expanded(flex: 2, child: _TopPortion()),
-          Expanded(
-            flex: 3,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text(
-                    "Richie Lorie",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      FloatingActionButton.extended(
-                        onPressed: () {},
-                        heroTag: 'follow',
-                        elevation: 0,
-                        label: const Text("Follow"),
-                        icon: const Icon(Icons.person_add_alt_1),
-                      ),
-                      const SizedBox(width: 16.0),
-                      FloatingActionButton.extended(
-                        onPressed: () {},
-                        heroTag: 'mesage',
-                        elevation: 0,
-                        backgroundColor: Colors.red,
-                        label: const Text("Message"),
-                        icon: const Icon(Icons.message_rounded),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  const _ProfileInfoRow()
-                ],
-              ),
-            ),
+          ProfileWidget(
+            imagePath: user.imagePath,
+            onClicked: () async {},
           ),
+          const SizedBox(height: 24),
+          buildName(user),
+          const SizedBox(height: 24),
+          Center(child: buildUpgradeButton()),
+          const SizedBox(height: 24),
+          const NumbersWidget(),
+          const SizedBox(height: 48),
+          buildAbout(user),
         ],
       ),
     );
   }
-}
 
-class _ProfileInfoRow extends StatelessWidget {
-  const _ProfileInfoRow({Key? key}) : super(key: key);
-
-  final List<ProfileInfoItem> _items = const [
-    ProfileInfoItem("Posts", 900),
-    ProfileInfoItem("Followers", 120),
-    ProfileInfoItem("Following", 200),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 80,
-      constraints: const BoxConstraints(maxWidth: 400),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: _items
-            .map((item) => Expanded(
-                    child: Row(
-                  children: [
-                    if (_items.indexOf(item) != 0) const VerticalDivider(),
-                    Expanded(child: _singleItem(context, item)),
-                  ],
-                )))
-            .toList(),
-      ),
-    );
-  }
-
-  Widget _singleItem(BuildContext context, ProfileInfoItem item) => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+  Widget buildName(User user) => Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              item.value.toString(),
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-          ),
           Text(
-            item.title,
-            style: Theme.of(context).textTheme.bodySmall,
+            user.name,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            user.email,
+            style: const TextStyle(color: Colors.grey),
           )
         ],
       );
-}
 
-class ProfileInfoItem {
-  final String title;
-  final int value;
-  const ProfileInfoItem(this.title, this.value);
-}
+  Widget buildUpgradeButton() => ButtonWidget(
+        text: 'Upgrade To PRO',
+        onClicked: () {},
+      );
 
-class _TopPortion extends StatelessWidget {
-  const _TopPortion({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(bottom: 50),
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [Color(0xff0043ba), Color(0xff006df1)]),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(50),
-                bottomRight: Radius.circular(50),
-              )),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: SizedBox(
-            width: 150,
-            height: 150,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: CachedNetworkImageProvider(
-                            'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')),
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    child: Container(
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: const BoxDecoration(
-                          color: Colors.green, shape: BoxShape.circle),
-                    ),
-                  ),
-                ),
-              ],
+  Widget buildAbout(User user) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 48),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'About',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-          ),
-        )
-      ],
-    );
-  }
+            const SizedBox(height: 16),
+            Text(
+              user.about,
+              style: const TextStyle(fontSize: 16, height: 1.4),
+            ),
+          ],
+        ),
+      );
 }
