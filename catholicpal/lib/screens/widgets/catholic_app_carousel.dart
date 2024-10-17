@@ -57,7 +57,7 @@ class _CatholicAppCarouselState extends State<CatholicAppCarousel> {
       {
         'title': 'Liturgical Calendar',
         'content':
-            'Follow the Church\'s Year ✝️\nDiscover Saints, Feasts & Holy Days',
+            'Stay updated with liturgical information and feast days',
         'imageUrl':
             'https://images.pexels.com/photos/10628200/pexels-photo-10628200.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         'navigateTo': const LiturgicalCalendarScreen(),
